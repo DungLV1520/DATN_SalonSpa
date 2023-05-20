@@ -1,0 +1,58 @@
+<div class="container">
+  <ul class="nav nav-pills nav-justified">
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/home" routerLinkActive="active">
+        <span>
+          <i class="nav-icon bi bi-house"></i>
+          <span class="nav-text">Home</span>
+        </span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/chat" routerLinkActive="active">
+        <span>
+          <i class="bi bi-chat"></i>
+          <span class="nav-text">Chat</span>
+        </span>
+      </a>
+    </li>
+    <li class="nav-item centerbutton">
+      <div
+        class="nav-link"
+        [class.active]="isVisited === true"
+        (click)="checkVisited()"
+      >
+        <span class="theme-radial-gradient">
+          <i class="close bi bi-x"></i>
+          <img src="assets/img/centerbutton.svg" class="nav-icon" alt="" />
+        </span>
+        <div class="nav-menu-popover justify-content-between">
+          <button
+            type="button"
+            class="btn btn-lg btn-icon-text"
+            routerLink="/bills"
+            routerLinkActive="active"
+          >
+            <i class="bi bi-receipt size-32"></i><span>Bills</span>
+          </button>
+        </div>
+      </div>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/booking" routerLinkActive="active">
+        <span>
+          <i class="bi bi-cart"></i>
+          <span class="nav-text">Booking</span>
+        </span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/setting" routerLinkActive="active">
+        <span>
+          <i class="bi bi-person-circle"></i>
+          <span class="nav-text">Setting</span>
+        </span>
+      </a>
+    </li>
+  </ul>
+</div>

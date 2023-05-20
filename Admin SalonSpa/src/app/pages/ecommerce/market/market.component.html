@@ -1,0 +1,143 @@
+<app-breadcrumbs
+  title="Payment Now"
+  [breadcrumbItems]="breadCrumbItems"
+></app-breadcrumbs>
+
+<div class="row">
+  <div class="col-lg-12">
+    <div class="card">
+      <div class="card-header border-0">
+        <div class="d-flex align-items-center">
+          <h5 class="card-title mb-0 flex-grow-1">
+            {{ "Explore Product" | translate }}
+          </h5>
+          <div>
+            <button
+              class="btn btn-primary"
+              routerLink="/ecommerce/cart"
+              [disabled]="objLength.lengthCart === 0"
+              data-bs-toggle="collapse"
+              href="javascript:void(0);"
+            >
+              <span class="badge bg-info mr-2">{{ objLength.lengthCart }}</span>
+              {{ "Check out" | translate }}
+            </button>
+          </div>
+        </div>
+        <div
+          class="collaps show"
+          id="collapseExample"
+          #collapse="ngbCollapse"
+          [(ngbCollapse)]="isCollapsed"
+        >
+          <div
+            class="row row-cols-xxl-5 row-cols-lg-3 row-cols-md-2 row-cols-1 mt-3 g-3"
+          >
+            <div class="col">
+              <form [formGroup]="searchForm">
+                <input
+                  type="text"
+                  formControlName="searchTerm"
+                  class="form-control search bg-light border-light"
+                  style="width: 200%"
+                  id="searchJob"
+                  autocomplete="off"
+                  placeholder="{{ 'CONTACT.search' | translate }}"
+                />
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- end row -->
+
+<div class="item card p-3 row-cols-1" *ngIf="!checkSkeleton">
+  <ngx-skeleton-loader count="15"></ngx-skeleton-loader>
+</div>
+<div
+  class="row row-cols-xxl-5 row-cols-xl-4 row-cols-lg-3 row-cols-md-2 row-cols-1"
+  id="explorecard-list"
+  *ngIf="checkSkeleton && listService.length > 0"
+>
+  <div class="col list-element" *ngFor="let data of listService">
+    <div class="card explore-box card-animate">
+      <div class="explore-place-bid-img" (click)="activeMenu(data._id)">
+        <img src="{{ data.image }}" alt="" class="card-img-top explore-img" />
+        <div class="bg-overlay"></div>
+        <div class="place-bid-btn" (click)="addCard(data)">
+          <a href="javascript:void(0);" class="btn btn-success"
+            ><i class="ri-auction-fill align-bottom me-1"></i> Add Card</a
+          >
+        </div>
+      </div>
+      <div class="bookmark-icon position-absolute top-0 end-0 p-2">
+        <button
+          type="button"
+          class="btn btn-icon heart_icon_{{ data._id }}"
+          data-bs-toggle="button"
+          aria-pressed="true"
+          (click)="activeMenu(data._id)"
+        >
+          <i class="mdi mdi-cards-heart fs-16"></i>
+        </button>
+      </div>
+      <div class="card-body">
+        <h5 class="mb-1">
+          <a>{{ data.name | uppercase }}</a>
+        </h5>
+        <p class="mb-2 overflow-text text-muted">
+          {{ data.description }}
+        </p>
+        <p class="mb-0 badge" [ngClass]="checkClassStatus(data.status)">
+          {{ data.status | uppercase }}
+        </p>
+      </div>
+      <div class="card-footer border-top border-top-dashed">
+        <div class="d-flex align-items-center">
+          <div class="flex-grow-1 fs-14">
+            <i
+              class="ri-money-dollar-circle-line text-warning align-bottom me-1"
+            ></i>
+          </div>
+          <h5 class="flex-shrink-0 fs-14 text-primary mb-0">
+            {{ data?.amount?.$numberDecimal | currency : "" : "" : "1.0" }}
+          </h5>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<ngb-alert
+  *ngIf="checkSkeleton && listService.length === 0"
+  role="alert"
+  class="alert show alert-dismissible text-center alert-additional fade custom-alert alert-light"
+  ><div class="alert-body">
+    <div class="d-flex">
+      <div class="flex-shrink-0 me-3">
+        <i class="ri-notification-off-line fs-16 align-middle"></i>
+      </div>
+      <div class="flex-grow-1">
+        <h5 class="alert-heading">Yey! Everything worked!</h5>
+        <p class="mb-0">
+          This alert needs your attention, but it's not super important.
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="alert-content">
+    <p class="mb-0">
+      Whenever you need to, be sure to use margin utilities to keep things nice
+      and tidy.
+    </p>
+  </div>
+  <button type="button" aria-label="Close" class="btn-close"></button
+></ngb-alert>
+<!-- 
+<div class="text-center mb-3">
+  <button class="btn btn-link text-success mt-2" id="loadmore">
+    <i class="mdi mdi-loading mdi-spin fs-20 align-middle me-2"></i> Load More
+  </button>
+</div> -->

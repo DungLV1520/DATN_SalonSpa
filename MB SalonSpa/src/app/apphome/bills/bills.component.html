@@ -1,0 +1,86 @@
+<!-- Direct bill -->
+<div class="row mb-3">
+  <div class="col">
+    <h6 class="title">Bills</h6>
+  </div>
+</div>
+
+<ngx-skeleton-loader count="22" *ngIf="!isSkeleton"></ngx-skeleton-loader>
+
+<ng-container *ngIf="isSkeleton">
+  <div
+    class="row mb-1 justify-content-center"
+    *ngFor="let item of billUserData"
+  >
+    <div class="col-12">
+      <div class="card mb-3">
+        <div class="card-body">
+          <div class="row mb-3">
+            <div class="col-auto"></div>
+            <div class="col align-self-center ps-0">
+              <p class="mb-0 text-color-theme">
+                {{ item.createdAt | date : "hh:mm:ss a dd/MM/YYYY" }}
+              </p>
+              <p class="text-muted small mt-2">Bill ID: {{ item._id }}</p>
+              <p class="text-muted small mt-2">
+                Branch:
+                {{
+                  item?.idEmpBill
+                    ? item?.idEmpBill?.branch?.name
+                    : item?.idMgmt?.branch?.name ?? "N/A"
+                }}
+              </p>
+              <p class="text-muted small mt-2">
+                Employee:<i
+                  class="ri-user-voice-line"
+                  *ngIf="item?.idMgmt && !item?.idEmpBill"
+                ></i>
+                {{
+                  item?.idEmpBill
+                    ? item?.idEmpBill?.user?.fullname
+                    : item?.idMgmt?.user?.fullname
+                }}
+              </p>
+              <p class="text-muted small mt-2">
+                TypePayment: {{ item.typePayment | uppercase }}
+              </p>
+              <p class="text-muted small mt-2">
+                Discount:
+                {{ item.discount }}%
+              </p>
+              <p class="text-muted small mt-2">TotalPrice: 20,000</p>
+              <p class="text-muted small">
+                Status:
+                <span
+                  class="tag text-white py-1 px-2"
+                  [ngClass]="
+                    item.status === 'PAID' ? 'bg-success' : 'bg-warning'
+                  "
+                  >{{ item.status }}</span
+                >
+              </p>
+            </div>
+          </div>
+          <div class="card mb-2" *ngFor="let data of item.services">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-auto">
+                  <div
+                    class="avatar avatar-44 shadow-sm rounded-10 bg-success text-white"
+                  >
+                    <i class="bi bi-check-all"></i>
+                  </div>
+                </div>
+                <div class="col align-self-center ps-0">
+                  <p class="mb-1 text-color-theme">
+                    {{ data.name }}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>

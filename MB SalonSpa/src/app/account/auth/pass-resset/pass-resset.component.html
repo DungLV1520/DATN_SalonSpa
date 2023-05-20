@@ -1,0 +1,74 @@
+<div class="row h-100 overflow-auto">
+  <div class="col-12 text-center mb-auto px-0">
+    <header class="header">
+      <div class="row">
+        <div class="col-auto mt-3 mx-1">
+          <a
+            routerLink="/account/login"
+            target="_self"
+            class="btn btn-light btn-44"
+            ><i class="bi bi-arrow-left"></i
+          ></a>
+        </div>
+        <div class="col-auto custom-ml">
+          <div>
+            <img src="../../../../assets/img/logo.svg" alt="" />
+          </div>
+        </div>
+      </div>
+    </header>
+  </div>
+  <div
+    class="col-10 col-md-6 col-lg-5 col-xl-3 mx-auto align-self-center text-center py-4 custom-ml"
+  >
+    <h1 class="mb-4 text-color-theme">Right here you can reset it back</h1>
+    <p class="text-muted mb-4">
+      Provide your registered email ID to reset your password
+    </p>
+    <div class="alert alert-danger" role="alert" *ngIf="checkError">
+      {{ error }}
+    </div>
+    <form [formGroup]="passresetForm" (ngSubmit)="onSubmit()">
+      <div class="form-floating is-valid mb-3">
+        <input
+          type="email"
+          class="form-control"
+          value="guest@maxartkiller.com"
+          placeholder="Email ID"
+          id="emails"
+          formControlName="email"
+        />
+        <label for="emails">Email ID </label>
+      </div>
+      <div
+        *ngIf="submitted && passresetForm.controls['email'].errors"
+        class="invalid-feed mb-2"
+      >
+        <div *ngIf="passresetForm.controls['email'].errors['required']">
+          Email is required
+        </div>
+        <div *ngIf="passresetForm.controls['email'].errors['email']">
+          Email must be a valid email address
+        </div>
+      </div>
+      <button type="submit" class="btn btn-lg btn-default w-100 shadow mt-2">
+        Reset Password
+      </button>
+    </form>
+  </div>
+  <div class="col-12 text-center mt-auto" *ngIf="loading">
+    <div class="row justify-content-center footer-info">
+      <div class="col-auto text-center">
+        <span class="progressstimer">
+          <img src="assets/img/progress.png" alt="" />
+        </span>
+        <br />
+      </div>
+    </div>
+  </div>
+  <div class="col-12 text-center mt-auto">
+    <div class="row justify-content-center footer-info">
+      <div class="col-auto"></div>
+    </div>
+  </div>
+</div>

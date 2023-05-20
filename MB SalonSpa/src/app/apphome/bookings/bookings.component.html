@@ -1,0 +1,73 @@
+<!-- Direct bill -->
+<div class="row mb-3">
+  <div class="col">
+    <h6 class="title">Booking</h6>
+  </div>
+</div>
+
+<ngx-skeleton-loader count="22" *ngIf="!isSkeleton"></ngx-skeleton-loader>
+
+<ng-container *ngIf="isSkeleton">
+  <div
+    class="row mb-1 justify-content-center"
+    *ngFor="let item of bookingUserData"
+  >
+    <div class="col-12">
+      <div class="card mb-3">
+        <div class="card-body">
+          <div class="row mb-3">
+            <div class="col-auto"></div>
+            <div class="col align-self-center ps-0">
+              <p class="mb-0 text-color-theme">
+                {{ item.time | date : "hh:mm:ss a dd/MM/YYYY" }}
+              </p>
+              <p class="text-muted small mt-2">BookingId: {{ item._id }}</p>
+              <p class="text-muted small mt-2">
+                Branch: {{ item.branch.name }}
+              </p>
+              <p class="text-muted small mt-2">
+                TotalPrice:
+                {{ item.amount.$numberDecimal | currency : "" : "" : "1.0" }}
+              </p>
+              <p class="text-muted small">
+                Status:
+                <span class="tag bg-primary text-white border-primary py-1 px-2"
+                  >Activated</span
+                >
+              </p>
+            </div>
+            <div class="col-auto">
+              <button
+                class="btn btn-default btn-44 shadow-sm"
+                [disabled]="
+                  !isPastBooking(item.time) || item.status === 'Cancelled'
+                "
+                (click)="cancelMyBooking(item._id)"
+              >
+                <i class="bi bi-arrow-clockwise"></i>
+              </button>
+            </div>
+          </div>
+          <div class="card mb-2" *ngFor="let data of item.services">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-auto">
+                  <div
+                    class="avatar avatar-44 shadow-sm rounded-10 bg-primary text-white"
+                  >
+                    <i class="bi bi-lightning-charge vm"></i>
+                  </div>
+                </div>
+                <div class="col align-self-center ps-0">
+                  <p class="mb-1 text-color-theme">
+                    {{ data.name }}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>

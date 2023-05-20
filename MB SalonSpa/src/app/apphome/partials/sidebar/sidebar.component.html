@@ -1,0 +1,101 @@
+<div class="closemenu text-muted" (click)="menuclose()">Close Menu</div>
+<div class="sidebar dark-bg">
+  <div class="row my-3">
+    <div class="col-12">
+      <div class="card shadow-sm bg-opac text-white border-0">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-auto">
+              <figure class="avatar avatar-44 rounded-15">
+                <svg
+                  width="25"
+                  height="25"
+                  viewBox="0 0 16 16"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M2.1508 14.6667L2.16247 14.6691C3.66318 15.5923 5.87369 16 8.54013 16C13.6386 16 16.06 13.1326 15.9989 10.2963L15.9988 10.2965C15.9915 9.9837 15.9544 9.67216 15.8881 9.36558C15.2134 6.26284 13.2593 4.74436 13.2593 4.74436L12.5846 0L9.01243 2.78378C9.01243 2.78378 1.59703 1.64521 0.11395 9.48867C-0.312515 11.9558 0.478038 13.6332 2.1508 14.6667ZM9.48517 5.4169C9.67199 5.32541 9.83074 5.24766 9.95964 5.21389C13.1957 4.3704 14.4547 7.40864 13.6005 9.47435C12.7463 11.5401 9.9596 10.865 9.46566 10.5281C8.97172 10.1912 7.80313 9.72764 6.90437 10.3178C6.0056 10.908 2.14062 11.6679 2.14062 8.5042C2.14062 5.34053 4.83694 4.6667 6.49952 5.55201C7.79771 6.24327 8.8196 5.74284 9.48517 5.4169Z"
+                    fill="#ED1C24"
+                  />
+                  <path
+                    d="M4.59385 8.90929C5.06421 8.90929 5.44551 8.3899 5.44551 7.7492C5.44551 7.1085 5.06421 6.58911 4.59385 6.58911C4.12349 6.58911 3.74219 7.1085 3.74219 7.7492C3.74219 8.3899 4.12349 8.90929 4.59385 8.90929Z"
+                    fill="#ED1C24"
+                  />
+                  <path
+                    d="M11.295 8.90929C11.7654 8.90929 12.1467 8.3899 12.1467 7.7492C12.1467 7.1085 11.7654 6.58911 11.295 6.58911C10.8247 6.58911 10.4434 7.1085 10.4434 7.7492C10.4434 8.3899 10.8247 8.90929 11.295 8.90929Z"
+                    fill="#ED1C24"
+                  />
+                </svg>
+              </figure>
+            </div>
+            <div class="col px-0 align-self-center mt-2">
+              <p class="mb-1">SalonSpa</p>
+            </div>
+            <div class="col-auto">
+              <button
+                routerLink="/signin"
+                routerLinkActive="active"
+                (click)="logout()"
+                class="btn btn-44 btn-light"
+              >
+                <i class="bi bi-box-arrow-right"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- user emnu navigation -->
+  <div class="row">
+    <div class="col-12">
+      <ul class="nav nav-pills">
+        <li class="nav-item">
+          <a
+            class="nav-link active"
+            aria-current="page"
+            routerLink="/home"
+            routerLinkActive="active"
+            (click)="menuclose()"
+          >
+            <div class="avatar avatar-40 rounded icon">
+              <i class="bi bi-house-door"></i>
+            </div>
+            <div class="col">Home</div>
+            <div class="arrow"><i class="bi bi-chevron-right"></i></div>
+          </a>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link"
+            role="button"
+            routerLink="/setting"
+            (click)="menuclose()"
+          >
+            <div class="avatar avatar-40 rounded icon">
+              <i class="bi bi-person"></i>
+            </div>
+
+            <div class="col">Setting</div>
+            <div class="arrow"><i class="bi bi-chevron-right"></i></div>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" (click)="logout()">
+            <div class="avatar avatar-40 rounded icon">
+              <i class="bi bi-box-arrow-right"></i>
+            </div>
+            <div class="col">Logout</div>
+            <div class="arrow"><i class="bi bi-chevron-right"></i></div>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

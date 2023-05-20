@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "salondsspa-21",
+  "private_key_id": "69053dbdsdsdad2c34bd609e553c8605abf4ec92af17a",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANsdsBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCqk5jy9lE3fUf2\navmZJxSWAkhOCguAA3pX6BjkWn/CLg9oHJbqbyLdpaqyaIC8XfF3FtT6oNoXeFAI\nxTop+3mfhdTp7yL1z7W5QWsb/PyJB6PI2jDBQk8/sPkNOJU98RgLtckV0JiJZwEz\nJSQdTiEOpJoNsZNpollT6QK4SG7aFSku7fh5NalE3nBuGMCnk2ccRxNrj7P1tnSr\nKITYayhxjIvnDlfgzkLL4SKfKhRno/vBDixekhEqr04txNzuoGsp202XPW1O88NQ\nd/ehJu9cS84I6kfK9p6PZYg87wuvnnKEelwpGJ/GSAjfP0VmJBscZaz/xQ3TLOm/\ncj0zWZBHAgMBAAECggEAO4wMHGE1yA/Bs/nzSW5VpuqEEE48ZoOQTajWK72WFRUc\nRsWYP53th3/if6awrlGDToYXcqj9iaz0D6O+YtKJylEfm0zioPpSX6pBOIOQK0wR\n9reIxqad4Meood9rZjTIpqne2XE5FtpxFkg0e9B/BMwchYREyF8nHP5edzO+Ev43\nOsnX8KLfpk9FSgHs+7GMjMXrhGgkGt5rcf7wDCP863CB8bXOMA2sVz94RjwKno3/\nZ3DWtk+EebajXebeGAMs9hpg1iH3+gcXHfO5dJLpFqj1vbMMx85VWKIdDHTua4Zp\nEnHAjCjDXSrbRhlLlu5pPWZUOtE6GMWXZiHBxcNu5QKBgQDS0E4e3euS4j8N/PHN\ncss+bOLc1bD8pFESqC3LqgbOvwwgfXs8dIwc/S4/Bg01EruM+KjM+eA8NsvereuS\nXxE0tCAAgosOFnw5uVf52wbTf0J1GKCIVvQw7Ph1h/r9z37p4thfccr+tPY9/2fS\nKXmh4bVjZGyuD+bF4q2T4X+b2wKBgQDPI2oDutiT1yJ2noX6MsRz1Ju0W5wfEqlc\nhiwp9ER7XKDXs88SslWf0EGZqp7yZzZ1ORsFoQ9HM3GaeO/G1U0EA6lgSZ6xpI6k\narLa6Nkb/zV2mx2YGeSpkOjG7MRaw9I1EFrzT+zW35RaqRiSOVCL/wlQ0RyIiZnY\n34ZR5rQfBQKBgE3UD3M/1M+mbUb5wj9qCPTj+CE1VyD+fNvZcQbGn7rGN3DrQosA\nMBYntmIYFtooL0uNJax+97TjOgLczKJ+LHj7ovDtQO8TiAs7jOo2XV/JlLxsOh/7\nki1Z3yRs7lGzwBQS5nTeKuY74sjiuO6S10/XZ0LpeWINhtI5rIFy98yPAoGBAIRx\ncGfSIIjnFfIiiifgLhyh5Kz9pmV32TJ/1907gk4ee/lvzwd1X6o/zrIill8H/5oU\nWWLQCKTOD+VlTmskF4ppjPM0H3QWc95NGu890xRDqjucEuAeLkb9kNkgqqweaVnk\ni0Ln59e8PW96j2tvmkDpYVt7WXM0CFrTEV9s097BAoGALJpksbHlXpcNFHNED+5I\nd2TfugMWwPOEjHGAj3OEwtnxF7zB35fJ/HCPvlnlZoYKvNLpUhyVc4wI7Dm6XJK4\n3ROs4Ww2eS2guTwJE3w2yPParmyMZW6mQ5iS/5eShPCF87EAfRV+GjcjvnSCsvmj\nVCrs6IMZXlRgH6qt7IpYu9c=\n-----END PRIVATE KEY-----\n",
+  "client_email": "firedsbase-admidsnsdk-18un6@saldsonspa-21.iam.gserviceaccount.com",
+  "client_id": "100909467016ds596114109",
+  "auth_uri": "https://accounts.google.com/o/odsauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/tokdsen",
+  "auth_provider_x509_cert_url": "https://www.googlsdeapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebadsse-adminsdk-18un6%40salonspa-21.iam.gserviceaccount.com",
+  "universe_domain": "googledsapis.com"
+}

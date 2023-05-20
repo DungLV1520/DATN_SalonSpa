@@ -1,0 +1,39 @@
+<!-- notification list -->
+<ngx-skeleton-loader
+  count="22"
+  *ngIf="!checkSkeletonFirst"
+></ngx-skeleton-loader>
+<div class="row" *ngIf="checkSkeletonFirst">
+  <div class="col-12 px-0">
+    <div class="list-group list-group-flush bg-none">
+      <a
+        class="list-group-item bg-white"
+        *ngFor="let item of arrayNotification"
+        scrollNotify
+        (scrollEnd)="onScrollEnd()"
+      >
+        <div class="row">
+          <div class="col-auto">
+            <div class="avatar avatar-44 coverimg rounded-10">
+              <img src="assets/img/user3.jpg" alt="" />
+            </div>
+          </div>
+          <div class="col align-self-center ps-0">
+            <p class="mb-1"><b></b> {{ item.content }}</p>
+            <p class="size-12 text-muted">
+              {{ getTimeDifference(item.createdAt) }}
+            </p>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="row" *ngIf="!checkSkeleton">
+  <div class="col-12 px-0">
+    <div class="list-group list-group-flush bg-white">
+      <ngx-skeleton-loader count="2"></ngx-skeleton-loader>
+    </div>
+  </div>
+</div>

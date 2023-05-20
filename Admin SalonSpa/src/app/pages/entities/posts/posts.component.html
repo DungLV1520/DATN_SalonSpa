@@ -1,0 +1,413 @@
+<app-breadcrumbs
+  title="Post List"
+  [breadcrumbItems]="breadCrumbItems"
+></app-breadcrumbs>
+
+<div class="row">
+  <div class="col-xxl-9">
+    <div class="card">
+      <div class="card-body">
+        <div class="row g-3">
+          <div class="col-xxl-4 col-sm-6">
+            <div class="search-box">
+              <form [formGroup]="searchForm">
+                <input
+                  type="text"
+                  formControlName="searchTerm"
+                  class="form-control search bg-light border-light"
+                  id="searchCompany"
+                  placeholder="{{ 'CONTACT.search' | translate }}"
+                />
+              </form>
+
+              <i class="ri-search-line search-icon"></i>
+            </div>
+          </div>
+          <!--end col-->
+          <div class="col-xxl-4 col-sm-7">
+            <div class="input-group">
+              <input
+                type="text"
+                class="form-control bg-light border-light"
+                id="datepicker"
+                mwlFlatpickr
+                [convertModelValue]="true"
+                data-date-format="d M, Y"
+                placeholder="{{ 'CONTACT.selectDate' | translate }}"
+                [(ngModel)]="selectedDate"
+                (change)="onChangeTime($event)"
+                mode="range"
+              />
+              <div
+                class="input-group-text bg-primary border-primary text-white"
+              >
+                <i class="ri-calendar-2-line"></i>
+              </div>
+            </div>
+          </div>
+          <!--end col-->
+          <div class="col d-flex">
+            <button
+              type="button"
+              class="btn btn-soft-primary w-100"
+              (click)="clearFilter()"
+            >
+              <i class="ri-equalizer-fill me-1 align-bottom"></i>
+              {{ "CONTACT.clearFilter" | translate }}
+            </button>
+            <button
+              type="button"
+              class="btn btn-soft-primary w-100 mx-2"
+              (click)="openModal(content)"
+            >
+              <i class="ri-add-line"></i> {{ "Add Post" | translate }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row job-list-row" id="companies-list">
+      <ng-container *ngIf="checkSkeleton && postData.length > 0">
+        <div
+          *ngFor="let data of postData; let i = index"
+          class="col-xxl-4 col-md-6"
+        >
+          <div class="card companiesList-card">
+            <div class="card-body">
+              <div class="avatar-xxl mx-auto" (click)="getPostDetail(i)">
+                <div class="avatar-title bg-light rounded">
+                  <img
+                    src="{{ data.image ? data.image : imageDefault }}"
+                    alt=""
+                    class="avatar-square companyLogo-img"
+                  />
+                </div>
+              </div>
+              <div (click)="getPostDetail(i)">
+                <a href="javascript:void(0);" class="text-center">
+                  <h5 class="mt-3 company-name">{{ data.title }}</h5>
+                </a>
+                <p class="text-muted industry-type overflow-text">
+                  {{ data.content }}
+                </p>
+              </div>
+              <div
+                class="d-flex justify-content-center align-items-md-baseline"
+              >
+                <button
+                  type="button"
+                  class="btn btn-soft-danger viewcompany-list mx-2"
+                  (click)="confirm(deleteModel, data._id)"
+                >
+                  <span class="vacancy">{{ "Delete" | translate }}</span>
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-soft-primary viewcompany-list"
+                  (click)="getPostDetail(i)"
+                  (click)="editDataGet(content, data)"
+                >
+                  <span class="vacancy">{{ "Edit" | translate }}</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+      <ngb-alert
+        *ngIf="checkSkeleton && postData.length === 0"
+        role="alert"
+        class="alert show alert-dismissible text-center alert-additional fade custom-alert alert-light"
+        ><div class="alert-body">
+          <div class="d-flex">
+            <div class="flex-shrink-0 me-3">
+              <i class="ri-notification-off-line fs-16 align-middle"></i>
+            </div>
+            <div class="flex-grow-1">
+              <h5 class="alert-heading">Yey! Everything worked!</h5>
+              <p class="mb-0">
+                This alert needs your attention, but it's not super important.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="alert-content">
+          <p class="mb-0">
+            Whenever you need to, be sure to use margin utilities to keep things
+            nice and tidy.
+          </p>
+        </div>
+        <button type="button" aria-label="Close" class="btn-close"></button
+      ></ngb-alert>
+
+      <div class="item card pt-3" *ngIf="!checkSkeleton">
+        <ngx-skeleton-loader count="15"></ngx-skeleton-loader>
+      </div>
+    </div>
+
+    <div
+      *ngIf="postData.length > 0"
+      class="row justify-content-md-between align-items-md-center mt-3"
+    >
+      <div class="col col-sm-6"></div>
+      <div class="col col-sm-6">
+        <div class="text-sm-right float-sm-end listjs-pagination">
+          <ngb-pagination
+            [collectionSize]="total"
+            [(page)]="page"
+            [pageSize]="pagesize"
+            (click)="loadPageClick()"
+          >
+          </ngb-pagination>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ng-container *ngIf="checkSkeleton">
+    <div *ngIf="postDetail" class="col-xxl-3">
+      <div class="card" id="company-overview">
+        <div class="card-body">
+          <div class="avatar-xxl mx-auto">
+            <div class="avatar-title bg-light rounded">
+              <img
+                src="{{
+                  postDetail.image
+                    ? postDetail.image
+                    : 'assets/images/companies/img-3.png'
+                }}"
+                alt=""
+                class="avatar-square companyLogo-img"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div class="card-body">
+          <h6 class="text-muted text-uppercase fw-semibold mb-3">
+            {{ postDetail.title }}
+          </h6>
+          <p class="text-muted mb-4 overview-companydesc">
+            {{ postDetail.content }}
+          </p>
+
+          <div
+            class="py-3 border border-dashed border-start-0 border-end-0 mt-4"
+          >
+            <div class="row">
+              <div class="col-12">
+                <div>
+                  <p class="mb-2 text-uppercase fw-medium fs-12 text-muted">
+                    <b>{{ "CONTACT.createdAt" | translate }}: </b>
+                    {{ postDetail.createdAt | date : "hh:mm:ss a dd/MM/YYYY" }}
+                  </p>
+                </div>
+              </div>
+              <div class="col-12">
+                <div>
+                  <p class="mb-2 text-uppercase fw-medium fs-12 text-muted">
+                    <b>{{ "CONTACT.updatedAt" | translate }}: </b>
+                    {{ postDetail.updatedAt | date : "hh:mm:ss a dd/MM/YYYY" }}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+
+  <div class="item card col-xxl-3 pt-3" *ngIf="!checkSkeleton">
+    <ngx-skeleton-loader count="19"></ngx-skeleton-loader>
+  </div>
+</div>
+
+<!-- removeItemModal -->
+<ng-template #deleteModel let-modal>
+  <div class="modal-content">
+    <div class="modal-header">
+      <button
+        type="button"
+        class="btn-close"
+        data-bs-dismiss="modal"
+        aria-label="Close"
+        id="deleteRecord-close"
+        (click)="modal.dismiss('Cross click')"
+      ></button>
+    </div>
+    <div class="modal-body">
+      <div class="mt-2 text-center">
+        <lord-icon
+          src="https://cdn.lordicon.com/gsqxdxog.json"
+          trigger="loop"
+          colors="primary:#405189,secondary:#f06548"
+          style="width: 90px; height: 90px"
+        ></lord-icon>
+        <div class="mt-4 pt-2 fs-15 mx-4 mx-sm-5">
+          <h4>You are about to delete a post ?</h4>
+          <p class="text-muted mx-4 mb-0">
+            Deleting your post will remove all of your information from our
+            database.
+          </p>
+        </div>
+      </div>
+      <div class="d-flex gap-2 justify-content-center mt-4 mb-2">
+        <button
+          class="btn btn-link link-success fw-medium text-decoration-none"
+          data-bs-dismiss="modal"
+          id="deleteRecord-close"
+          (click)="modal.close('Close click')"
+        >
+          <i class="ri-close-line me-1 align-middle"></i> Close
+        </button>
+        <button
+          type="button"
+          class="btn w-sm btn-danger"
+          id="delete-product"
+          (click)="deleteData(deleteId)"
+          (click)="modal.close('Close click')"
+        >
+          Yes, Delete It!
+        </button>
+      </div>
+    </div>
+  </div>
+  <!-- /.modal-content -->
+</ng-template>
+
+<!-- Contacts Create Model -->
+<ng-template #content role="document" let-modal>
+  <div class="modal-header bg-soft-info p-3">
+    <h5 class="modal-title" id="exampleModalLabel">Add Post</h5>
+    <button
+      type="button"
+      class="btn-close"
+      data-bs-dismiss="modal"
+      aria-label="Close"
+      id="close-modal"
+      (click)="modal.dismiss('Cross click')"
+    ></button>
+  </div>
+  <form
+    (ngSubmit)="savePost()"
+    [formGroup]="postForm"
+    class="tablelist-form"
+    autocomplete="off"
+  >
+    <div class="modal-body">
+      <input type="hidden" id="id-field" />
+      <div class="row g-3">
+        <div class="col-lg-12">
+          <div class="text-center">
+            <div class="position-relative d-inline-block">
+              <input type="hidden" name="id" value="" formControlName="ids" />
+              <div class="position-absolute bottom-0 end-0">
+                <label
+                  for="customer-image-input"
+                  class="mb-0"
+                  data-bs-toggle="tooltip"
+                  data-bs-placement="right"
+                  title="Select Image"
+                >
+                  <div class="avatar-xs cursor-pointer">
+                    <div
+                      class="avatar-title bg-light border rounded-circle text-muted"
+                    >
+                      <i class="ri-image-fill"></i>
+                    </div>
+                  </div>
+                </label>
+                <input
+                  class="form-control d-none"
+                  id="customer-image-input"
+                  type="file"
+                  accept="image/png, image/gif, image/jpeg"
+                  formControlName="image"
+                  [ngClass]="{
+                    'is-invalid': submitted && form['image'].errors
+                  }"
+                  (change)="fileChange($event)"
+                />
+                <div
+                  *ngIf="submitted && form['image'].errors"
+                  class="invalid-feedback"
+                  align="left"
+                >
+                  <div *ngIf="form['image'].errors['required']">
+                    Post Image is required
+                  </div>
+                </div>
+              </div>
+              <div class="avatar-xxl p-1">
+                <div class="avatar-title bg-light">
+                  <img
+                    src="assets/images/users/user-dummy-img.jpg"
+                    id="customer-img"
+                    class="avatar-xl avatar-title object-cover"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <label for="name-field" class="form-label required">Title</label>
+            <input
+              type="text"
+              id="customername-field"
+              class="form-control"
+              placeholder="Enter title"
+              required
+              formControlName="title"
+              [ngClass]="{
+                'is-invalid': submitted && form['title'].errors
+              }"
+            />
+            <div
+              *ngIf="submitted && form['title'].errors"
+              class="invalid-feedback"
+              align="left"
+            >
+              <div *ngIf="form['title'].errors['required']">
+                Title is required
+              </div>
+            </div>
+          </div>
+          <div class="mt-3">
+            <label for="content-field " class="form-label required"
+              >Content</label
+            >
+            <textarea
+              class="form-control"
+              id="content-field"
+              rows="3"
+              placeholder="Enter content"
+              required
+              formControlName="content"
+              [ngClass]="{
+                'is-invalid': submitted && form['content'].errors
+              }"
+            ></textarea>
+            <div class="invalid-feedback">Please enter a content.</div>
+          </div>
+        </div>
+        <!-- end -->
+      </div>
+    </div>
+    <div class="modal-footer">
+      <div class="hstack gap-2 justify-content-end">
+        <button
+          type="button"
+          class="btn btn-light"
+          data-bs-dismiss="modal"
+          (click)="modal.close('Close click')"
+        >
+          Close
+        </button>
+        <button type="submit" class="btn btn-primary" id="add-btn">
+          Add Post
+        </button>
+      </div>
+    </div>
+  </form>
+</ng-template>

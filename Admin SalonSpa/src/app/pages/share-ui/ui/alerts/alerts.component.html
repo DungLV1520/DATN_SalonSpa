@@ -1,0 +1,1331 @@
+<!-- Start Breadcrumbs -->
+<app-breadcrumbs title="Alerts" [breadcrumbItems]="breadCrumbItems"></app-breadcrumbs>
+<!-- End Breadcrumbs -->
+<div class="row">
+  <div class="col-lg-12">
+      <div class="card">
+          <div class="card-header align-items-center d-flex">
+              <h4 class="card-title mb-0 flex-grow-1">Default Alerts</h4>
+              <div class="flex-shrink-0">
+                  <div class="form-check form-switch form-switch-right form-switch-md">
+                      <label for="default" class="form-label text-muted">Show Code</label>
+                      <input class="form-check-input code-switcher" type="checkbox" id="default" (click)="ShowCode($event)">
+                  </div>
+              </div>
+          </div><!-- end card header -->
+
+          <div class="card-body">
+              <p class="text-muted">Use the <code>alert </code>class to show a default alert.</p>
+              <div class="live-preview">
+                  <div class="row">
+                      <div class="col-xl-6">
+                          <h6>Primary Alert</h6>
+                          <ngb-alert [dismissible]="false" type="primary">
+                             <strong> Hi! </strong> A simple <b>Primary alert</b> —check it out!
+                          </ngb-alert>
+
+                          <h6>Secondary Alert</h6>
+                          <ngb-alert [dismissible]="false" type="secondary">
+                            <strong> How are you! </strong> A simple <b>secondary alert</b> —check it out!
+                          </ngb-alert>
+
+                          <h6>Success Alert</h6>
+                          <ngb-alert [dismissible]="false" type="success">
+                            <strong> Yey! Everything worked! </strong> A simple <b>success alert</b> —check it out!
+                          </ngb-alert>
+
+                          <h6>Danger Alert</h6>
+                          <ngb-alert class="mb-xl-0" [dismissible]="false" type="danger">
+                            <strong> Something is very wrong! </strong> A simple <b>danger alert</b> —check it out!
+                          </ngb-alert>
+                      </div>
+
+                      <div class="col-xl-6">
+                          <h6>Warning Alert</h6>
+                          <ngb-alert [dismissible]="false" type="warning">
+                            <strong> Uh oh, something went wrong </strong> A simple <b>warning alert</b> —check it out!
+                          </ngb-alert>
+
+                          <h6>Info Alert</h6>
+                          <ngb-alert [dismissible]="false" type="info">
+                            <strong>Don't forget' it !</strong> A simple <b>info alert</b> —check it out!
+                          </ngb-alert>
+
+                          <h6>Light Alert</h6>
+                          <ngb-alert [dismissible]="false" type="light">
+                            <strong>Mind Your Step!</strong> A simple <b>light alert</b> —check it out!
+                          </ngb-alert>
+
+                          <h6>Dark Alert</h6>
+                          <ngb-alert class="mb-0" [dismissible]="false" type="dark">
+                            <strong>Did you know?</strong> A simple <b>dark alert</b> —check it out!
+                          </ngb-alert>
+                      </div>
+                  </div>
+              </div>
+
+              <div class="d-none code-view">
+<pre class="language-markup" style="height: 352px"><code>&lt;!-- Primary Alert --&gt;
+&lt;div class=&quot;alert alert-primary&quot; role=&quot;alert&quot;&gt;
+&lt;strong&gt; Hi! &lt;/strong&gt; A simple &lt;b&gt;Primary alert&lt;/b&gt; &mdash;check it out!
+&lt;/div&gt;
+</code>
+<code>&lt;!-- Secondary Alert --&gt;
+&lt;div class=&quot;alert alert-secondary&quot; role=&quot;alert&quot;&gt;
+&lt;strong&gt; How are you! &lt;/strong&gt; A simple &lt;b&gt;secondary alert&lt;/b&gt; &mdash;check it out!
+&lt;/div&gt;
+</code>
+<code>&lt;!-- success Alert --&gt;
+&lt;div class=&quot;alert alert-success&quot; role=&quot;alert&quot;&gt;
+&lt;strong&gt; Yey! Everything worked! &lt;/strong&gt; A simple &lt;b&gt;success alert&lt;/b&gt; &mdash;check it out!
+&lt;/div&gt;
+</code>
+<code>&lt;!-- danger Alert --&gt;
+&lt;div class=&quot;alert alert-danger&quot; role=&quot;alert&quot;&gt;
+&lt;strong&gt; Something is very wrong! &lt;/strong&gt; A simple &lt;b&gt;danger alert&lt;/b&gt; &mdash;check it out!
+&lt;/div&gt;
+</code>
+<code>&lt;!-- warning Alert --&gt;
+&lt;div class=&quot;alert alert-warning&quot; role=&quot;alert&quot;&gt;
+&lt;strong&gt; Uh oh, something went wrong &lt;/strong&gt; A simple &lt;b&gt;warning alert&lt;/b&gt; &mdash;check it out!
+&lt;/div&gt;
+</code>
+<code>&lt;!-- Info Alert --&gt;
+&lt;div class=&quot;alert alert-info&quot; role=&quot;alert&quot;&gt;
+&lt;strong&gt; Don't forget' it ! &lt;/strong&gt; A simple &lt;b&gt;info alert&lt;/b&gt; &mdash;check it out!
+&lt;/div&gt;
+</code>
+<code>&lt;!-- Light Alert --&gt;
+&lt;div class=&quot;alert alert-light&quot; role=&quot;alert&quot;&gt;
+&lt;strong&gt; Mind Your Step! &lt;/strong&gt; A simple &lt;b&gt;light alert&lt;/b&gt; &mdash;check it out!
+&lt;/div&gt;
+</code>
+<code>&lt;!-- Dark Alert --&gt;
+&lt;div class=&quot;alert alert-dark&quot; role=&quot;alert&quot;&gt;
+&lt;strong&gt; Did you know? &lt;/strong&gt; A simple &lt;b&gt;dark alert&lt;/b&gt; &mdash;check it out!
+&lt;/div&gt;
+</code></pre>
+              </div>
+          </div><!-- end card-body -->
+      </div><!-- end card -->
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-12">
+      <div class="card">
+          <div class="card-header align-items-center d-flex">
+              <h4 class="card-title mb-0 flex-grow-1">Borderless Alerts</h4>
+              <div class="flex-shrink-0">
+                  <div class="form-check form-switch form-switch-right form-switch-md">
+                      <label for="borderless-alerts" class="form-label text-muted">Show Code</label>
+                      <input class="form-check-input code-switcher" type="checkbox" id="borderless-alerts" (click)="ShowCode($event)">
+                  </div>
+              </div>
+          </div><!-- end card header -->
+
+          <div class="card-body">
+              <p class="text-muted">Use the <code>alert-borderless</code> class to set alert without border.</p>
+
+              <div class="live-preview">
+                  <div class="row">
+                      <div class="col-xl-6">
+                          <h6>Primary Alert</h6>
+                          <ngb-alert class="alert-borderless" [dismissible]="false" type="primary">
+                            <strong> Hi! </strong> A simple <b>Primary alert</b> —check it out!
+                          </ngb-alert>
+
+                          <h6>Secondary Alert</h6>
+                          <ngb-alert class="alert-borderless" [dismissible]="false" type="secondary">
+                            <strong> Hi! </strong> A simple <b>Secondary alert</b> —check it out!
+                          </ngb-alert>
+
+                          <h6>Success Alert</h6>
+                          <ngb-alert class="alert-borderless" [dismissible]="false" type="success">
+                            <strong> Yey! Everything worked! </strong> A simple <b>success alert</b> —check it out!
+                          </ngb-alert>
+
+                          <h6>Danger Alert</h6>
+                          <ngb-alert class="alert-borderless mb-xl-0" [dismissible]="false" type="danger">
+                            <strong> Something is very wrong! </strong> A simple danger alert—check it out!
+                          </ngb-alert>
+                      </div>
+
+                      <div class="col-xl-6">
+                          <h6>Warning Alert</h6>
+                          <ngb-alert class="alert-borderless" [dismissible]="false" type="warning">
+                            <strong> Uh oh, something went wrong </strong> A simple <b>warning alert</b> —check it out!
+                          </ngb-alert>
+
+                          <h6>Info Alert</h6>
+                          <ngb-alert class="alert-borderless" [dismissible]="false" type="info">
+                            <strong>Don't forget' it !</strong> A simple <b>info alert</b> —check it out!
+                          </ngb-alert>
+
+                          <h6>Light Alert</h6>
+                          <ngb-alert class="alert-borderless" [dismissible]="false" type="light">
+                            <strong>Mind Your Step!</strong> A simple <b>light alert</b> —check it out!
+                          </ngb-alert>
+
+                          <h6>Dark Alert</h6>
+                          <ngb-alert class="alert-borderless mb-0" [dismissible]="false" type="dark">
+                            <strong>Mind Your Step!</strong> A simple <b>light alert</b> —check it out!
+                          </ngb-alert>
+                      </div>
+                  </div>
+              </div>
+
+              <div class="d-none code-view">
+<pre class="language-markup" style="height: 352px">
+<code>&lt;!-- Primary Alert --&gt;
+&lt;div class=&quot;alert alert-borderless alert-primary&quot; role=&quot;alert&quot;&gt;
+&lt;strong&gt; Hi! &lt;/strong&gt; A simple &lt;b&gt;Primary alert&lt;/b&gt; &mdash;check it out!
+&lt;/div&gt;
+</code>
+<code>&lt;!-- Secondary Alert --&gt;
+&lt;div class=&quot;alert alert-borderless alert-secondary&quot; role=&quot;alert&quot;&gt;
+&lt;strong&gt; How are you! &lt;/strong&gt; A simple &lt;b&gt;secondary alert&lt;/b&gt; &mdash;check it out!
+&lt;/div&gt;
+</code>
+<code>&lt;!-- Success Alert --&gt;
+&lt;div class=&quot;alert alert-borderless alert-success&quot; role=&quot;alert&quot;&gt;
+&lt;strong&gt; Yey! Everything worked! &lt;/strong&gt; A simple &lt;b&gt;success alert&lt;/b&gt; &mdash;check it out!
+&lt;/div&gt;
+</code>
+<code>&lt;!-- Danger Alert --&gt;
+&lt;div class=&quot;alert alert-borderless alert-danger&quot; role=&quot;alert&quot;&gt;
+&lt;strong&gt; Something is very wrong! &lt;/strong&gt; A simple &lt;b&gt;danger alert&lt;/b&gt; &mdash;check it out!
+&lt;/div&gt;
+</code>
+<code>&lt;!-- Warning Alert --&gt;
+&lt;div class=&quot;alert alert-borderless alert-warning&quot; role=&quot;alert&quot;&gt;
+&lt;strong&gt; Uh oh, something went wrong &lt;/strong&gt; A simple &lt;b&gt;warning alert&lt;/b&gt; &mdash;check it out!
+&lt;/div&gt;
+</code>
+<code>&lt;!-- Info Alert --&gt;
+&lt;div class=&quot;alert alert-borderless alert-info&quot; role=&quot;alert&quot;&gt;
+&lt;strong&gt; Don't forget' it ! &lt;/strong&gt; A simple &lt;b&gt;info alert&lt;/b&gt; &mdash;check it out!
+&lt;/div&gt;
+</code>
+<code>&lt;!-- Light Alert --&gt;
+&lt;div class=&quot;alert alert-borderless alert-light&quot; role=&quot;alert&quot;&gt;
+&lt;strong&gt; Mind Your Step! &lt;/strong&gt; A simple &lt;b&gt;light alert&lt;/b&gt; &mdash;check it out!
+&lt;/div&gt;
+</code>
+<code>&lt;!-- Dark Alert --&gt;
+&lt;div class=&quot;alert alert-borderless alert-dark mb-0&quot; role=&quot;alert&quot;&gt;
+&lt;strong&gt; Did you know? &lt;/strong&gt; A simple &lt;b&gt;dark alert&lt;/b&gt; &mdash;check it out!
+&lt;/div&gt;
+</code></pre>
+              </div>
+          </div><!-- end card-body -->
+      </div><!-- end card -->
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-12">
+      <div class="card">
+          <div class="card-header align-items-center d-flex">
+              <h4 class="card-title mb-0 flex-grow-1">Dismissing Alerts</h4>
+              <div class="flex-shrink-0">
+                  <div class="form-check form-switch form-switch-right form-switch-md">
+                      <label for="1" class="form-label text-muted">Show Code</label>
+                      <input class="form-check-input code-switcher" type="checkbox" id="1" (click)="ShowCode($event)"> 
+                  </div>
+              </div>
+          </div><!-- end card header -->
+
+          <div class="card-body">
+              <p class="text-muted">Use the <code>alert-dismissible</code> class to add dismissing button to the alert.
+              </p>
+              <div class="live-preview">
+
+                  <div class="row">
+                      <div class="col-xl-6">
+						<div class="d-flex flex-column gap-3">
+                        <div *ngFor="let color of defaultData">
+                          <h6>{{color.color}} Alert</h6>
+                          <ngb-alert type="{{color.color}}" (close)="close(color, defaultData)" class="custom-alert">
+                            A simple {{color.color}} alert—check it out!
+                          </ngb-alert>
+						  </div>
+                        </div>
+                      </div>
+
+                      <div class="col-xl-6">
+						<div class="d-flex flex-column gap-3">
+                        <div *ngFor="let color of dismissingData">
+                          <h6>{{color.color}} Alert</h6>
+                          <ngb-alert type="{{color.color}}" (close)="close(color, defaultData)" class="custom-alert">
+                            <!-- A simple {{color.color}} alert—check it out! -->
+                            <strong>Hi!</strong> A simple <b>Dismissible {{color.color}} alert</b> —check it out!
+                          </ngb-alert>
+							</div>
+                        </div>
+                      </div>
+                  </div>
+              </div>
+
+              <div class="d-none code-view">
+<pre class="language-markup" style="height: 352px">
+<code>&lt;!-- Primary Alert --&gt;
+&lt;div class=&quot;alert alert-primary alert-dismissible fade show&quot; role=&quot;alert&quot;&gt;
+&lt;strong&gt; Hi! &lt;/strong&gt; A simple &lt;b&gt;Dismissible primary Alert &lt;/b&gt; &mdash; check it out!
+&lt;button type=&quot;button&quot; class=&quot;btn-close&quot; data-bs-dismiss=&quot;alert&quot; aria-label=&quot;Close&quot;&gt;&lt;/button&gt;
+&lt;/div&gt;
+</code>
+<code>&lt;!-- Secondary Alert --&gt;
+&lt;div class=&quot;alert alert-secondary alert-dismissible fade show&quot; role=&quot;alert&quot;&gt;
+&lt;strong&gt; How are you! &lt;/strong&gt; A simple &lt;b&gt;Dismissible secondary Alert &lt;/b&gt; &mdash; check it out!
+&lt;button type=&quot;button&quot; class=&quot;btn-close&quot; data-bs-dismiss=&quot;alert&quot; aria-label=&quot;Close&quot;&gt;&lt;/button&gt;
+&lt;/div&gt;
+</code>
+<code>&lt;!-- Success Alert --&gt;
+&lt;div class=&quot;alert alert-success alert-dismissible fade show&quot; role=&quot;alert&quot;&gt;
+&lt;strong&gt; Yey! Everything worked! &lt;/strong&gt; A simple &lt;b&gt;Dismissible success Alert &lt;/b&gt; &mdash; check it out!
+&lt;button type=&quot;button&quot; class=&quot;btn-close&quot; data-bs-dismiss=&quot;alert&quot; aria-label=&quot;Close&quot;&gt;&lt;/button&gt;
+&lt;/div&gt;
+</code>
+<code>&lt;!-- Danger Alert --&gt;
+&lt;div class=&quot;alert alert-danger alert-dismissible fade show&quot; role=&quot;alert&quot;&gt;
+&lt;strong&gt; Something is very wrong! &lt;/strong&gt; A simple &lt;b&gt;Dismissible danger Alert &lt;/b&gt; &mdash; check it out!
+&lt;button type=&quot;button&quot; class=&quot;btn-close&quot; data-bs-dismiss=&quot;alert&quot; aria-label=&quot;Close&quot;&gt;&lt;/button&gt;
+&lt;/div&gt;
+</code>
+<code>&lt;!-- Warning Alert --&gt;
+&lt;div class=&quot;alert alert-warning alert-dismissible fade show&quot; role=&quot;alert&quot;&gt;
+&lt;strong&gt; Welcome Back! &lt;/strong&gt; A simple &lt;b&gt;Dismissible warning Alert &lt;/b&gt; &mdash; check it out!
+&lt;button type=&quot;button&quot; class=&quot;btn-close&quot; data-bs-dismiss=&quot;alert&quot; aria-label=&quot;Close&quot;&gt;&lt;/button&gt;
+&lt;/div&gt;
+</code>
+<code>&lt;!-- Info Alert --&gt;
+&lt;div class=&quot;alert alert-info alert-dismissible fade show&quot; role=&quot;alert&quot;&gt;
+&lt;strong&gt; Don't forget' it ! &lt;/strong&gt; A simple &lt;b&gt;Dismissible info Alert &lt;/b&gt; &mdash; check it out!
+&lt;button type=&quot;button&quot; class=&quot;btn-close&quot; data-bs-dismiss=&quot;alert&quot; aria-label=&quot;Close&quot;&gt;&lt;/button&gt;
+&lt;/div&gt;
+</code>
+<code>&lt;!-- Light Alert --&gt;
+&lt;div class=&quot;alert alert-light alert-dismissible fade show&quot; role=&quot;alert&quot;&gt;
+&lt;strong&gt; Mind Your Step! &lt;/strong&gt; A simple &lt;b&gt;Dismissible light Alert &lt;/b&gt; &mdash; check it out!
+&lt;button type=&quot;button&quot; class=&quot;btn-close&quot; data-bs-dismiss=&quot;alert&quot; aria-label=&quot;Close&quot;&gt;&lt;/button&gt;
+&lt;/div&gt;
+</code>
+<code>&lt;!-- Dark Alert --&gt;
+&lt;div class=&quot;alert alert-dark alert-dismissible fade show&quot; role=&quot;alert&quot;&gt;
+&lt;strong&gt; Did you know? &lt;/strong&gt; A simple &lt;b&gt;Dismissible dark Alert &lt;/b&gt; &mdash; check it out!
+&lt;button type=&quot;button&quot; class=&quot;btn-close&quot; data-bs-dismiss=&quot;alert&quot; aria-label=&quot;Close&quot;&gt;&lt;/button&gt;
+&lt;/div&gt;
+</code></pre>
+              </div>
+          </div><!-- end card-body -->
+      </div><!-- end card -->
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-12">
+      <div class="card">
+          <div class="card-header align-items-center d-flex">
+              <h4 class="card-title mb-0 flex-grow-1">Link Color Alerts</h4>
+              <div class="flex-shrink-0">
+                  <div class="form-check form-switch form-switch-right form-switch-md">
+                      <label for="2" class="form-label text-muted">Show Code</label>
+                      <input class="form-check-input code-switcher" type="checkbox" id="2" (click)="ShowCode($event)">
+                  </div>
+              </div>
+          </div><!-- end card header -->
+
+          <div class="card-body">
+              <p class="text-muted">Use the <code>alert-link</code> class at &lt;a&gt; tag to show matching colored links within the given alert.</p>
+
+              <div class="live-preview">
+                  <div class="row">
+                      <div class="col-xl-6">
+                          <h6>Primary Alert</h6>
+                          <ngb-alert [dismissible]="false" type="primary">
+                            A simple Primary alert with <a href="javascript:void(0);" class="alert-link">an example
+                              link</a>. Give it a click if you like.
+                          </ngb-alert>
+
+                          <h6>Secondary Alert</h6>
+                          <ngb-alert [dismissible]="false" type="secondary">
+                            A simple Secondary alert with <a href="javascript:void(0);" class="alert-link">an example
+                              link</a>.  Give it a click if you like.
+                          </ngb-alert>
+
+                          <h6>Success Alert</h6>
+                          <ngb-alert [dismissible]="false" type="success">
+                            A simple Success alert with <a href="javascript:void(0);" class="alert-link">an example
+                              link</a>. Give it a click if you like.
+                          </ngb-alert>
+
+                          <h6>Danger Alert</h6>
+                          <ngb-alert [dismissible]="false" type="danger" class="mb-xl-0">
+                            A simple Danger alert with <a href="javascript:void(0);" class="alert-link">an example
+                              link</a>. Give it a click if you like.
+                          </ngb-alert>
+                      </div>
+
+                      <div class="col-xl-6">
+                          <h6>Warning Alert</h6>
+                          <ngb-alert [dismissible]="false" type="warning">
+                            A simple Warning alert with <a href="javascript:void(0);" class="alert-link">an example
+                              link</a>. Give  it a click if you like.
+                          </ngb-alert>
+
+                          <h6>Info Alert</h6>
+                          <ngb-alert [dismissible]="false" type="info">
+                            A simple Info alert with <a href="javascript:void(0);" class="alert-link">an example
+                              link</a>. Give it  a click if you like.
+                          </ngb-alert>
+
+                          <h6>Light Alert</h6>
+                          <ngb-alert [dismissible]="false" type="light">
+                            A simple Info alert with <a href="javascript:void(0);" class="alert-link">an example
+                              link</a>. Give it  a click if you like.
+                          </ngb-alert>
+
+                          <h6>Dark Alert</h6>
+                          <ngb-alert [dismissible]="false" type="dark" class="mb-xl-0">
+                            A simple Dark alert with <a href="javascript:void(0);" class="alert-link">an example
+                              link</a>. Give it a click if you like.
+                          </ngb-alert>
+                      </div>
+                  </div>
+              </div>
+
+              <div class="d-none code-view">
+<pre class="language-markup" style="max-height: 260px;">
+<code>&lt;!-- Primary Alert --&gt;
+&lt;div class=&quot;alert alert-primary&quot; role=&quot;alert&quot;&gt;
+A simple &lt;b&gt;Primary alert&lt;/b&gt; with &lt;a href=&quot;#&quot; class=&quot;alert-link&quot;&gt;an example link&lt;/a&gt;. Give it a click if you like.
+&lt;/div&gt;
+</code>
+<code>&lt;!-- Secondary Alert --&gt;
+&lt;div class=&quot;alert alert-secondary&quot; role=&quot;alert&quot;&gt;
+A simple &lt;b&gt;Secondary alert&lt;/b&gt; with &lt;a href=&quot;#&quot; class=&quot;alert-link&quot;&gt;an example link&lt;/a&gt;. Give it a click if you like.
+&lt;/div&gt;
+</code>
+<code>&lt;!-- Success Alert --&gt;
+&lt;div class=&quot;alert alert-success&quot; role=&quot;alert&quot;&gt;
+A simple &lt;b&gt;Success alert&lt;/b&gt; with &lt;a href=&quot;#&quot; class=&quot;alert-link&quot;&gt;an example link&lt;/a&gt;. Give it a click if you like.
+&lt;/div&gt;
+</code>
+<code>&lt;!-- Danger Alert --&gt;
+&lt;div class=&quot;alert alert-danger&quot; role=&quot;alert&quot;&gt;
+A simple &lt;b&gt;Danger alert&lt;/b&gt; with &lt;a href=&quot;#&quot; class=&quot;alert-link&quot;&gt;an example link&lt;/a&gt;. Give it a click if you like.
+&lt;/div&gt;
+</code>
+<code>&lt;!-- Warning Alert --&gt;
+&lt;div class=&quot;alert alert-warning&quot; role=&quot;alert&quot;&gt;
+A simple &lt;b&gt;Warning alert&lt;/b&gt; with &lt;a href=&quot;#&quot; class=&quot;alert-link&quot;&gt;an example link&lt;/a&gt;. Give it a click if you like.
+&lt;/div&gt;
+</code>
+<code>&lt;!-- Info Alert --&gt;
+&lt;div class=&quot;alert alert-info&quot; role=&quot;alert&quot;&gt;
+A simple &lt;b&gt;Info alert&lt;/b&gt; with &lt;a href=&quot;#&quot; class=&quot;alert-link&quot;&gt;an example link&lt;/a&gt;. Give it a click if you like.
+&lt;/div&gt;
+</code>
+<code>&lt;!-- Light Alert --&gt;
+&lt;div class=&quot;alert alert-light&quot; role=&quot;alert&quot;&gt;
+A simple &lt;b&gt;Light alert&lt;/b&gt; with &lt;a href=&quot;#&quot; class=&quot;alert-link&quot;&gt;an example link&lt;/a&gt;. Give it a click if you like.
+&lt;/div&gt;
+</code>
+<code>&lt;!-- Dark Alert --&gt;
+&lt;div class=&quot;alert alert-dark&quot; role=&quot;alert&quot;&gt;
+A simple &lt;b&gt;Dark alert&lt;/b&gt; with &lt;a href=&quot;#&quot; class=&quot;alert-link&quot;&gt;an example link&lt;/a&gt;. Give it a click if you like.
+&lt;/div&gt;
+</code></pre>
+              </div>
+          </div><!-- end card-body -->
+      </div><!-- end card -->
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-12">
+      <div class="card">
+          <div class="card-header align-items-center d-flex">
+              <h4 class="card-title mb-0 flex-grow-1">Live Alert Example</h4>
+              <div class="flex-shrink-0">
+                  <div class="form-check form-switch form-switch-right form-switch-md">
+                      <label for="3" class="form-label text-muted">Show Code</label>
+                      <input class="form-check-input code-switcher" type="checkbox" id="3" (click)="ShowCode($event)">
+                  </div>
+              </div>
+          </div><!-- end card header -->
+
+          <div class="card-body">
+              <div id="liveAlertPlaceholder" class="custom-alert">
+                <ngb-alert #selfClosingAlert *ngIf="successMessage" type="success" (closed)="successMessage = ''">{{ successMessage }}</ngb-alert>
+              </div>
+              <button type="button" class="btn btn-primary" id="liveAlertBtn" (click)="changeSuccessMessage()">Show live alert</button>
+
+              <div class="d-none code-view">
+<pre class="language-markup" style="max-height: 260px;">
+<code>&lt;div id=&quot;liveAlertPlaceholder&quot;&gt;&lt;/div&gt;
+&lt;button type=&quot;button&quot; class=&quot;btn btn-primary&quot; id=&quot;liveAlertBtn&quot;&gt;Show live alert&lt;/button&gt;
+</code></pre>
+              </div>
+          </div><!-- end card-body -->
+      </div><!-- end card -->
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-12">
+      <div class="card">
+          <div class="card-header align-items-center d-flex">
+              <h4 class="card-title mb-0 flex-grow-1">Outline Alerts</h4>
+              <div class="flex-shrink-0">
+                  <div class="form-check form-switch form-switch-right form-switch-md">
+                      <label for="4" class="form-label text-muted">Show Code</label>
+                      <input class="form-check-input code-switcher" type="checkbox" id="4" (click)="ShowCode($event)">
+                  </div>
+              </div>
+          </div><!-- end card header -->
+
+          <div class="card-body">
+              <p class="text-muted">Use the <code>alert-outline</code>  class to set an alert with outline.</p>
+
+              <div class="live-preview">
+                  <div class="row">
+                      <div class="col-xl-6">
+                        <div class="d-flex flex-column gap-3">
+                          <div *ngFor="let color of defaultData">
+                            <h6>{{color.color}} Alert</h6>
+                            <ngb-alert type="{{color.color}}" (close)="close(color, defaultData)" class="alert-dismissible alert-outline fade show custom-alert mb-0">
+                              <strong> Hi! </strong> - Outline <b>{{color.color}} alert</b> example
+                            </ngb-alert>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-xl-6">
+                        <div class="d-flex flex-column gap-3">
+                          <div *ngFor="let color of dismissingData">
+                            <h6>{{color.color}} Alert</h6>
+                            <ngb-alert type="{{color.color}}" (close)="close(color, defaultData)" class="alert-dismissible alert-outline fade show custom-alert mb-0">
+                              <strong> Hi! </strong> - Outline <b>{{color.color}} alert</b> example
+                            </ngb-alert>
+                          </div>
+                        </div>
+                      </div>
+                  </div>
+              </div>
+
+              <div class="d-none code-view">
+<pre class="language-markup" style="max-height: 260px;">
+<code>&lt;!-- Primary Alert --&gt;
+&lt;div class=&quot;alert alert-primary alert-dismissible alert-outline fade show&quot; role=&quot;alert&quot;&gt;
+&lt;strong&gt; Hi! &lt;/strong&gt; - Outline &lt;b&gt;primary alert&lt;/b&gt; example
+&lt;button type=&quot;button&quot; class=&quot;btn-close&quot; data-bs-dismiss=&quot;alert&quot; aria-label=&quot;Close&quot;&gt;&lt;/button&gt;
+&lt;/div&gt;
+</code>
+<code>&lt;!-- Secondary Alert --&gt;
+&lt;div class=&quot;alert alert-secondary alert-dismissible alert-outline fade show&quot; role=&quot;alert&quot;&gt;
+&lt;strong&gt; How are you! &lt;/strong&gt; - Outline &lt;b&gt;secondary alert&lt;/b&gt; example
+&lt;button type=&quot;button&quot; class=&quot;btn-close&quot; data-bs-dismiss=&quot;alert&quot; aria-label=&quot;Close&quot;&gt;&lt;/button&gt;
+&lt;/div&gt;
+</code>
+<code>&lt;!-- Success Alert --&gt;
+&lt;div class=&quot;alert alert-success alert-dismissible alert-outline fade show&quot; role=&quot;alert&quot;&gt;
+&lt;strong&gt; Yey! Everything worked! &lt;/strong&gt; - Outline &lt;b&gt;success alert&lt;/b&gt; example
+&lt;button type=&quot;button&quot; class=&quot;btn-close&quot; data-bs-dismiss=&quot;alert&quot; aria-label=&quot;Close&quot;&gt;&lt;/button&gt;
+&lt;/div&gt;
+</code>
+<code>&lt;!-- Danger Alert --&gt;
+&lt;div class=&quot;alert alert-danger alert-dismissible alert-outline fade show&quot; role=&quot;alert&quot;&gt;
+&lt;strong&gt; Something is very wrong! &lt;/strong&gt; - Outline &lt;b&gt;danger alert&lt;/b&gt; example
+&lt;button type=&quot;button&quot; class=&quot;btn-close&quot; data-bs-dismiss=&quot;alert&quot; aria-label=&quot;Close&quot;&gt;&lt;/button&gt;
+&lt;/div&gt;
+</code>
+<code>&lt;!-- Warning Alert --&gt;
+&lt;div class=&quot;alert alert-warning alert-dismissible alert-outline fade show&quot; role=&quot;alert&quot;&gt;
+&lt;strong&gt; Uh oh, something went wrong! &lt;/strong&gt; - Outline &lt;b&gt;warning alert&lt;/b&gt; example
+&lt;button type=&quot;button&quot; class=&quot;btn-close&quot; data-bs-dismiss=&quot;alert&quot; aria-label=&quot;Close&quot;&gt;&lt;/button&gt;
+&lt;/div&gt;
+</code>
+<code>&lt;!-- Info Alert --&gt;
+&lt;div class=&quot;alert alert-info alert-dismissible alert-outline fade show&quot; role=&quot;alert&quot;&gt;
+&lt;strong&gt; Don't forget' it ! &lt;/strong&gt; - Outline &lt;b&gt;info alert&lt;/b&gt; example
+&lt;button type=&quot;button&quot; class=&quot;btn-close&quot; data-bs-dismiss=&quot;alert&quot; aria-label=&quot;Close&quot;&gt;&lt;/button&gt;
+&lt;/div&gt;
+</code>
+<code>&lt;!-- Dark Alert --&gt;
+&lt;div class=&quot;alert alert-dark alert-dismissible alert-outline fade show&quot; role=&quot;alert&quot;&gt;
+&lt;strong&gt; Did you know? &lt;/strong&gt; - Outline &lt;b&gt;dark alert&lt;/b&gt; example
+&lt;button type=&quot;button&quot; class=&quot;btn-close&quot; data-bs-dismiss=&quot;alert&quot; aria-label=&quot;Close&quot;&gt;&lt;/button&gt;
+&lt;/div&gt;
+</code></pre>
+              </div>
+          </div><!-- end card-body -->
+      </div><!-- end card -->
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-12">
+      <div class="card">
+          <div class="card-header align-items-center d-flex">
+              <h4 class="card-title mb-0 flex-grow-1">Left Border Alerts</h4>
+              <div class="flex-shrink-0">
+                  <div class="form-check form-switch form-switch-right form-switch-md">
+                      <label for="5" class="form-label text-muted">Show Code</label>
+                      <input class="form-check-input code-switcher" type="checkbox" id="5" (click)="ShowCode($event)">
+                  </div>
+              </div>
+          </div><!-- end card header -->
+
+          <div class="card-body">
+              <p class="text-muted">Use the <code>alert-border-left </code> class to set an alert with the left border & outline.</p>
+
+              <div class="live-preview">
+                  <div class="row">
+                      <div class="col-xl-6">
+						<div class="d-flex flex-column gap-3">
+                        <div *ngFor="let color of defaultData">
+                          <h6>{{color.color}} Alert</h6>
+                          <ngb-alert type="{{color.color}}" (close)="close(color, defaultData)" class="alert alert-primary alert-border-left alert-dismissible fade show custom-alert">
+                            <i class="{{color.icon}} me-3 align-middle fs-16"></i><strong>{{color.color}}</strong>
+                              - Left border alert
+                          </ngb-alert>
+						</div>
+                        </div>
+                      </div>
+
+                      <div class="col-xl-6">
+						<div class="d-flex flex-column gap-3">
+                        <div *ngFor="let color of dismissingData">
+                          <h6>{{color.color}} Alert</h6>
+                          <ngb-alert type="{{color.color}}" (close)="close(color, defaultData)" class="alert alert-primary alert-border-left alert-dismissible fade show custom-alert">
+                            <i class="{{color.icon}} me-3 align-middle fs-16"></i><strong>{{color.color}}</strong>
+                              - Left border alert
+                          </ngb-alert>
+						</div>
+                        </div>
+                      </div>
+                  </div>
+              </div>
+
+              <div class="d-none code-view">
+<pre class="language-markup" style="max-height: 260px;">
+<code>&lt;!-- Primary Alert --&gt;
+&lt;div class=&quot;alert alert-primary alert-border-left alert-dismissible fade show&quot; role=&quot;alert&quot;&gt;
+&lt;i class=&quot;ri-user-smile-line me-3 align-middle&quot;&gt;&lt;/i&gt; &lt;strong&gt;Primary&lt;/strong&gt; - Left border alert
+&lt;button type=&quot;button&quot; class=&quot;btn-close&quot; data-bs-dismiss=&quot;alert&quot; aria-label=&quot;Close&quot;&gt;&lt;/button&gt;
+&lt;/div&gt;
+</code>
+<code>&lt;!-- Secondary Alert --&gt;
+&lt;div class=&quot;alert alert-secondary alert-border-left alert-dismissible fade show&quot; role=&quot;alert&quot;&gt;
+&lt;i class=&quot;ri-check-double-line me-3 align-middle&quot;&gt;&lt;/i&gt; &lt;strong&gt;Secondary&lt;/strong&gt; - Left border alert
+&lt;button type=&quot;button&quot; class=&quot;btn-close&quot; data-bs-dismiss=&quot;alert&quot; aria-label=&quot;Close&quot;&gt;&lt;/button&gt;
+&lt;/div&gt;
+</code>
+<code>&lt;!-- Success Alert --&gt;
+&lt;div class=&quot;alert alert-success alert-border-left alert-dismissible fade show&quot; role=&quot;alert&quot;&gt;
+&lt;i class=&quot;ri-notification-off-line me-3 align-middle&quot;&gt;&lt;/i&gt; &lt;strong&gt;Success&lt;/strong&gt; - Left border alert
+&lt;button type=&quot;button&quot; class=&quot;btn-close&quot; data-bs-dismiss=&quot;alert&quot; aria-label=&quot;Close&quot;&gt;&lt;/button&gt;
+&lt;/div&gt;
+</code>
+<code>&lt;!-- Danger Alert --&gt;
+&lt;div class=&quot;alert alert-danger alert-border-left alert-dismissible fade show&quot; role=&quot;alert&quot;&gt;
+&lt;i class=&quot;ri-error-warning-line me-3 align-middle&quot;&gt;&lt;/i&gt; &lt;strong&gt;Danger&lt;/strong&gt; - Left border alert
+&lt;button type=&quot;button&quot; class=&quot;btn-close&quot; data-bs-dismiss=&quot;alert&quot; aria-label=&quot;Close&quot;&gt;&lt;/button&gt;
+&lt;/div&gt;
+</code>
+<code>&lt;!-- Warning Alert --&gt;
+&lt;div class=&quot;alert alert-warning alert-border-left alert-dismissible fade show&quot; role=&quot;alert&quot;&gt;
+&lt;i class=&quot;ri-alert-line me-3 align-middle&quot;&gt;&lt;/i&gt; &lt;strong&gt;Warning&lt;/strong&gt; - Left border alert
+&lt;button type=&quot;button&quot; class=&quot;btn-close&quot; data-bs-dismiss=&quot;alert&quot; aria-label=&quot;Close&quot;&gt;&lt;/button&gt;
+&lt;/div&gt;
+</code>
+<code>&lt;!-- Info Alert --&gt;
+&lt;div class=&quot;alert alert-info alert-border-left alert-dismissible fade show&quot; role=&quot;alert&quot;&gt;
+&lt;i class=&quot;ri-airplay-line me-3 align-middle&quot;&gt;&lt;/i&gt; &lt;strong&gt;Info&lt;/strong&gt; - Left border alert
+&lt;button type=&quot;button&quot; class=&quot;btn-close&quot; data-bs-dismiss=&quot;alert&quot; aria-label=&quot;Close&quot;&gt;&lt;/button&gt;
+&lt;/div&gt;
+</code>
+<code>&lt;!-- Light Alert --&gt;
+&lt;div class=&quot;alert alert-light alert-border-left alert-dismissible fade show&quot; role=&quot;alert&quot;&gt;
+&lt;i class=&quot;ri-mail-line me-3 align-middle&quot;&gt;&lt;/i&gt; &lt;strong&gt;Light&lt;/strong&gt; - Left border alert
+&lt;button type=&quot;button&quot; class=&quot;btn-close&quot; data-bs-dismiss=&quot;alert&quot; aria-label=&quot;Close&quot;&gt;&lt;/button&gt;
+&lt;/div&gt;
+</code>
+<code>&lt;!-- Dark Alert --&gt;
+&lt;div class=&quot;alert alert-dark alert-border-left alert-dismissible fade show&quot; role=&quot;alert&quot;&gt;
+&lt;i class=&quot;ri-refresh-line me-3 align-middle&quot;&gt;&lt;/i&gt; &lt;strong&gt;Dark&lt;/strong&gt; - Left border alert
+&lt;button type=&quot;button&quot; class=&quot;btn-close&quot; data-bs-dismiss=&quot;alert&quot; aria-label=&quot;Close&quot;&gt;&lt;/button&gt;
+&lt;/div&gt;
+</code></pre>
+              </div>
+          </div><!-- end card-body -->
+      </div><!-- end card -->
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-12">
+      <div class="card">
+          <div class="card-header align-items-center d-flex">
+              <h4 class="card-title mb-0 flex-grow-1">Label Icon Alerts</h4>
+              <div class="flex-shrink-0">
+                  <div class="form-check form-switch form-switch-right form-switch-md">
+                      <label for="6" class="form-label text-muted">Show Code</label>
+                      <input class="form-check-input code-switcher" type="checkbox" id="6" (click)="ShowCode($event)">
+                  </div>
+              </div>
+          </div><!-- end card header -->
+
+          <div class="card-body">
+              <p class="text-muted">Use the <code>alert-label-icon</code> class to set an alert with a label icon.</p>
+              <div class="live-preview">
+                  <div class="row">
+                      <div class="col-xl-6">
+						<div class="d-flex flex-column gap-3">
+                        <div *ngFor="let color of defaultData">
+                          <h6>{{color.color}} Alert</h6>
+                          <ngb-alert type="{{color.color}}" (close)="close(color, defaultData)" class="alert-dismissible alert-solid alert-label-icon fade show custom-alert">
+                            <i class="{{color.icon}} label-icon"></i><strong>{{color.color}}</strong>
+                              - Left border alert
+                          </ngb-alert>
+							</div>
+                        </div>
+                      </div>
+
+                      <div class="col-xl-6">
+						<div class="d-flex flex-column gap-3">
+                        <div *ngFor="let color of dismissingData">
+                          <h6>{{color.color}} Alert</h6>
+                          <ngb-alert type="{{color.color}}" (close)="close(color, defaultData)" class="alert-dismissible alert-solid alert-label-icon fade show custom-alert">
+                            <i class="{{color.icon}} label-icon"></i><strong>{{color.color}}</strong>
+                              - Left border alert
+                          </ngb-alert>
+							</div>
+                        </div>
+                      </div>
+                  </div>
+              </div>
+
+              <div class="d-none code-view">
+<pre class="language-markup" style="max-height: 260px;">
+<code>&lt;!-- Primary Alert --&gt;
+&lt;div class=&quot;alert alert-primary alert-dismissible alert-solid alert-label-icon fade show&quot; role=&quot;alert&quot;&gt;
+&lt;i class=&quot;ri-user-smile-line label-icon&quot;&gt;&lt;/i&gt;&lt;strong&gt;Primary&lt;/strong&gt; - Label icon alert
+&lt;button type=&quot;button&quot; class=&quot;btn-close btn-close-white&quot; data-bs-dismiss=&quot;alert&quot; aria-label=&quot;Close&quot;&gt;&lt;/button&gt;
+&lt;/div&gt;
+</code>
+<code>&lt;!-- Secondary Alert --&gt;
+&lt;div class=&quot;alert alert-secondary alert-dismissible alert-solid alert-label-icon fade show&quot; role=&quot;alert&quot;&gt;
+&lt;i class=&quot;ri-check-double-line label-icon&quot;&gt;&lt;/i&gt;&lt;strong&gt;Secondary&lt;/strong&gt; - Label icon alert
+&lt;button type=&quot;button&quot; class=&quot;btn-close btn-close-white&quot; data-bs-dismiss=&quot;alert&quot; aria-label=&quot;Close&quot;&gt;&lt;/button&gt;
+&lt;/div&gt;
+</code>
+<code>&lt;!-- Success Alert --&gt;
+&lt;div class=&quot;alert alert-success alert-dismissible alert-solid alert-label-icon fade show&quot; role=&quot;alert&quot;&gt;
+&lt;i class=&quot;ri-notification-off-line label-icon&quot;&gt;&lt;/i&gt;&lt;strong&gt;Success&lt;/strong&gt; - Label icon alert
+&lt;button type=&quot;button&quot; class=&quot;btn-close btn-close-white&quot; data-bs-dismiss=&quot;alert&quot; aria-label=&quot;Close&quot;&gt;&lt;/button&gt;
+&lt;/div&gt;
+</code>
+<code>&lt;!-- Danger Alert --&gt;
+&lt;div class=&quot;alert alert-danger alert-dismissible alert-solid alert-label-icon fade show&quot; role=&quot;alert&quot;&gt;
+&lt;i class=&quot;ri-error-warning-line label-icon&quot;&gt;&lt;/i&gt;&lt;strong&gt;Danger&lt;/strong&gt; - Label icon alert
+&lt;button type=&quot;button&quot; class=&quot;btn-close btn-close-white&quot; data-bs-dismiss=&quot;alert&quot; aria-label=&quot;Close&quot;&gt;&lt;/button&gt;
+&lt;/div&gt;
+</code>
+<code>&lt;!-- Warning Alert --&gt;
+&lt;div class=&quot;alert alert-warning alert-dismissible alert-solid alert-label-icon fade show&quot; role=&quot;alert&quot;&gt;
+&lt;i class=&quot;ri-alert-line label-icon&quot;&gt;&lt;/i&gt;&lt;strong&gt;Warning&lt;/strong&gt; - Label icon alert
+&lt;button type=&quot;button&quot; class=&quot;btn-close btn-close-white&quot; data-bs-dismiss=&quot;alert&quot; aria-label=&quot;Close&quot;&gt;&lt;/button&gt;
+&lt;/div&gt;
+</code>
+<code>&lt;!-- Info Alert --&gt;
+&lt;div class=&quot;alert alert-info alert-dismissible alert-solid alert-label-icon fade show&quot; role=&quot;alert&quot;&gt;
+&lt;i class=&quot;ri-airplay-line label-icon&quot;&gt;&lt;/i&gt;&lt;strong&gt;Info&lt;/strong&gt; - Label icon alert
+&lt;button type=&quot;button&quot; class=&quot;btn-close btn-close-white&quot; data-bs-dismiss=&quot;alert&quot; aria-label=&quot;Close&quot;&gt;&lt;/button&gt;
+&lt;/div&gt;
+</code>
+<code>&lt;!-- Light Alert --&gt;
+&lt;div class=&quot;alert alert-light alert-dismissible alert-solid alert-label-icon fade show&quot; role=&quot;alert&quot;&gt;
+&lt;i class=&quot;ri-mail-line label-icon&quot;&gt;&lt;/i&gt;&lt;strong&gt;Light&lt;/strong&gt; - Label icon alert
+&lt;button type=&quot;button&quot; class=&quot;btn-close btn-close-white&quot; data-bs-dismiss=&quot;alert&quot; aria-label=&quot;Close&quot;&gt;&lt;/button&gt;
+&lt;/div&gt;
+</code>
+<code>&lt;!-- Dark Alert --&gt;
+&lt;div class=&quot;alert alert-dark alert-dismissible alert-solid alert-label-icon fade show mb-0&quot; role=&quot;alert&quot;&gt;
+&lt;i class=&quot;ri-refresh-line label-icon&quot;&gt;&lt;/i&gt;&lt;strong&gt;Dark&lt;/strong&gt; - Label icon alert
+&lt;button type=&quot;button&quot; class=&quot;btn-close btn-close-white&quot; data-bs-dismiss=&quot;alert&quot; aria-label=&quot;Close&quot;&gt;&lt;/button&gt;
+&lt;/div&gt;
+</code></pre>
+
+              </div>
+          </div><!-- end card-body -->
+      </div><!-- end card -->
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-12">
+      <div class="card">
+          <div class="card-header align-items-center d-flex">
+              <h4 class="card-title mb-0 flex-grow-1">Additional Content Alerts</h4>
+              <div class="flex-shrink-0">
+                  <div class="form-check form-switch form-switch-right form-switch-md">
+                      <label for="7" class="form-label text-muted">Show Code</label>
+                      <input class="form-check-input code-switcher" type="checkbox" id="7" (click)="ShowCode($event)">
+                  </div>
+              </div>
+          </div><!-- end card header -->
+
+          <div class="card-body">
+              <p class="text-muted">Use the <code>alert-additional</code> class and Use the <code>alert-</code> class to HTML elements like headings, paragraphs, dividers etc.</p>
+              <div class="live-preview">
+                  <div class="row">
+                      <div class="col-xl-6">
+						<div class="d-flex flex-column gap-3">
+                        <div *ngFor="let color of defaultData">
+                          <h6>{{color.color}} Alert</h6>
+                          <ngb-alert type="{{color.color}}" (close)="close(color, defaultData)" class="alert-dismissible alert-additional fade show custom-alert">
+                            <div class="alert-body">
+                              <div class="d-flex">
+                                  <div class="flex-shrink-0 me-3">
+                                      <i class="ri-notification-off-line fs-16 align-middle"></i>
+                                  </div>
+                                  <div class="flex-grow-1">
+                                      <h5 class="alert-heading">Yey! Everything worked!</h5>
+                                      <p class="mb-0">This alert needs your attention, but it's not super important.</p>
+                                  </div>
+                              </div>
+                             </div>
+                              <div class="alert-content">
+                                  <p class="mb-0">Whenever you need to, be sure to use margin
+                                      utilities to keep things nice and tidy.</p>
+                              </div>
+                          </ngb-alert>
+                        </div>
+                      </div>
+					</div>
+
+                      <div class="col-xl-6">
+					<div class="d-flex flex-column gap-3">
+                        <div *ngFor="let color of dismissingData">
+                          <h6>{{color.color}} Alert</h6>
+                          <ngb-alert type="{{color.color}}" (close)="close(color, defaultData)" class="alert-dismissible alert-additional fade show custom-alert">
+                            <div class="alert-body">
+                              <div class="d-flex">
+                                  <div class="flex-shrink-0 me-3">
+                                      <i class="ri-notification-off-line fs-16 align-middle"></i>
+                                  </div>
+                                  <div class="flex-grow-1">
+                                      <h5 class="alert-heading">Yey! Everything worked!</h5>
+                                      <p class="mb-0">This alert needs your attention, but it's not super important.</p>
+                                  </div>
+                              </div>
+                             </div>
+                              <div class="alert-content">
+                                  <p class="mb-0">Whenever you need to, be sure to use margin
+                                      utilities to keep things nice and tidy.</p>
+                              </div>
+                          </ngb-alert>
+						</div>
+                        </div>
+                      </div>
+                  </div>
+              </div>
+
+              <div class="d-none code-view">
+<pre class="language-markup" style="max-height: 260px;">
+<code>&lt;!-- Primary Alert --&gt;
+&lt;div class=&quot;alert alert-primary alert-dismissible alert-additional fade show&quot; role=&quot;alert&quot;&gt;
+&lt;div class=&quot;alert-body&quot;&gt;
+&lt;button type=&quot;button&quot; class=&quot;btn-close&quot; data-bs-dismiss=&quot;alert&quot; aria-label=&quot;Close&quot;&gt;&lt;/button&gt;
+&lt;div class=&quot;d-flex&quot;&gt;
+&lt;div class=&quot;flex-shrink-0 me-3&quot;&gt;
+&lt;i class=&quot;ri-user-smile-line fs-16 align-middle&quot;&gt;&lt;/i&gt;
+&lt;/div&gt;
+&lt;div class=&quot;flex-grow-1&quot;&gt;
+&lt;h5 class=&quot;alert-heading&quot;&gt;Well done !&lt;/h5&gt;
+&lt;p class=&quot;mb-0&quot;&gt;Aww yeah, you successfully read this important alert message. &lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;alert-content&quot;&gt;
+&lt;p class=&quot;mb-0&quot;&gt;Whenever you need to, be sure to use margin utilities to keep things nice and tidy.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;</code>
+
+<code>&lt;!-- Danger Alert --&gt;
+&lt;div class=&quot;alert alert-danger alert-dismissible alert-additional fade show&quot; role=&quot;alert&quot;&gt;
+&lt;div class=&quot;alert-body&quot;&gt;
+&lt;button type=&quot;button&quot; class=&quot;btn-close&quot; data-bs-dismiss=&quot;alert&quot; aria-label=&quot;Close&quot;&gt;&lt;/button&gt;
+&lt;div class=&quot;d-flex&quot;&gt;
+&lt;div class=&quot;flex-shrink-0 me-3&quot;&gt;
+&lt;i class=&quot;ri-error-warning-line fs-16 align-middle&quot;&gt;&lt;/i&gt;
+&lt;/div&gt;
+&lt;div class=&quot;flex-grow-1&quot;&gt;
+&lt;h5 class=&quot;alert-heading&quot;&gt;Something is very wrong!&lt;/h5&gt;
+&lt;p class=&quot;mb-0&quot;&gt;Change a few things up and try submitting again. &lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;alert-content&quot;&gt;
+&lt;p class=&quot;mb-0&quot;&gt;Whenever you need to, be sure to use margin utilities to keep things nice and tidy.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;</code>
+
+<code>&lt;!-- Success Alert --&gt;
+&lt;div class=&quot;alert alert-success alert-dismissible alert-additional fade show&quot; role=&quot;alert&quot;&gt;
+&lt;div class=&quot;alert-body&quot;&gt;
+&lt;button type=&quot;button&quot; class=&quot;btn-close&quot; data-bs-dismiss=&quot;alert&quot; aria-label=&quot;Close&quot;&gt;&lt;/button&gt;
+&lt;div class=&quot;d-flex&quot;&gt;
+&lt;div class=&quot;flex-shrink-0 me-3&quot;&gt;
+&lt;i class=&quot;ri-notification-off-line fs-16 align-middle&quot;&gt;&lt;/i&gt;
+&lt;/div&gt;
+&lt;div class=&quot;flex-grow-1&quot;&gt;
+&lt;h5 class=&quot;alert-heading&quot;&gt;Yey! Everything worked!&lt;/h5&gt;
+&lt;p class=&quot;mb-0&quot;&gt;This alert needs your attention, but it's not super important. &lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;alert-content&quot;&gt;
+&lt;p class=&quot;mb-0&quot;&gt;Whenever you need to, be sure to use margin utilities to keep things nice and tidy.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;</code>
+
+<code>&lt;!-- Warning Alert --&gt;
+&lt;div class=&quot;alert alert-warning alert-dismissible alert-additional fade show mb-0&quot; role=&quot;alert&quot;&gt;
+&lt;div class=&quot;alert-body&quot;&gt;
+&lt;button type=&quot;button&quot; class=&quot;btn-close&quot; data-bs-dismiss=&quot;alert&quot; aria-label=&quot;Close&quot;&gt;&lt;/button&gt;
+&lt;div class=&quot;d-flex&quot;&gt;
+&lt;div class=&quot;flex-shrink-0 me-3&quot;&gt;
+&lt;i class=&quot;ri-alert-line fs-16 align-middle&quot;&gt;&lt;/i&gt;
+&lt;/div&gt;
+&lt;div class=&quot;flex-grow-1&quot;&gt;
+&lt;h5 class=&quot;alert-heading&quot;&gt;Uh oh, something went wrong!&lt;/h5&gt;
+&lt;p class=&quot;mb-0&quot;&gt;Better check yourself, you're not looking too good. &lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;alert-content&quot;&gt;
+&lt;p class=&quot;mb-0&quot;&gt;Whenever you need to, be sure to use margin utilities to keep things nice and tidy.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+              </div>
+          </div><!-- end card-body -->
+      </div><!-- end card -->
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-12">
+      <div class="card">
+          <div class="card-header align-items-center d-flex">
+              <h4 class="card-title mb-0 flex-grow-1">Top Border with Outline Alerts</h4>
+              <div class="flex-shrink-0">
+                  <div class="form-check form-switch form-switch-right form-switch-md">
+                      <label for="8" class="form-label text-muted">Show Code</label>
+                      <input class="form-check-input code-switcher" type="checkbox" id="8" (click)="ShowCode($event)">
+                  </div>
+              </div>
+          </div><!-- end card header -->
+
+          <div class="card-body">
+              <p class="text-muted">Use the <code>alert-top-border</code> class to set an alert with the top border and outline.</p>
+              <div class="live-preview">
+                  <div class="row">
+                      <div class="col-xl-6">
+						<div class="d-flex flex-column gap-3">
+                        <div *ngFor="let color of defaultData">
+                          <h6>{{color.color}} Alert</h6>
+                          <ngb-alert type="{{color.color}}" (close)="close(color, defaultData)" class="alert-top-border alert-dismissible fade show custom-alert">
+                            <i class="{{color.icon}} me-3 align-middle fs-16 text-{{color.color}}"></i><strong>{{color.color}}</strong>
+                            - Top border alert
+                          </ngb-alert>
+						</div>
+                        </div>
+                      </div>
+
+                      <div class="col-xl-6">
+						<div class="d-flex flex-column gap-3">
+                        <div *ngFor="let color of dismissingData">
+                          <h6>{{color.color}} Alert</h6>
+                          <ngb-alert type="{{color.color}}" (close)="close(color, defaultData)" class="alert-top-border alert-dismissible fade show custom-alert">
+                            <i class="{{color.icon}} me-3 align-middle fs-16 text-warning"></i><strong>{{color.color}}</strong>
+                            - Top border alert
+                          </ngb-alert>
+						</div>
+                        </div>
+                      </div>
+                  </div>
+              </div>
+
+              <div class="d-none code-view">
+<pre class="language-markup"    style="max-height: 260px;">
+<code>&lt;!-- Primary Alert --&gt;
+&lt;div class=&quot;alert alert-primary alert-top-border alert-dismissible fade show&quot; role=&quot;alert&quot;&gt;
+&lt;i class=&quot;ri-user-smile-line me-3 align-middle fs-16 text-primary&quot;&gt;&lt;/i&gt;&lt;strong&gt;Primary&lt;/strong&gt; - Top border alert
+&lt;button type=&quot;button&quot; class=&quot;btn-close&quot; data-bs-dismiss=&quot;alert&quot; aria-label=&quot;Close&quot;&gt;&lt;/button&gt;
+&lt;/div&gt;
+</code>
+<code>&lt;!-- Secondary Alert --&gt;
+&lt;div class=&quot;alert alert-secondary alert-top-border alert-dismissible fade show&quot; role=&quot;alert&quot;&gt;
+&lt;i class=&quot;ri-check-double-line me-3 align-middle fs-16 text-secondary&quot;&gt;&lt;/i&gt;&lt;strong&gt;Secondary&lt;/strong&gt; - Top border alert
+&lt;button type=&quot;button&quot; class=&quot;btn-close&quot; data-bs-dismiss=&quot;alert&quot; aria-label=&quot;Close&quot;&gt;&lt;/button&gt;
+&lt;/div&gt;
+</code>
+<code>&lt;!-- Success Alert --&gt;
+&lt;div class=&quot;alert alert-success alert-top-border alert-dismissible fade show&quot; role=&quot;alert&quot;&gt;
+&lt;i class=&quot;ri-notification-off-line me-3 align-middle fs-16 text-success&quot;&gt;&lt;/i&gt;&lt;strong&gt;Success&lt;/strong&gt; - Top border alert
+&lt;button type=&quot;button&quot; class=&quot;btn-close&quot; data-bs-dismiss=&quot;alert&quot; aria-label=&quot;Close&quot;&gt;&lt;/button&gt;
+&lt;/div&gt;
+</code>
+<code>&lt;!-- Danger Alert --&gt;
+&lt;div class=&quot;alert alert-danger alert-top-border alert-dismissible fade show&quot; role=&quot;alert&quot;&gt;
+&lt;i class=&quot;ri-error-warning-line me-3 align-middle fs-16 text-danger&quot;&gt;&lt;/i&gt;&lt;strong&gt;Danger&lt;/strong&gt; - Top border alert
+&lt;button type=&quot;button&quot; class=&quot;btn-close&quot; data-bs-dismiss=&quot;alert&quot; aria-label=&quot;Close&quot;&gt;&lt;/button&gt;
+&lt;/div&gt;
+</code>
+<code>&lt;!-- Warning Alert --&gt;
+&lt;div class=&quot;alert alert-warning alert-top-border alert-dismissible fade show&quot; role=&quot;alert&quot;&gt;
+&lt;i class=&quot;ri-alert-line me-3 align-middle fs-16 text-warning&quot;&gt;&lt;/i&gt;&lt;strong&gt;Warning&lt;/strong&gt; - Top border alert
+&lt;button type=&quot;button&quot; class=&quot;btn-close&quot; data-bs-dismiss=&quot;alert&quot; aria-label=&quot;Close&quot;&gt;&lt;/button&gt;
+&lt;/div&gt;
+</code>
+<code>&lt;!-- Info Alert --&gt;
+&lt;div class=&quot;alert alert-info alert-top-border alert-dismissible fade show&quot; role=&quot;alert&quot;&gt;
+&lt;i class=&quot;ri-airplay-line me-3 align-middle fs-16 text-info&quot;&gt;&lt;/i&gt;&lt;strong&gt;Info&lt;/strong&gt; - Top border alert
+&lt;button type=&quot;button&quot; class=&quot;btn-close&quot; data-bs-dismiss=&quot;alert&quot; aria-label=&quot;Close&quot;&gt;&lt;/button&gt;
+&lt;/div&gt;
+</code>
+<code>&lt;!-- Light Alert --&gt;
+&lt;div class=&quot;alert alert-light alert-top-border alert-dismissible fade show&quot; role=&quot;alert&quot;&gt;
+&lt;i class=&quot;ri-mail-line me-3 align-middle fs-16 text-light&quot;&gt;&lt;/i&gt;&lt;strong&gt;Light&lt;/strong&gt; - Top border alert
+&lt;button type=&quot;button&quot; class=&quot;btn-close&quot; data-bs-dismiss=&quot;alert&quot; aria-label=&quot;Close&quot;&gt;&lt;/button&gt;
+&lt;/div&gt;
+</code>
+<code>&lt;!-- Dark Alert --&gt;
+&lt;div class=&quot;alert alert-dark alert-top-border alert-dismissible fade show mb-0&quot; role=&quot;alert&quot;&gt;
+&lt;i class=&quot;ri-refresh-line me-3 align-middle fs-16 text-dark&quot;&gt;&lt;/i&gt;&lt;strong&gt;Dark&lt;/strong&gt; - Top border alert
+&lt;button type=&quot;button&quot; class=&quot;btn-close&quot; data-bs-dismiss=&quot;alert&quot; aria-label=&quot;Close&quot;&gt;&lt;/button&gt;
+&lt;/div&gt;
+</code></pre>
+              </div>
+          </div><!-- end card-body -->
+      </div><!-- end card -->
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-12">
+      <div class="card">
+          <div class="card-header align-items-center d-flex">
+              <h4 class="card-title mb-0 flex-grow-1">Label Icon Arrow Alerts</h4>
+              <div class="flex-shrink-0">
+                  <div class="form-check form-switch form-switch-right form-switch-md">
+                      <label for="9" class="form-label text-muted">Show Code</label>
+                      <input class="form-check-input code-switcher" type="checkbox" id="9" (click)="ShowCode($event)">
+                  </div>
+              </div>
+          </div><!-- end card header -->
+
+          <div class="card-body">
+              <p class="text-muted">Use the <code>alert-label-icon label-arrow</code> class to show an alert with label icon and arrow.</p>
+              <div class="live-preview">
+
+                  <div class="row">
+                      <div class="col-xl-6">
+					<div class="d-flex flex-column gap-3">
+                        <div *ngFor="let color of defaultData">
+                          <h6>{{color.color}} Alert</h6>
+                          <ngb-alert type="{{color.color}}" (close)="close(color, defaultData)" class="alert-dismissible alert-label-icon label-arrow fade show custom-alert">
+                            <i class="{{color.icon}} label-icon"></i><strong>{{color.color}}</strong> -
+                            Label icon arrow alert
+                          </ngb-alert>
+						</div>
+                        </div>
+                      </div>
+
+                      <div class="col-xl-6">
+						<div class="d-flex flex-column gap-3">
+                        <div *ngFor="let color of dismissingData">
+                          <h6>{{color.color}} Alert</h6>
+                          <ngb-alert type="{{color.color}}" (close)="close(color, defaultData)" class="alert-dismissible alert-label-icon label-arrow fade show custom-alert">
+                            <i class="{{color.icon}} label-icon"></i><strong>{{color.color}}</strong> -
+                            Label icon arrow alert
+                          </ngb-alert>
+							</div>
+                        </div>
+                      </div>
+                  </div>
+              </div>
+
+              <div class="d-none code-view">
+<pre class="language-markup" style="max-height: 260px;">
+<code>&lt;!-- Primary Alert --&gt;
+&lt;div class=&quot;alert alert-primary alert-dismissible alert-label-icon label-arrow fade show&quot; role=&quot;alert&quot;&gt;
+&lt;i class=&quot;ri-user-smile-line label-icon&quot;&gt;&lt;/i&gt;&lt;strong&gt;Primary&lt;/strong&gt; - Label icon arrow  alert
+&lt;button type=&quot;button&quot; class=&quot;btn-close&quot; data-bs-dismiss=&quot; alert&quot; aria-label=&quot;Close&quot;&gt;&lt;/button&gt;
+&lt;/div&gt;
+</code>
+<code>&lt;!-- Secondary Alert --&gt;
+&lt;div class=&quot;alert alert-secondary alert-dismissible alert-label-icon label-arrow fade show&quot; role=&quot;alert&quot;&gt;
+&lt;i class=&quot;ri-check-double-line label-icon&quot;&gt;&lt;/i&gt;&lt;strong&gt;Secondary&lt;/strong&gt; - Label icon arrow  alert
+&lt;button type=&quot;button&quot; class=&quot;btn-close&quot; data-bs-dismiss=&quot; alert&quot; aria-label=&quot;Close&quot;&gt;&lt;/button&gt;
+&lt;/div&gt;
+</code>
+<code>&lt;!-- Success Alert --&gt;
+&lt;div class=&quot;alert alert-success alert-dismissible alert-label-icon label-arrow fade show&quot; role=&quot;alert&quot;&gt;
+&lt;i class=&quot;ri-notification-off-line label-icon&quot;&gt;&lt;/i&gt;&lt;strong&gt;Success&lt;/strong&gt; - Label icon arrow  alert
+&lt;button type=&quot;button&quot; class=&quot;btn-close&quot; data-bs-dismiss=&quot; alert&quot; aria-label=&quot;Close&quot;&gt;&lt;/button&gt;
+&lt;/div&gt;
+</code>
+<code>&lt;!-- Danger Alert --&gt;
+&lt;div class=&quot;alert alert-danger alert-dismissible alert-label-icon label-arrow fade show&quot; role=&quot;alert&quot;&gt;
+&lt;i class=&quot;ri-error-warning-line label-icon&quot;&gt;&lt;/i&gt;&lt;strong&gt;Danger&lt;/strong&gt; - Label icon arrow  alert
+&lt;button type=&quot;button&quot; class=&quot;btn-close&quot; data-bs-dismiss=&quot; alert&quot; aria-label=&quot;Close&quot;&gt;&lt;/button&gt;
+&lt;/div&gt;
+</code>
+<code>&lt;!-- Warning Alert --&gt;
+&lt;div class=&quot;alert alert-warning alert-dismissible alert-label-icon label-arrow fade show&quot; role=&quot;alert&quot;&gt;
+&lt;i class=&quot;ri-alert-line label-icon&quot;&gt;&lt;/i&gt;&lt;strong&gt;Warning&lt;/strong&gt; - Label icon arrow  alert
+&lt;button type=&quot;button&quot; class=&quot;btn-close&quot; data-bs-dismiss=&quot; alert&quot; aria-label=&quot;Close&quot;&gt;&lt;/button&gt;
+&lt;/div&gt;
+</code>
+<code>&lt;!-- Info Alert --&gt;
+&lt;div class=&quot;alert alert-info alert-dismissible alert-label-icon label-arrow fade show&quot; role=&quot;alert&quot;&gt;
+&lt;i class=&quot;ri-airplay-line label-icon&quot;&gt;&lt;/i&gt;&lt;strong&gt;Info&lt;/strong&gt; - Label icon arrow  alert
+&lt;button type=&quot;button&quot; class=&quot;btn-close&quot; data-bs-dismiss=&quot; alert&quot; aria-label=&quot;Close&quot;&gt;&lt;/button&gt;
+&lt;/div&gt;
+</code>
+<code>&lt;!-- Light Alert --&gt;
+&lt;div class=&quot;alert alert-light alert-dismissible alert-label-icon label-arrow fade show&quot; role=&quot;alert&quot;&gt;
+&lt;i class=&quot;ri-mail-line label-icon&quot;&gt;&lt;/i&gt;&lt;strong&gt;Light&lt;/strong&gt; - Label icon arrow  alert
+&lt;button type=&quot;button&quot; class=&quot;btn-close&quot; data-bs-dismiss=&quot; alert&quot; aria-label=&quot;Close&quot;&gt;&lt;/button&gt;
+&lt;/div&gt;
+</code>
+<code>&lt;!-- Dark Alert --&gt;
+&lt;div class=&quot;alert alert-dark alert-dismissible alert-label-icon label-arrow fade show mb-0&quot; role=&quot;alert&quot;&gt;
+&lt;i class=&quot;ri-refresh-line label-icon&quot;&gt;&lt;/i&gt;&lt;strong&gt;Dark&lt;/strong&gt; - Label icon arrow  alert
+&lt;button type=&quot;button&quot; class=&quot;btn-close&quot; data-bs-dismiss=&quot; alert&quot; aria-label=&quot;Close&quot;&gt;&lt;/button&gt;
+&lt;/div&gt;
+</code></pre>
+              </div>
+          </div><!-- end card-body -->
+      </div><!-- end card -->
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-12">
+      <div class="card">
+          <div class="card-header align-items-center d-flex">
+              <h4 class="card-title mb-0 flex-grow-1">Rounded Label Icon Alerts</h4>
+              <div class="flex-shrink-0">
+                  <div class="form-check form-switch form-switch-right form-switch-md">
+                      <label for="10" class="form-label text-muted">Show Code</label>
+                      <input class="form-check-input code-switcher" type="checkbox" id="10" (click)="ShowCode($event)">
+                  </div>
+              </div>
+          </div><!-- end card header -->
+
+          <div class="card-body">
+              <p class="text-muted">Use the <code>alert-label-icon rounded-label</code> class to set an alert with a rounded label icon.</p>
+              <div class="live-preview">
+
+                  <div class="row">
+                      <div class="col-xl-6">
+						<div class="d-flex flex-column gap-3">
+                        <div *ngFor="let color of defaultData">
+                          <h6>{{color.color}} Alert</h6>
+                          <ngb-alert type="{{color.color}}" (close)="close(color, defaultData)" class="alert-dismissible alert-label-icon rounded-label fade show custom-alert">
+                            <i class="{{color.icon}} label-icon"></i><strong>{{color.color}}</strong> -
+                              Rounded label alert
+                          </ngb-alert>
+						</div>
+                        </div>
+                      </div>
+
+                      <div class="col-xl-6">
+						<div class="d-flex flex-column gap-3">
+                        <div *ngFor="let color of dismissingData">
+                          <h6>{{color.color}} Alert</h6>
+                          <ngb-alert type="{{color.color}}" (close)="close(color, defaultData)" class="alert-dismissible alert-label-icon rounded-label fade show custom-alert">
+                            <i class="{{color.icon}} label-icon"></i><strong>{{color.color}}</strong> -
+                              Rounded label alert
+                          </ngb-alert>
+							</div>
+                        </div>
+                      </div>
+
+                  </div>
+              </div>
+
+              <div class="d-none code-view">
+<pre class="language-markup" style="max-height: 260px;">
+<code>&lt;!-- Primary Alert --&gt;
+&lt;div class=&quot;alert alert-primary alert-dismissible alert-label-icon rounded-label fade show&quot; role=&quot;alert&quot;&gt;
+&lt;i class=&quot;ri-user-smile-line label-icon&quot;&gt;&lt;/i&gt;&lt;strong&gt;Primary&lt;/strong&gt; - Rounded label alert
+&lt;button type=&quot;button&quot; class=&quot;btn-close&quot; data-bs-dismiss=&quot;alert&quot; aria-label=&quot;Close&quot;&gt;&lt;/button&gt;
+&lt;/div&gt;
+</code>
+<code>&lt;!-- Secondary Alert --&gt;
+&lt;div class=&quot;alert alert-secondary alert-dismissible alert-label-icon rounded-label fade show&quot; role=&quot;alert&quot;&gt;
+&lt;i class=&quot;ri-check-double-line label-icon&quot;&gt;&lt;/i&gt;&lt;strong&gt;Secondary&lt;/strong&gt; - Rounded label alert
+&lt;button type=&quot;button&quot; class=&quot;btn-close&quot; data-bs-dismiss=&quot;alert&quot; aria-label=&quot;Close&quot;&gt;&lt;/button&gt;
+&lt;/div&gt;
+</code>
+<code>&lt;!-- Success Alert --&gt;
+&lt;div class=&quot;alert alert-success alert-dismissible alert-label-icon rounded-label fade show&quot; role=&quot;alert&quot;&gt;
+&lt;i class=&quot;ri-notification-off-line label-icon&quot;&gt;&lt;/i&gt;&lt;strong&gt;Success&lt;/strong&gt; - Rounded label alert
+&lt;button type=&quot;button&quot; class=&quot;btn-close&quot; data-bs-dismiss=&quot;alert&quot; aria-label=&quot;Close&quot;&gt;&lt;/button&gt;
+&lt;/div&gt;
+</code>
+<code>&lt;!-- Danger Alert --&gt;
+&lt;div class=&quot;alert alert-danger alert-dismissible alert-label-icon rounded-label fade show&quot; role=&quot;alert&quot;&gt;
+&lt;i class=&quot;ri-error-warning-line label-icon&quot;&gt;&lt;/i&gt;&lt;strong&gt;Danger&lt;/strong&gt; - Rounded label alert
+&lt;button type=&quot;button&quot; class=&quot;btn-close&quot; data-bs-dismiss=&quot;alert&quot; aria-label=&quot;Close&quot;&gt;&lt;/button&gt;
+&lt;/div&gt;
+</code>
+<code>&lt;!-- Warning Alert --&gt;
+&lt;div class=&quot;alert alert-warning alert-dismissible alert-label-icon rounded-label fade show&quot; role=&quot;alert&quot;&gt;
+&lt;i class=&quot;ri-alert-line label-icon&quot;&gt;&lt;/i&gt;&lt;strong&gt;Warning&lt;/strong&gt; - Rounded label alert
+&lt;button type=&quot;button&quot; class=&quot;btn-close&quot; data-bs-dismiss=&quot;alert&quot; aria-label=&quot;Close&quot;&gt;&lt;/button&gt;
+&lt;/div&gt;
+</code>
+<code>&lt;!-- Info Alert --&gt;
+&lt;div class=&quot;alert alert-info alert-dismissible alert-label-icon rounded-label fade show&quot; role=&quot;alert&quot;&gt;
+&lt;i class=&quot;ri-airplay-line label-icon&quot;&gt;&lt;/i&gt;&lt;strong&gt;Info&lt;/strong&gt; - Rounded label alert
+&lt;button type=&quot;button&quot; class=&quot;btn-close&quot; data-bs-dismiss=&quot;alert&quot; aria-label=&quot;Close&quot;&gt;&lt;/button&gt;
+&lt;/div&gt;
+</code>
+<code>&lt;!-- Light Alert --&gt;
+&lt;div class=&quot;alert alert-light alert-dismissible alert-label-icon rounded-label fade show&quot; role=&quot;alert&quot;&gt;
+&lt;i class=&quot;ri-mail-line label-icon&quot;&gt;&lt;/i&gt;&lt;strong&gt;Light&lt;/strong&gt; - Rounded label alert
+&lt;button type=&quot;button&quot; class=&quot;btn-close&quot; data-bs-dismiss=&quot;alert&quot; aria-label=&quot;Close&quot;&gt;&lt;/button&gt;
+&lt;/div&gt;
+</code>
+<code>&lt;!-- Dark Alert --&gt;
+&lt;div class=&quot;alert alert-dark alert-dismissible alert-label-icon rounded-label fade show&quot; role=&quot;alert&quot;&gt;
+&lt;i class=&quot;ri-refresh-line label-icon&quot;&gt;&lt;/i&gt;&lt;strong&gt;Dark&lt;/strong&gt; - Rounded label alert
+&lt;button type=&quot;button&quot; class=&quot;btn-close&quot; data-bs-dismiss=&quot;alert&quot; aria-label=&quot;Close&quot;&gt;&lt;/button&gt;
+&lt;/div&gt;
+</code></pre>
+              </div>
+          </div><!-- end card-body -->
+      </div><!-- end card -->
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-12">
+      <div class="card">
+          <div class="card-header align-items-center d-flex">
+              <h4 class="card-title mb-0 flex-grow-1">Solid Alerts</h4>
+              <div class="flex-shrink-0">
+                  <div class="form-check form-switch form-switch-right form-switch-md">
+                      <label for="solid-alerts-code" class="form-label text-muted">Show Code</label>
+                      <input class="form-check-input code-switcher" type="checkbox" id="solid-alerts-code" (click)="ShowCode($event)"> 
+                  </div>
+              </div>
+          </div><!-- end card header -->
+
+          <div class="card-body">
+              <p class="text-muted">Use the <code>alert-solid</code> class to set an alert with solid style.</p>
+
+              <div class="live-preview">
+                  <div class="row">
+                      <div class="col-xl-6">
+                          <h6>Primary Solid Alert</h6>
+                          <ngb-alert class="alert-solid" [dismissible]="false" type="primary">
+                            <strong>Hi!</strong> - Solid <b>primary alert</b> example
+                          </ngb-alert>
+
+                          <h6>Secondary Solid Alert</h6>
+                          <ngb-alert class="alert-solid" [dismissible]="false" type="secondary">
+                            <strong>How are you!</strong> - Solid <b>secondary alert</b> example
+                          </ngb-alert>
+
+                          <h6>Success Solid Alert</h6>
+                          <ngb-alert class="alert-solid" [dismissible]="false" type="success">
+                            <strong>Yey! Everything worked! </strong> - Solid <b>success alert</b> example
+                          </ngb-alert>
+
+                          <h6>Danger Solid Alert</h6>
+                          <ngb-alert class="alert-solid mb-xl-0" [dismissible]="false" type="danger">
+                            <strong>Something is very wrong!</strong> - Solid <b>danger alert</b> example
+                          </ngb-alert>
+                      </div>
+
+                      <div class="col-xl-6">
+                          <h6>Warning Solid Alert</h6>
+                          <ngb-alert class="alert-solid" [dismissible]="false" type="warning">
+                            <strong>Uh oh, something went wrong!</strong> - Solid <b>warning alert</b> example
+                          </ngb-alert>
+
+                          <h6>Info Solid Alert</h6>
+                          <ngb-alert class="alert-solid" [dismissible]="false" type="info">
+                            <strong>Don't forget' it !</strong> - Solid <b>info alert</b> example
+                          </ngb-alert>
+
+                          <h6>Light Solid Alert</h6>
+                          <ngb-alert class="alert-solid" [dismissible]="false" type="light">
+                            <strong>Mind Your Step!</strong> - Solid <b>light alert</b> example
+                          </ngb-alert>
+
+                          <h6>Dark Solid Alert</h6>
+                          <ngb-alert class="alert-solid mb-0" [dismissible]="false" type="dark">
+                            <strong>Did you know?</strong> - Solid <b>dark alert</b> example
+                          </ngb-alert>
+
+                      </div>
+                  </div>
+              </div>
+
+              <div class="d-none code-view">
+<pre class="language-markup" style="max-height: 260px;">
+<code>&lt;!-- Primary Alert --&gt;
+&lt;div class=&quot;alert alert-primary alert-solid&quot; role=&quot;alert&quot;&gt;
+&lt;strong&gt;Hi!&lt;/strong&gt; - Solid &lt;b&gt;primary alert&lt;/b&gt; example
+&lt;/div&gt;
+</code>
+<code>&lt;!-- Secondary Alert --&gt;
+&lt;div class=&quot;alert alert-secondary alert-solid&quot; role=&quot;alert&quot;&gt;
+&lt;strong&gt;How are you!&lt;/strong&gt; - Solid &lt;b&gt;secondary alert&lt;/b&gt; example
+&lt;/div&gt;
+</code>
+<code>&lt;!-- Success Alert --&gt;
+&lt;div class=&quot;alert alert-success alert-solid&quot; role=&quot;alert&quot;&gt;
+&lt;strong&gt;Yey! Everything worked!&lt;/strong&gt; - Solid &lt;b&gt;success alert&lt;/b&gt; example
+&lt;/div&gt;
+</code>
+<code>&lt;!-- Danger Alert --&gt;
+&lt;div class=&quot;alert alert-danger alert-solid&quot; role=&quot;alert&quot;&gt;
+&lt;strong&gt;Something is very wrong!&lt;/strong&gt; - Solid &lt;b&gt;danger alert&lt;/b&gt; example
+&lt;/div&gt;
+</code>
+<code>&lt;!-- Warning Alert --&gt;
+&lt;div class=&quot;alert alert-warning alert-solid&quot; role=&quot;alert&quot;&gt;
+&lt;strong&gt;Uh oh, something went w rong!&lt;/strong&gt; - Solid &lt;b&gt;warning alert&lt;/b&gt; example
+&lt;/div&gt;
+</code>
+<code>&lt;!-- Info Alert --&gt;
+&lt;div class=&quot;alert alert-info alert-solid&quot; role=&quot;alert&quot;&gt;
+&lt;strong&gt;Don't forget' it !&lt;/strong&gt; - Solid &lt;b&gt;info alert&lt;/b&gt; example
+&lt;/div&gt;
+</code>
+<code>&lt;!-- Light Alert --&gt;
+&lt;div class=&quot;alert alert-light alert-solid&quot; role=&quot;alert&quot;&gt;
+&lt;strong&gt;Mind Your Step!&lt;/strong&gt; - Solid &lt;b&gt;light alert&lt;/b&gt; example
+&lt;/div&gt;
+</code>
+<code>&lt;!-- Dark Alert --&gt;
+&lt;div class=&quot;alert alert-dark alert-solid mb-0&quot; role=&quot;alert&quot;&gt;
+&lt;strong&gt;Did you know?&lt;/strong&gt; - Solid &lt;b&gt;dark alert&lt;/b&gt; example
+&lt;/div&gt;
+</code></pre>
+              </div>
+          </div><!-- end card-body -->
+      </div><!-- end card -->
+  </div>
+</div>

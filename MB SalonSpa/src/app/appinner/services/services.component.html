@@ -1,0 +1,81 @@
+<!-- categories -->
+<div class="row mb-2">
+  <div class="col-12 px-0 d-flex justify-content-between">
+    <swiper
+      class="tagsswiper"
+      [slidesPerView]="'auto'"
+      [spaceBetween]="0"
+      [pagination]="false"
+    >
+      <ng-template swiperSlide>
+        <button class="btn btn-default">Services</button>
+      </ng-template>
+    </swiper>
+    <swiper
+      class="tagsswiper"
+      [slidesPerView]="'auto'"
+      [spaceBetween]="0"
+      [pagination]="false"
+    >
+      <ng-template swiperSlide>
+        <button
+          class="btn btn-default"
+          routerLink="/time-booking"
+          [disabled]="isServiceBooking(serviceBooking)"
+          (click)="nextStepBooking()"
+        >
+          NEXT <i class="bi bi-arrow-right-short"></i>
+        </button>
+      </ng-template>
+    </swiper>
+  </div>
+</div>
+<!-- categories -->
+
+<ngx-skeleton-loader count="22" *ngIf="!isSkeleton"></ngx-skeleton-loader>
+
+<ng-container *ngIf="isSkeleton">
+  <div class="row">
+    <div class="col-12 col-md-6" *ngFor="let item of listService">
+      <div class="card mb-4 overflow-hidden shadow-sm bg-primary text-white">
+        <div class="overlay"></div>
+        <div class="coverimg h-100 w-100 position-absolute opacity-5">
+          <img
+            src="{{ item.image }}"
+            alt=""
+            style="height: 100%; object-fit: cover; width: 100%"
+          />
+        </div>
+        <div class="card-body">
+          <div class="row mb-5">
+            <div class="col align-self-center">
+              <span class="tag">Trending</span>
+            </div>
+            <div class="col-auto">
+              <button class="btn btn-primary text-white btn-44 shadow-sm">
+                <input
+                  class="form-check-input"
+                  style="margin-top: 13px"
+                  type="checkbox"
+                  id="contact3"
+                  (click)="getServiceBooking(item)"
+                />
+              </button>
+            </div>
+          </div>
+          <br />
+          <a class="h4 text-normal d-block text-white mb-2">{{ item.name }}</a>
+          <p class="text-muted content-limit">
+            {{ item.description }}
+          </p>
+          <div class="small">
+            <figure class="avatar avatar-20 rounded mx-1">
+              <i class="bi bi-cash-coin"></i>
+            </figure>
+            {{ item?.amount?.$numberDecimal | currency : "" : "" : "1.0" }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>

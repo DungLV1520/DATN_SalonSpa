@@ -1,0 +1,116 @@
+.bgc-img {
+  background-color: #f9fbfd;
+  width: 86%;
+  height: 100vh;
+  padding: 0 10%;
+  margin: auto;
+  display: block;
+}
+@media screen and (max-width: 767.8px) {
+  .bgc-img {
+    display: none;
+  }
+}
+.content {
+  display: flex;
+  height: 100vh;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 94px 10% 53px 104px;
+}
+.bg-img {
+  background-color: #f9fbfd;
+}
+.content-avatar {
+  width: 168px;
+  height: 46px;
+}
+.form-title {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 36px;
+  line-height: 44px;
+  color: #33476e;
+  margin-bottom: 40px;
+}
+.placeholder-login,
+.placeholder-password {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 150%;
+  letter-spacing: 0.01em;
+  color: #33476e;
+}
+.register {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 22px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: #33476e;
+  margin-bottom: 16px;
+}
+.link-register {
+  color: #ed1c24;
+  text-decoration: none;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 22px;
+}
+.remember {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 22px;
+  color: #33476e;
+}
+.forgot-password {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 22px;
+  display: flex;
+  align-items: center;
+  text-align: right;
+  color: #ed1c24;
+  text-decoration: none;
+}
+.version {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 22px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: #33476e;
+  margin-right: 50px;
+}
+.report {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 22px;
+  display: flex;
+  align-items: center;
+  text-decoration-line: underline;
+  color: #33476e;
+}
+.footer-login {
+  margin-left: 0px;
+  display: flex;
+  justify-content: center;
+}
+.login {
+  background-color: #ffff;
+}

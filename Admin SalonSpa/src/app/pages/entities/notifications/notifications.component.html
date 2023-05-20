@@ -1,0 +1,288 @@
+<app-breadcrumbs
+  title="Notification"
+  [breadcrumbItems]="breadCrumbItems"
+></app-breadcrumbs>
+
+<div class="row">
+  <div class="col-lg-12">
+    <div class="card">
+      <div class="card-body">
+        <div class="d-flex align-items-center justify-content-lg-between">
+          <div style="width: 30%">
+            <ng-select
+              placeholder="{{ 'Choose Customer' | translate }}"
+              [items]="users"
+              [(ngModel)]="searchUser"
+              (change)="searchNotify()"
+              [multiple]="false"
+              bindLabel="email"
+              bindValue="_id"
+            ></ng-select>
+          </div>
+          <div class="flex-shrink-0">
+            <button
+              class="btn btn-soft-primary mx-3"
+              data-bs-toggle="modal"
+              data-bs-target="#CreateJobModal"
+              (click)="openModal(createJobModal, true)"
+            >
+              <i class="ri-add-line align-bottom me-1"></i>
+              {{ "Create Notify for User" | translate }}
+            </button>
+            <button
+              class="btn btn-soft-primary"
+              data-bs-toggle="modal"
+              data-bs-target="#CreateJobModal"
+              (click)="openModal(createJobModal, false)"
+            >
+              <i class="ri-add-line align-bottom me-1"></i>
+              {{ "Create to All User" | translate }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xxl-12">
+    <div class="p-3 card" *ngIf="!checkSkeleton">
+      <ngx-skeleton-loader count="15"></ngx-skeleton-loader>
+    </div>
+
+    <ngb-alert
+      *ngIf="checkSkeleton && listNotification.length === 0"
+      role="alert"
+      class="alert show alert-dismissible text-center alert-additional fade custom-alert alert-light"
+      ><div class="alert-body">
+        <div class="d-flex">
+          <div class="flex-shrink-0 me-3">
+            <i class="ri-notification-off-line fs-16 align-middle"></i>
+          </div>
+          <div class="flex-grow-1">
+            <h5 class="alert-heading">Yey! Everything worked!</h5>
+            <p class="mb-0">
+              This alert needs your attention, but it's not super important.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="alert-content">
+        <p class="mb-0">
+          Whenever you need to, be sure to use margin utilities to keep things
+          nice and tidy.
+        </p>
+      </div>
+      <button type="button" aria-label="Close" class="btn-close"></button
+    ></ngb-alert>
+
+    <ng-container *ngIf="checkSkeleton && listNotification.length > 0">
+      <div
+        *ngFor="let list of listNotification; let i = index"
+        class="card joblist-card"
+      >
+        <ngb-alert
+          role="alert"
+          class="alert show alert-dismissible alert-additional fade custom-alert alert-primary"
+          ><div class="alert-body">
+            <div class="d-flex">
+              <div class="flex-shrink-0 me-3">
+                <i class="ri-notification-off-line fs-16 align-middle"></i>
+              </div>
+              <div class="flex-grow-1">
+                <h5 class="alert-heading">{{ list.idUser.email }}</h5>
+                <p class="mb-0">
+                  {{ list.content }}
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="alert-content">
+            <i class="ri-time-line align-bottom me-1"></i>
+            <span class="job-postdate">
+              {{ list.updatedAt | date : "hh:mm:ss a dd/MM/YYYY" }}</span
+            >
+          </div>
+          <button
+            type="button"
+            aria-label="Close"
+            class="btn-close"
+            (click)="confirm(deleteModel, list._id)"
+          ></button
+        ></ngb-alert>
+      </div>
+    </ng-container>
+
+    <div
+      class="row justify-content-md-between align-items-md-center mt-3"
+      *ngIf="listNotification.length > 0"
+    >
+      <div class="col col-sm-6"></div>
+      <div class="col col-sm-6">
+        <div class="text-sm-right float-sm-end listjs-pagination">
+          <ngb-pagination
+            [collectionSize]="total"
+            [(page)]="page"
+            [pageSize]="pagesize"
+            (click)="loadPageClick()"
+          >
+          </ngb-pagination>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Create Model -->
+<ng-template #createJobModal let-modal>
+  <div class="modal-content border-0">
+    <form
+      id="createjob-form"
+      autocomplete="off"
+      class="needs-validation"
+      (ngSubmit)="createNotification()"
+      [formGroup]="notiForm"
+      novalidate
+    >
+      <div class="modal-body">
+        <input type="hidden" id="id-field" formControlName="id" />
+        <div class="row g-3">
+          <div class="col-lg-12">
+            <div class="px-1 pt-1">
+              <div
+                class="modal-team-cover position-relative mb-0 mt-n4 mx-n4 rounded-top overflow-hidden"
+              >
+                <img
+                  src="assets/images/small/img-9.jpg"
+                  alt=""
+                  id="modal-cover-img"
+                  class="img-fluid"
+                />
+
+                <div class="d-flex position-absolute start-0 end-0 top-0 p-3">
+                  <div class="flex-grow-1">
+                    <h5 class="modal-title text-white" id="exampleModalLabel">
+                      Create Notify
+                    </h5>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-12" *ngIf="checkCreatUser">
+            <div>
+              <label for="status-field" class="form-label required">User</label>
+              <ng-select
+                placeholder="Choose user"
+                [items]="users"
+                formControlName="idUser"
+                [multiple]="false"
+                bindLabel="email"
+                bindValue="_id"
+                [ngClass]="{
+                  'is-invalid': submitted && form['idUser'].errors
+                }"
+              ></ng-select>
+              <div class="invalid-feedback">Please choose a user.</div>
+            </div>
+          </div>
+          <div class="col-lg-12">
+            <div>
+              <label for="description-field " class="form-label required"
+                >Content</label
+              >
+              <textarea
+                class="form-control"
+                id="description-field"
+                rows="3"
+                placeholder="Enter content"
+                required
+                formControlName="content"
+                [ngClass]="{
+                  'is-invalid': submitted && form['content'].errors
+                }"
+              ></textarea>
+              <div class="invalid-feedback">Please enter a content.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <div class="hstack gap-2 justify-content-end">
+          <button
+            type="button"
+            class="btn btn-light"
+            data-bs-dismiss="modal"
+            (click)="modal.dismiss('close click')"
+          >
+            Close
+          </button>
+          <button
+            type="submit"
+            class="btn btn-primary"
+            id="add-btn"
+            [disabled]="checkEnableSave()"
+          >
+            Add Notification
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</ng-template>
+<!--end add modal-->
+
+<!-- removeItemModal -->
+<ng-template #deleteModel let-modal>
+  <div class="modal-content">
+    <div class="modal-header">
+      <button
+        type="button"
+        class="btn-close"
+        data-bs-dismiss="modal"
+        aria-label="Close"
+        id="deleteRecord-close"
+        (click)="modal.dismiss('Cross click')"
+      ></button>
+    </div>
+    <div class="modal-body">
+      <div class="mt-2 text-center">
+        <lord-icon
+          src="https://cdn.lordicon.com/gsqxdxog.json"
+          trigger="loop"
+          colors="primary:#405189,secondary:#f06548"
+          style="width: 90px; height: 90px"
+        ></lord-icon>
+        <div class="mt-4 pt-2 fs-15 mx-4 mx-sm-5">
+          <h4>You are about to delete a notification ?</h4>
+          <p class="text-muted mx-4 mb-0">
+            Deleting your notification will remove all of your information from
+            our database.
+          </p>
+        </div>
+      </div>
+      <div class="d-flex gap-2 justify-content-center mt-4 mb-2">
+        <button
+          class="btn btn-link link-success fw-medium text-decoration-none"
+          data-bs-dismiss="modal"
+          id="deleteRecord-close"
+          (click)="modal.close('Close click')"
+        >
+          <i class="ri-close-line me-1 align-middle"></i> Close
+        </button>
+        <button
+          type="button"
+          class="btn w-sm btn-danger"
+          id="delete-product"
+          (click)="deleteNotification(deleteId)"
+          (click)="modal.close('Close click')"
+        >
+          Yes, Delete It!
+        </button>
+      </div>
+    </div>
+  </div>
+  <!-- /.modal-content -->
+</ng-template>

@@ -1,0 +1,1007 @@
+<app-breadcrumbs
+  title="Booking"
+  [breadcrumbItems]="breadCrumbItems"
+></app-breadcrumbs>
+
+<div class="row">
+  <div class="col-lg-12">
+    <div class="card" id="orderList">
+      <div class="card-header border-0">
+        <div class="row align-items-center gy-3">
+          <div class="col-sm">
+            <h5 class="card-title mb-0">
+              {{ "MENUITEMS.APPS.LIST.BOOKING" | translate }}
+            </h5>
+          </div>
+          <div class="col-sm-auto hstack gap-2">
+            <button
+              class="btn btn-soft-danger"
+              id="remove-actions"
+              style="display: none"
+              (click)="deleteMultiple(cancelModel)"
+            >
+              <i class="ri-delete-bin-2-line"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="card-body border border-dashed border-end-0 border-start-0">
+        <div class="row g-3">
+          <div class="col-xxl-4 col-sm-6">
+            <div class="search-box">
+              <form [formGroup]="searchForm">
+                <input
+                  type="text"
+                  name="searchTerm"
+                  class="form-control"
+                  formControlName="searchTerm"
+                  placeholder="{{ 'CONTACT.search' | translate }}"
+                />
+                <i class="ri-search-line search-icon"></i>
+              </form>
+            </div>
+          </div>
+          <div class="col-xxl-3 col-sm-6">
+            <div class="input-group">
+              <input
+                type="text"
+                class="form-control bg-light border-light"
+                id="datepicker"
+                mwlFlatpickr
+                [convertModelValue]="true"
+                data-date-format="d M, Y"
+                [(ngModel)]="selectedDate"
+                (change)="onChangeTime($event)"
+                placeholder="{{ 'CONTACT.selectDate' | translate }}"
+                mode="range"
+              />
+              <div
+                class="input-group-text bg-primary border-primary text-white"
+              >
+                <i class="ri-calendar-2-line"></i>
+              </div>
+            </div>
+          </div>
+          <div class="col-auto">
+            <div>
+              <button
+                type="button"
+                class="btn btn-soft-danger w-100"
+                (click)="clearFilter()"
+              >
+                <i class="ri-equalizer-fill me-1 align-bottom"></i>
+                {{ "CONTACT.clearFilter" | translate }}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-body pt-0">
+        <div>
+          <ul
+            ngbNav
+            #nav="ngbNav"
+            [activeId]="1"
+            (navChange)="onNavChange($event)"
+            class="nav nav-tabs nav-tabs-custom nav-success mb-3"
+          >
+            <li [ngbNavItem]="1">
+              <a ngbNavLink>
+                <i class="ri-store-2-fill me-1 align-bottom"></i>
+                {{ "All Bookings" | translate }}
+                <span class="badge bg-danger align-middle ms-1">{{
+                  totalStatus
+                }}</span>
+              </a>
+              <ng-template ngbNavContent>
+                <div class="table-responsive table-card mb-0">
+                  <ngb-alert
+                    *ngIf="checkSkeleton && booking.length === 0"
+                    role="alert"
+                    class="alert show alert-dismissible text-center alert-additional fade custom-alert alert-light"
+                    ><div class="alert-body">
+                      <div class="d-flex">
+                        <div class="flex-shrink-0 me-3">
+                          <i
+                            class="ri-notification-off-line fs-16 align-middle"
+                          ></i>
+                        </div>
+                        <div class="flex-grow-1">
+                          <h5 class="alert-heading">Yey! Everything worked!</h5>
+                          <p class="mb-0">
+                            This alert needs your attention, but it's not super
+                            important.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="alert-content">
+                      <p class="mb-0">
+                        Whenever you need to, be sure to use margin utilities to
+                        keep things nice and tidy.
+                      </p>
+                    </div>
+                    <button
+                      type="button"
+                      aria-label="Close"
+                      class="btn-close"
+                    ></button
+                  ></ngb-alert>
+                  <ngx-skeleton-loader
+                    count="15"
+                    *ngIf="!checkSkeleton"
+                  ></ngx-skeleton-loader>
+                  <table
+                    class="table"
+                    *ngIf="checkSkeleton && booking.length > 0"
+                  >
+                    <thead>
+                      <tr class="bg-light text-muted text-uppercase">
+                        <th scope="col" style="width: 25px">
+                          <div class="form-check">
+                            <input
+                              class="form-check-input"
+                              type="checkbox"
+                              id="checkAll"
+                              value="option"
+                              [(ngModel)]="masterSelected"
+                              (change)="checkUncheckAll($event)"
+                            />
+                          </div>
+                        </th>
+                        <th>{{ "CONTACT.name" | translate }}</th>
+                        <th>{{ "CONTACT.phone" | translate }}</th>
+                        <th>{{ "Services" | translate }}</th>
+                        <th>{{ "Branch" | translate }}</th>
+                        <th>{{ "Money" | translate }}</th>
+                        <th>{{ "Status" | translate }}</th>
+                        <th>{{ "Time" | translate }}</th>
+                        <th>{{ "CONTACT.createdAt" | translate }}</th>
+                        <th>{{ "CONTACT.action" | translate }}</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let data of booking" id="o_{{ data._id }}">
+                        <th scope="row">
+                          <div class="form-check">
+                            <input
+                              class="form-check-input"
+                              type="checkbox"
+                              name="checkAll"
+                              value="{{ data._id }}"
+                              [(ngModel)]="data.state"
+                              (change)="onCheckboxChange($event, data)"
+                            />
+                          </div>
+                        </th>
+                        <td>
+                          <a>
+                            <ngb-highlight [result]="data.name"></ngb-highlight>
+                          </a>
+                        </td>
+                        <td>
+                          <ngb-highlight
+                            [result]="
+                              data.phone.toString() | mask : '(000) 000-0000'
+                            "
+                          ></ngb-highlight>
+                        </td>
+                        <td style="width: 250px">
+                          <p
+                            class="badge badge-soft-primary mx-1"
+                            *ngFor="let item of data.services"
+                          >
+                            {{ item.name | uppercase }}
+                          </p>
+                        </td>
+                        <td>
+                          <ngb-highlight [result]="data?.branch?.name">
+                          </ngb-highlight>
+                        </td>
+                        <td>
+                          <ngb-highlight
+                            [result]="
+                              data.amount.$numberDecimal.toString()
+                                | currency : '' : '' : '1.0'
+                            "
+                          ></ngb-highlight>
+                        </td>
+                        <td>
+                          <ngb-highlight
+                            class="badge"
+                            [ngClass]="checkClassStatus(data.status)"
+                            [result]="data.status | uppercase"
+                          ></ngb-highlight>
+                        </td>
+                        <td>
+                          <ngb-highlight
+                            [result]="
+                              data.time | date : 'hh:mm:ss a dd/MM/YYYY'
+                            "
+                          ></ngb-highlight>
+                        </td>
+                        <td>
+                          <ngb-highlight
+                            [result]="
+                              data.createdAt | date : 'hh:mm:ss a dd/MM/YYYY '
+                            "
+                          ></ngb-highlight>
+                        </td>
+                        <td>
+                          <ul class="list-inline hstack gap-2 mb-0">
+                            <li
+                              class="list-inline-item edit"
+                              data-bs-toggle="tooltip"
+                              data-bs-trigger="hover"
+                              ngbTooltip="Payment"
+                              placement="top"
+                            >
+                              <a
+                                href="javascript:void(0);"
+                                data-bs-toggle="modal"
+                                class="text-primary d-inline-block edit-item-btn"
+                                data-bs-toggle="modal"
+                                id="create-btn"
+                                data-bs-target="#showModal"
+                                (click)="paymentServiceForUsers(data.services)"
+                              >
+                                <i class="ri-shopping-cart-2-line fs-16"></i>
+                              </a>
+                            </li>
+                            <li
+                              class="list-inline-item edit"
+                              data-bs-toggle="tooltip"
+                              data-bs-trigger="hover"
+                              ngbTooltip="Completed"
+                              placement="top"
+                            >
+                              <a
+                                href="javascript:void(0);"
+                                data-bs-toggle="modal"
+                                class="text-primary d-inline-block edit-item-btn"
+                                data-bs-toggle="modal"
+                                id="create-btn"
+                                data-bs-target="#showModal"
+                                (click)="
+                                  changeStatusBooking('Completed', data._id)
+                                "
+                              >
+                                <i class="ri-checkbox-circle-line fs-16"></i>
+                              </a>
+                            </li>
+                            <li
+                              class="list-inline-item cursor-pointer"
+                              (click)="confirm(cancelModel, data._id)"
+                            >
+                              <a
+                                class="text-danger d-inline-block remove-item-btn"
+                                data-bs-toggle="modal"
+                                data-bs-target="#deleteOrder"
+                                ngbTooltip="Cancelled"
+                              >
+                                <i class="ri-close-circle-fill fs-16"></i>
+                              </a>
+                            </li>
+                          </ul>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div
+                  *ngIf="booking.length > 0"
+                  class="row justify-content-md-between align-items-md-center gy-2"
+                >
+                  <div class="col col-sm-6">
+                    <div
+                      class="dataTables_info mb-2"
+                      id="tickets-table_info"
+                      role="status"
+                      aria-live="polite"
+                    >
+                      {{ "Showing" | translate }}
+                      {{ (page - 1) * pagesize + 1 }}-{{
+                        total > page * pagesize ? page * pagesize : total
+                      }}
+                      of
+                      {{ total }}
+                      {{ "Entries" | translate }}
+                    </div>
+                  </div>
+                  <!-- Pagination -->
+                  <div class="col col-sm-6">
+                    <div class="text-sm-right float-end listjs-pagination">
+                      <ngb-pagination
+                        [collectionSize]="total"
+                        [(page)]="page"
+                        [pageSize]="pagesize"
+                        (click)="loadPageClick()"
+                      >
+                      </ngb-pagination>
+                    </div>
+                  </div>
+                  <!-- End Pagination -->
+                </div>
+              </ng-template>
+            </li>
+
+            <li [ngbNavItem]="2">
+              <a ngbNavLink>
+                <i class="ri-checkbox-circle-line me-1 align-bottom"></i>
+                {{ "Active" | translate }}
+                <span class="badge bg-danger align-middle ms-1">{{
+                  totalActive
+                }}</span>
+              </a>
+              <ng-template ngbNavContent>
+                <div class="table-responsive table-card mb-0">
+                  <ngb-alert
+                    *ngIf="checkSkeleton && booking.length === 0"
+                    role="alert"
+                    class="alert show alert-dismissible text-center alert-additional fade custom-alert alert-light"
+                    ><div class="alert-body">
+                      <div class="d-flex">
+                        <div class="flex-shrink-0 me-3">
+                          <i
+                            class="ri-notification-off-line fs-16 align-middle"
+                          ></i>
+                        </div>
+                        <div class="flex-grow-1">
+                          <h5 class="alert-heading">Yey! Everything worked!</h5>
+                          <p class="mb-0">
+                            This alert needs your attention, but it's not super
+                            important.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="alert-content">
+                      <p class="mb-0">
+                        Whenever you need to, be sure to use margin utilities to
+                        keep things nice and tidy.
+                      </p>
+                    </div>
+                    <button
+                      type="button"
+                      aria-label="Close"
+                      class="btn-close"
+                    ></button
+                  ></ngb-alert>
+                  <ngx-skeleton-loader
+                    count="15"
+                    *ngIf="!checkSkeleton"
+                  ></ngx-skeleton-loader>
+                  <table
+                    class="table"
+                    *ngIf="checkSkeleton && booking.length > 0"
+                  >
+                    <thead>
+                      <tr class="bg-light text-muted text-uppercase">
+                        <th scope="col" style="width: 25px">
+                          <div class="form-check">
+                            <input
+                              class="form-check-input"
+                              type="checkbox"
+                              id="checkAll"
+                              value="option"
+                              [(ngModel)]="masterSelected"
+                              (change)="checkUncheckAll($event)"
+                            />
+                          </div>
+                        </th>
+                        <th>{{ "CONTACT.name" | translate }}</th>
+                        <th>{{ "CONTACT.phone" | translate }}</th>
+                        <th>{{ "Services" | translate }}</th>
+                        <th>{{ "Services" | translate }}</th>
+                        <th>{{ "TotalMoney" | translate }}</th>
+                        <th>{{ "Status" | translate }}</th>
+                        <th>{{ "Time" | translate }}</th>
+                        <th>{{ "CONTACT.createdAt" | translate }}</th>
+                        <th>{{ "CONTACT.action" | translate }}</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let data of booking" id="o_{{ data._id }}">
+                        <th scope="row">
+                          <div class="form-check">
+                            <input
+                              class="form-check-input"
+                              type="checkbox"
+                              name="checkAll"
+                              value="{{ data._id }}"
+                              [(ngModel)]="data.state"
+                              (change)="onCheckboxChange($event, data)"
+                            />
+                          </div>
+                        </th>
+                        <td>
+                          <a>
+                            <ngb-highlight [result]="data.name"></ngb-highlight>
+                          </a>
+                        </td>
+                        <td>
+                          <ngb-highlight
+                            [result]="
+                              data.phone.toString() | mask : '(000) 000-0000'
+                            "
+                          ></ngb-highlight>
+                        </td>
+                        <td style="width: 250px">
+                          <p
+                            class="badge badge-soft-primary mx-1"
+                            *ngFor="let item of data.services"
+                          >
+                            {{ item.name | uppercase }}
+                          </p>
+                        </td>
+                        <td>
+                          <ngb-highlight [result]="data.branch.name">
+                          </ngb-highlight>
+                        </td>
+                        <td>
+                          <ngb-highlight
+                            [result]="
+                              data.amount.$numberDecimal.toString()
+                                | currency : '' : '' : '1.0'
+                            "
+                          ></ngb-highlight>
+                        </td>
+                        <td>
+                          <ngb-highlight
+                            class="badge"
+                            [ngClass]="checkClassStatus(data.status)"
+                            [result]="data.status | uppercase"
+                          ></ngb-highlight>
+                        </td>
+                        <td>
+                          <ngb-highlight
+                            [result]="
+                              data.time | date : 'hh:mm:ss a dd/MM/YYYY'
+                            "
+                          ></ngb-highlight>
+                        </td>
+                        <td>
+                          <ngb-highlight
+                            [result]="
+                              data.createdAt | date : 'hh:mm:ss a dd/MM/YYYY'
+                            "
+                          ></ngb-highlight>
+                        </td>
+                        <td>
+                          <ul class="list-inline hstack gap-2 mb-0">
+                            <li
+                              class="list-inline-item edit"
+                              data-bs-toggle="tooltip"
+                              data-bs-trigger="hover"
+                              ngbTooltip="Payment"
+                              placement="top"
+                            >
+                              <a
+                                href="javascript:void(0);"
+                                data-bs-toggle="modal"
+                                class="text-primary d-inline-block edit-item-btn"
+                                data-bs-toggle="modal"
+                                id="create-btn"
+                                data-bs-target="#showModal"
+                                (click)="paymentServiceForUsers(data.services)"
+                              >
+                                <i class="ri-shopping-cart-2-line fs-16"></i>
+                              </a>
+                            </li>
+                            <li
+                              class="list-inline-item edit"
+                              data-bs-toggle="tooltip"
+                              data-bs-trigger="hover"
+                              ngbTooltip="Completed"
+                              placement="top"
+                            >
+                              <a
+                                href="javascript:void(0);"
+                                data-bs-toggle="modal"
+                                class="text-primary d-inline-block edit-item-btn"
+                                data-bs-toggle="modal"
+                                id="create-btn"
+                                data-bs-target="#showModal"
+                                (click)="
+                                  changeStatusBooking('Completed', data._id)
+                                "
+                              >
+                                <i class="ri-checkbox-circle-line fs-16"></i>
+                              </a>
+                            </li>
+                            <li
+                              class="list-inline-item cursor-pointer"
+                              (click)="confirm(cancelModel, data._id)"
+                            >
+                              <a
+                                class="text-danger d-inline-block remove-item-btn"
+                                data-bs-toggle="modal"
+                                data-bs-target="#deleteOrder"
+                                ngbTooltip="Cancelled"
+                              >
+                                <i class="ri-close-circle-fill fs-16"></i>
+                              </a>
+                            </li>
+                          </ul>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div
+                  *ngIf="booking.length > 0"
+                  class="row justify-content-md-between align-items-md-center gy-2"
+                >
+                  <div class="col col-sm-6">
+                    <div
+                      class="dataTables_info mb-2"
+                      id="tickets-table_info"
+                      role="status"
+                      aria-live="polite"
+                    >
+                      Showing
+                      {{ (page - 1) * pagesize + 1 }}-{{
+                        total > page * pagesize ? page * pagesize : total
+                      }}
+                      of
+                      {{ total }}
+                      entries
+                    </div>
+                  </div>
+                  <!-- Pagination -->
+                  <div class="col col-sm-6">
+                    <div class="text-sm-right float-end listjs-pagination">
+                      <ngb-pagination
+                        [collectionSize]="total"
+                        [(page)]="page"
+                        [pageSize]="pagesize"
+                        (click)="loadPageClick()"
+                      >
+                      </ngb-pagination>
+                    </div>
+                  </div>
+                  <!-- End Pagination -->
+                </div>
+              </ng-template>
+            </li>
+
+            <li [ngbNavItem]="3">
+              <a ngbNavLink>
+                <i class="ri-checkbox-circle-fill me-1 align-bottom"></i>
+                {{ "Completed" | translate }}
+                <span class="badge bg-danger align-middle ms-1">{{
+                  totalCompleted
+                }}</span>
+              </a>
+              <ng-template ngbNavContent>
+                <div class="table-responsive table-card mb-0">
+                  <ngb-alert
+                    *ngIf="checkSkeleton && booking.length === 0"
+                    role="alert"
+                    class="alert show alert-dismissible text-center alert-additional fade custom-alert alert-light"
+                    ><div class="alert-body">
+                      <div class="d-flex">
+                        <div class="flex-shrink-0 me-3">
+                          <i
+                            class="ri-notification-off-line fs-16 align-middle"
+                          ></i>
+                        </div>
+                        <div class="flex-grow-1">
+                          <h5 class="alert-heading">Yey! Everything worked!</h5>
+                          <p class="mb-0">
+                            This alert needs your attention, but it's not super
+                            important.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="alert-content">
+                      <p class="mb-0">
+                        Whenever you need to, be sure to use margin utilities to
+                        keep things nice and tidy.
+                      </p>
+                    </div>
+                    <button
+                      type="button"
+                      aria-label="Close"
+                      class="btn-close"
+                    ></button
+                  ></ngb-alert>
+                  <ngx-skeleton-loader
+                    count="15"
+                    *ngIf="!checkSkeleton"
+                  ></ngx-skeleton-loader>
+                  <table
+                    class="table"
+                    *ngIf="checkSkeleton && booking.length > 0"
+                  >
+                    <thead>
+                      <tr class="bg-light text-muted text-uppercase">
+                        <th scope="col" style="width: 25px">
+                          <div class="form-check">
+                            <input
+                              class="form-check-input"
+                              type="checkbox"
+                              id="checkAll"
+                              value="option"
+                              [(ngModel)]="masterSelected"
+                              (change)="checkUncheckAll($event)"
+                            />
+                          </div>
+                        </th>
+                        <th>{{ "CONTACT.name" | translate }}</th>
+                        <th>{{ "CONTACT.phone" | translate }}</th>
+                        <th>{{ "Services" | translate }}</th>
+                        <th>{{ "Services" | translate }}</th>
+                        <th>{{ "TotalMoney" | translate }}</th>
+                        <th>{{ "Status" | translate }}</th>
+                        <th>{{ "Time" | translate }}</th>
+                        <th>{{ "CONTACT.createdAt" | translate }}</th>
+                        <th>UpdatedAt</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let data of booking" id="o_{{ data._id }}">
+                        <th scope="row">
+                          <div class="form-check">
+                            <input
+                              class="form-check-input"
+                              type="checkbox"
+                              name="checkAll"
+                              value="{{ data._id }}"
+                              [(ngModel)]="data.state"
+                              (change)="onCheckboxChange($event, data)"
+                            />
+                          </div>
+                        </th>
+                        <td>
+                          <a>
+                            <ngb-highlight [result]="data.name"></ngb-highlight>
+                          </a>
+                        </td>
+                        <td>
+                          <ngb-highlight
+                            [result]="
+                              data.phone.toString() | mask : '(000) 000-0000'
+                            "
+                          ></ngb-highlight>
+                        </td>
+                        <td style="width: 250px">
+                          <p
+                            class="badge badge-soft-primary mx-1"
+                            *ngFor="let item of data.services"
+                          >
+                            {{ item.name | uppercase }}
+                          </p>
+                        </td>
+                        <td>
+                          <ngb-highlight [result]="data.branch.name">
+                          </ngb-highlight>
+                        </td>
+                        <td>
+                          <ngb-highlight
+                            [result]="
+                              data.amount.$numberDecimal.toString()
+                                | currency : '' : '' : '1.0'
+                            "
+                          ></ngb-highlight>
+                        </td>
+                        <td>
+                          <ngb-highlight
+                            class="badge"
+                            [ngClass]="checkClassStatus(data.status)"
+                            [result]="data.status | uppercase"
+                          ></ngb-highlight>
+                        </td>
+                        <td>
+                          <ngb-highlight
+                            [result]="
+                              data.time | date : 'hh:mm:ss a dd/MM/YYYY'
+                            "
+                          ></ngb-highlight>
+                        </td>
+                        <td>
+                          <ngb-highlight
+                            [result]="
+                              data.createdAt | date : 'hh:mm:ss a dd/MM/YYYY'
+                            "
+                          ></ngb-highlight>
+                        </td>
+                        <td>
+                          <ngb-highlight
+                            [result]="
+                              data.updatedAt | date : 'hh:mm:ss a dd/MM/YYYY'
+                            "
+                          ></ngb-highlight>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div
+                  class="row justify-content-md-between align-items-md-center gy-2"
+                  *ngIf="booking.length > 0"
+                >
+                  <div class="col col-sm-6">
+                    <div
+                      class="dataTables_info mb-2"
+                      id="tickets-table_info"
+                      role="status"
+                      aria-live="polite"
+                    >
+                      Showing
+                      {{ (page - 1) * pagesize + 1 }}-{{
+                        total > page * pagesize ? page * pagesize : total
+                      }}
+                      of
+                      {{ total }}
+                      entries
+                    </div>
+                  </div>
+                  <!-- Pagination -->
+                  <div class="col col-sm-6">
+                    <div class="text-sm-right float-end listjs-pagination">
+                      <ngb-pagination
+                        [collectionSize]="total"
+                        [(page)]="page"
+                        [pageSize]="pagesize"
+                        (click)="loadPageClick()"
+                      >
+                      </ngb-pagination>
+                    </div>
+                  </div>
+                  <!-- End Pagination -->
+                </div>
+              </ng-template>
+            </li>
+
+            <li [ngbNavItem]="4">
+              <a ngbNavLink>
+                <i class="ri-close-circle-fill me-1 align-bottom"></i>
+                {{ "Cancelled" | translate }}
+                <span class="badge bg-danger align-middle ms-1">{{
+                  totalCancelled
+                }}</span>
+              </a>
+              <ng-template ngbNavContent>
+                <div class="table-responsive table-card mb-0">
+                  <ngb-alert
+                    *ngIf="checkSkeleton && booking.length === 0"
+                    role="alert"
+                    class="alert show alert-dismissible text-center alert-additional fade custom-alert alert-light"
+                    ><div class="alert-body">
+                      <div class="d-flex">
+                        <div class="flex-shrink-0 me-3">
+                          <i
+                            class="ri-notification-off-line fs-16 align-middle"
+                          ></i>
+                        </div>
+                        <div class="flex-grow-1">
+                          <h5 class="alert-heading">Yey! Everything worked!</h5>
+                          <p class="mb-0">
+                            This alert needs your attention, but it's not super
+                            important.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="alert-content">
+                      <p class="mb-0">
+                        Whenever you need to, be sure to use margin utilities to
+                        keep things nice and tidy.
+                      </p>
+                    </div>
+                    <button
+                      type="button"
+                      aria-label="Close"
+                      class="btn-close"
+                    ></button
+                  ></ngb-alert>
+                  <ngx-skeleton-loader
+                    count="15"
+                    *ngIf="!checkSkeleton"
+                  ></ngx-skeleton-loader>
+                  <table
+                    class="table"
+                    *ngIf="checkSkeleton && booking.length > 0"
+                  >
+                    <thead>
+                      <tr class="bg-light text-muted text-uppercase">
+                        <th scope="col" style="width: 25px">
+                          <div class="form-check">
+                            <input
+                              class="form-check-input"
+                              type="checkbox"
+                              id="checkAll"
+                              value="option"
+                              [(ngModel)]="masterSelected"
+                              (change)="checkUncheckAll($event)"
+                            />
+                          </div>
+                        </th>
+                        <th>{{ "CONTACT.name" | translate }}</th>
+                        <th>{{ "CONTACT.phone" | translate }}</th>
+                        <th>{{ "Services" | translate }}</th>
+                        <th>{{ "Services" | translate }}</th>
+                        <th>{{ "TotalMoney" | translate }}</th>
+                        <th>{{ "Status" | translate }}</th>
+                        <th>{{ "Time" | translate }}</th>
+                        <th>{{ "CONTACT.createdAt" | translate }}</th>
+                        <th>UpdatedAt</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let data of booking" id="o_{{ data._id }}">
+                        <th scope="row">
+                          <div class="form-check">
+                            <input
+                              class="form-check-input"
+                              type="checkbox"
+                              name="checkAll"
+                              value="{{ data._id }}"
+                              [(ngModel)]="data.state"
+                              (change)="onCheckboxChange($event, data)"
+                            />
+                          </div>
+                        </th>
+                        <td>
+                          <a>
+                            <ngb-highlight [result]="data.name"></ngb-highlight>
+                          </a>
+                        </td>
+                        <td>
+                          <ngb-highlight
+                            [result]="
+                              data.phone.toString() | mask : '(000) 000-0000'
+                            "
+                          ></ngb-highlight>
+                        </td>
+                        <td style="width: 250px">
+                          <p
+                            class="badge badge-soft-primary mx-1"
+                            *ngFor="let item of data.services"
+                          >
+                            {{ item.name | uppercase }}
+                          </p>
+                        </td>
+                        <td>
+                          <ngb-highlight [result]="data.branch.name">
+                          </ngb-highlight>
+                        </td>
+                        <td>
+                          <ngb-highlight
+                            [result]="
+                              data.amount.$numberDecimal.toString()
+                                | currency : '' : '' : '1.0'
+                            "
+                          ></ngb-highlight>
+                        </td>
+                        <td>
+                          <ngb-highlight
+                            class="badge"
+                            [ngClass]="checkClassStatus(data.status)"
+                            [result]="data.status | uppercase"
+                          ></ngb-highlight>
+                        </td>
+                        <td>
+                          <ngb-highlight
+                            [result]="
+                              data.time | date : 'hh:mm:ss a dd/MM/YYYY'
+                            "
+                          ></ngb-highlight>
+                        </td>
+                        <td>
+                          <ngb-highlight
+                            [result]="
+                              data.createdAt | date : 'hh:mm:ss a dd/MM/YYYY'
+                            "
+                          ></ngb-highlight>
+                        </td>
+                        <td>
+                          <ngb-highlight
+                            [result]="
+                              data.updatedAt | date : 'hh:mm:ss a dd/MM/YYYY'
+                            "
+                          ></ngb-highlight>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div
+                  *ngIf="booking.length > 0"
+                  class="row justify-content-md-between align-items-md-center gy-2"
+                >
+                  <div class="col col-sm-6">
+                    <div
+                      class="dataTables_info mb-2"
+                      id="tickets-table_info"
+                      role="status"
+                      aria-live="polite"
+                    >
+                      Showing
+                      {{ (page - 1) * pagesize + 1 }}-{{
+                        total > page * pagesize ? page * pagesize : total
+                      }}
+                      of
+                      {{ total }}
+                      entries
+                    </div>
+                  </div>
+                  <!-- Pagination -->
+                  <div class="col col-sm-6">
+                    <div class="text-sm-right float-end listjs-pagination">
+                      <ngb-pagination
+                        [collectionSize]="total"
+                        [(page)]="page"
+                        [pageSize]="pagesize"
+                        (click)="loadPageClick()"
+                      >
+                      </ngb-pagination>
+                    </div>
+                  </div>
+                  <!-- End Pagination -->
+                </div>
+              </ng-template>
+            </li>
+          </ul>
+          <div class="tab-content text-muted">
+            <div [ngbNavOutlet]="nav"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- removeItemModal -->
+  <ng-template #cancelModel let-modal>
+    <div class="modal-content">
+      <div class="modal-header">
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+          id="btn-close"
+          (click)="modal.dismiss('Cross click')"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div class="mt-2 text-center">
+          <lord-icon
+            src="https://cdn.lordicon.com/gsqxdxog.json"
+            trigger="loop"
+            colors="primary:#405189,secondary:#f06548"
+            style="width: 90px; height: 90px"
+          ></lord-icon>
+          <div class="mt-4 pt-2 fs-15 mx-4 mx-sm-5">
+            <h4>You are about to cancel a booking ?</h4>
+            <p class="text-muted mx-4 mb-0">
+              Cancel your booking will change status in database.
+            </p>
+          </div>
+        </div>
+        <div class="d-flex gap-2 justify-content-center mt-4 mb-2">
+          <button
+            class="btn btn-link link-success fw-medium text-decoration-none"
+            data-bs-dismiss="modal"
+            id="deleteRecord-close"
+            (click)="modal.close('Close click')"
+          >
+            <i class="ri-close-line me-1 align-middle"></i> Close
+          </button>
+          <button
+            type="button"
+            class="btn w-sm btn-danger"
+            id="delete-product"
+            (click)="cancelData()"
+            (click)="modal.close('Close click')"
+          >
+            Yes, Cancel It!
+          </button>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</div>

@@ -1,0 +1,1110 @@
+<!-- Start Breadcrumbs -->
+<app-breadcrumbs
+  title="Accordions"
+  [breadcrumbItems]="breadCrumbItems"
+></app-breadcrumbs>
+<!-- End Breadcrumbs -->
+
+<div class="row">
+  <div class="col-xxl-6">
+    <div class="card">
+      <div class="card-header align-items-center d-flex">
+        <h4 class="card-title mb-0 flex-grow-1">Default Accordion</h4>
+        <div class="flex-shrink-0">
+          <div class="form-check form-switch form-switch-right form-switch-md">
+            <label for="default-base-showcode" class="form-label text-muted"
+              >Show Code</label
+            >
+            <input
+              class="form-check-input code-switcher"
+              type="checkbox"
+              id="default-base-showcode"
+              (click)="ShowCode($event)"
+            />
+          </div>
+        </div>
+      </div>
+      <!-- end card header -->
+
+      <div class="card-body">
+        <p class="text-muted">
+          Use the <code>accordion</code> class to expand/collapse the accordion
+          content.
+        </p>
+        <div class="live-preview">
+          <ngb-accordion
+            #acc="ngbAccordion"
+            activeIds="static-1"
+            [closeOthers]="true"
+          >
+            <ngb-panel id="static-1">
+              <ng-template
+                ngbPanelTitle
+                class="accordion-header border-0 bg-transparent"
+              >
+                How to create a group booking ?
+              </ng-template>
+              <ng-template ngbPanelContent>
+                Although you probably won’t get into any legal trouble if you do
+                it just once, why risk it? If you made your subscribers a
+                promise, you should honor that. If not, you run the risk of a
+                drastic increase in opt outs, which will only hurt you in the
+                long run.
+              </ng-template>
+            </ngb-panel>
+            <ngb-panel id="static-2">
+              <ng-template
+                ngbPanelTitle
+                class="accordion-header border-0 bg-transparent"
+              >
+                Why do we use it ?
+              </ng-template>
+              <ng-template ngbPanelContent>
+                No charges are put in place by SlickText when subscribers join
+                your text list. This does not mean however that charges 100%
+                will not occur. Charges that may occur fall under part of the
+                compliance statement stating "Message and Data rates may apply."
+              </ng-template>
+            </ngb-panel>
+            <ngb-panel id="static-3">
+              <ng-template
+                ngbPanelTitle
+                class="accordion-header border-0 bg-transparent"
+              >
+                Where does it come from ?
+              </ng-template>
+              <ng-template ngbPanelContent>
+                Now that you have a general idea of the amount of texts you will
+                need per month, simply find a plan size that allows you to have
+                this allotment, plus some extra for growth. Don't worry, there
+                are no mistakes to be made here. You can always upgrade and
+                downgrade.
+              </ng-template>
+            </ngb-panel>
+          </ngb-accordion>
+        </div>
+        <div class="d-none code-view">
+          <pre class="language-markup" style="height: 275px">
+<code>&lt;!-- Base Example --&gt;
+&lt;div class=&quot;accordion&quot; id=&quot;default-accordion-example&quot;&gt;
+&lt;div class=&quot;accordion-item&quot;&gt;
+&lt;h2 class=&quot;accordion-header&quot; id=&quot;headingOne&quot;&gt;
+&lt;button class=&quot;border-0 bg-transparent&quot; type=&quot;button&quot; data-bs-toggle=&quot;collapse&quot; data-bs-target=&quot;#collapseOne&quot; aria-expanded=&quot;true&quot; aria-controls=&quot;collapseOne&quot;&gt;
+How to create a group booking ?
+&lt;/button&gt;
+&lt;/h2&gt;
+&lt;div id=&quot;collapseOne&quot; class=&quot;accordion-collapse collapse show&quot; aria-labelledby=&quot;headingOne&quot; data-bs-parent=&quot;#default-accordion-example&quot;&gt;
+&lt;div class=&quot;accordion-body&quot;&gt;
+Although you probably won’t get into any legal trouble if you do it just once, why risk it? If you made your subscribers a promise, you should honor that. If not, you run the risk of a drastic increase in opt outs, which will only hurt you in the long run.
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;accordion-item&quot;&gt;
+&lt;h2 class=&quot;accordion-header&quot; id=&quot;headingTwo&quot;&gt;
+&lt;button class=&quot;border-0 bg-transparent collapsed&quot; type=&quot;button&quot; data-bs-toggle=&quot;collapse&quot; data-bs-target=&quot;#collapseTwo&quot; aria-expanded=&quot;false&quot; aria-controls=&quot;collapseTwo&quot;&gt;
+Why do we use it ?
+&lt;/button&gt;
+&lt;/h2&gt;
+&lt;div id=&quot;collapseTwo&quot; class=&quot;accordion-collapse collapse&quot; aria-labelledby=&quot;headingTwo&quot; data-bs-parent=&quot;#default-accordion-example&quot;&gt;
+&lt;div class=&quot;accordion-body&quot;&gt;
+No charges are put in place by SlickText when subscribers join your text list. This does not mean however that charges 100% will not occur. Charges that may occur fall under part of the compliance statement stating "Message and Data rates may apply."
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;accordion-item&quot;&gt;
+&lt;h2 class=&quot;accordion-header&quot; id=&quot;headingThree&quot;&gt;
+&lt;button class=&quot;border-0 bg-transparent collapsed&quot; type=&quot;button&quot; data-bs-toggle=&quot;collapse&quot; data-bs-target=&quot;#collapseThree&quot; aria-expanded=&quot;false&quot; aria-controls=&quot;collapseThree&quot;&gt;
+Where does it come from ?
+&lt;/button&gt;
+&lt;/h2&gt;
+&lt;div id=&quot;collapseThree&quot; class=&quot;accordion-collapse collapse&quot; aria-labelledby=&quot;headingThree&quot; data-bs-parent=&quot;#default-accordion-example&quot;&gt;
+&lt;div class=&quot;accordion-body&quot;&gt;
+Now that you have a general idea of the amount of texts you will need per month, simply find a plan size that allows you to have this allotment, plus some extra for growth. Don't worry, there are no mistakes to be made here. You can always upgrade and downgrade.
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </div>
+      <!-- end card-body -->
+    </div>
+    <!-- end card -->
+  </div>
+  <!--end col-->
+
+  <div class="col-xxl-6">
+    <div class="card">
+      <div class="card-header align-items-center d-flex">
+        <h4 class="card-title mb-0 flex-grow-1">Accordion Flush</h4>
+        <div class="flex-shrink-0">
+          <div class="form-check form-switch form-switch-right form-switch-md">
+            <label for="accordion-flush" class="form-label text-muted"
+              >Show Code</label
+            >
+            <input
+              class="form-check-input code-switcher"
+              type="checkbox"
+              id="accordion-flush"
+              (click)="ShowCode($event)"
+            />
+          </div>
+        </div>
+      </div>
+      <!-- end card header -->
+      <div class="card-body">
+        <p class="text-muted">
+          Use <code>accordion-flush</code> class to remove the default
+          background-color, some borders, and some rounded corners to render
+          accordions edge-to-edge with their parent container.
+        </p>
+        <div class="live-preview flush_accordion">
+          <ngb-accordion
+            #acc="ngbAccordion"
+            activeIds="static-1"
+            [closeOthers]="true"
+          >
+            <ngb-panel id="static-1">
+              <ng-template
+                ngbPanelTitle
+                class="accordion-header border-0 bg-transparent"
+              >
+                How do I set up my profile ?
+              </ng-template>
+              <ng-template ngbPanelContent>
+                The renewal of your SlickText service happens on the anniversary
+                of your original paid sign up date. Upgrading in the middle of
+                your billing period will not change the billing date. Upgrading
+                does however force an immediate, pro-rated charge to take place
+                on your account.
+              </ng-template>
+            </ngb-panel>
+            <ngb-panel id="static-2">
+              <ng-template
+                ngbPanelTitle
+                class="accordion-header border-0 bg-transparent"
+              >
+                What can I do with my project ?
+              </ng-template>
+              <ng-template ngbPanelContent>
+                If you had signed up on a free account with Slicktext, then
+                upgraded to a paid plan at a later date, your bill will renew
+                based on the date you had upgraded to a paid plan. All invoices
+                are able to be viewed under your plan options in your SlickText
+                account.
+              </ng-template>
+            </ngb-panel>
+            <ngb-panel id="static-3">
+              <ng-template
+                ngbPanelTitle
+                class="accordion-header border-0 bg-transparent"
+              >
+                Where can I go to edit voice settings
+              </ng-template>
+              <ng-template ngbPanelContent>
+                No, we cannot provide this information. Opting out from a list
+                is an anonymous, private act. This prevents further harassment.
+                Providing this information is considered bad practice, and
+                further communication after they opt out would be considered
+                against compliance.
+              </ng-template>
+            </ngb-panel>
+          </ngb-accordion>
+        </div>
+        <div class="d-none code-view">
+          <pre class="language-markup" style="height: 275px">
+<code>&lt;!-- Accordion Flush Example --&gt;
+&lt;div class=&quot;accordion accordion-flush&quot; id=&quot;accordionFlushExample&quot;&gt;
+&lt;div class=&quot;accordion-item&quot;&gt;
+&lt;h2 class=&quot;accordion-header&quot; id=&quot;flush-headingOne&quot;&gt;
+&lt;button class=&quot;border-0 bg-transparent collapsed&quot; type=&quot;button&quot; data-bs-toggle=&quot;collapse&quot;
+data-bs-target=&quot;#flush-collapseOne&quot; aria-expanded=&quot;false&quot; aria-controls=&quot;flush-collapseOne&quot;&gt;
+How do I set up my profile ?
+&lt;/button&gt;
+&lt;/h2&gt;
+&lt;div id=&quot;flush-collapseOne&quot; class=&quot;accordion-collapse collapse show&quot; aria-labelledby=&quot;flush-headingOne&quot;
+data-bs-parent=&quot;#accordionFlushExample&quot;&gt;
+&lt;div class=&quot;accordion-body&quot;&gt;The renewal of your SlickText service happens on the anniversary of your original paid sign up date. Upgrading in the middle of your billing period will not change the billing date. Upgrading does however force an immediate, pro-rated charge to take place on your account.&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;accordion-item&quot;&gt;
+&lt;h2 class=&quot;accordion-header&quot; id=&quot;flush-headingTwo&quot;&gt;
+&lt;button class=&quot;border-0 bg-transparent collapsed&quot; type=&quot;button&quot; data-bs-toggle=&quot;collapse&quot;
+data-bs-target=&quot;#flush-collapseTwo&quot; aria-expanded=&quot;false&quot; aria-controls=&quot;flush-collapseTwo&quot;&gt;
+What can I do with my project ?
+&lt;/button&gt;
+&lt;/h2&gt;
+&lt;div id=&quot;flush-collapseTwo&quot; class=&quot;accordion-collapse collapse&quot; aria-labelledby=&quot;flush-headingTwo&quot;
+data-bs-parent=&quot;#accordionFlushExample&quot;&gt;
+&lt;div class=&quot;accordion-body&quot;&gt;If you had signed up on a free account with Slicktext, then upgraded to a paid plan at a later date, your bill will renew based on the date you had upgraded to a paid plan. All invoices are able to be viewed under your plan options in your SlickText account.&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;accordion-item&quot;&gt;
+&lt;h2 class=&quot;accordion-header&quot; id=&quot;flush-headingThree&quot;&gt;
+&lt;button class=&quot;border-0 bg-transparent collapsed&quot; type=&quot;button&quot; data-bs-toggle=&quot;collapse&quot;
+data-bs-target=&quot;#flush-collapseThree&quot; aria-expanded=&quot;false&quot; aria-controls=&quot;flush-collapseThree&quot;&gt;
+Where can I go to edit voice settings
+&lt;/button&gt;
+&lt;/h2&gt;
+&lt;div id=&quot;flush-collapseThree&quot; class=&quot;accordion-collapse collapse&quot; aria-labelledby=&quot;flush-headingThree&quot;
+data-bs-parent=&quot;#accordionFlushExample&quot;&gt;
+&lt;div class=&quot;accordion-body&quot;&gt;No, we cannot provide this information. Opting out from a list is an anonymous, private act. This prevents further harassment. Providing this information is considered bad practice, and further communication after they opt out would be considered against compliance.&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </div>
+      <!-- end card-body -->
+    </div>
+    <!-- end card -->
+  </div>
+  <!--end col-->
+</div>
+<!--end row-->
+
+<div class="row">
+  <div class="col-xl-12">
+    <div class="card">
+      <div class="card-header align-items-center d-flex">
+        <h4 class="card-title mb-0 flex-grow-1">Nesting Accordions</h4>
+        <div class="flex-shrink-0">
+          <div class="form-check form-switch form-switch-right form-switch-md">
+            <label
+              for="accordion-nesting-showcode"
+              class="form-label text-muted"
+              >Show Code</label
+            >
+            <input
+              class="form-check-input code-switcher"
+              type="checkbox"
+              id="accordion-nesting-showcode"
+              (click)="ShowCode($event)"
+            />
+          </div>
+        </div>
+      </div>
+      <!-- end card header -->
+      <div class="card-body">
+        <p class="text-muted">
+          Use <code>nesting-accordion</code> class to create a nesting
+          accordion.
+        </p>
+        <div class="live-preview">
+          <ngb-accordion
+            #acc="ngbAccordion"
+            activeIds="static-1"
+            [closeOthers]="true"
+            class="custom-accordionwithicon accordion-border-box"
+          >
+            <ngb-panel id="static-1">
+              <ng-template
+                ngbPanelTitle
+                class="accordion-header border-0 bg-transparent"
+              >
+                How Do I Add Contacts/Subscribers?
+              </ng-template>
+              <ng-template ngbPanelContent>
+                <div class="accordion-body">
+                  This opt in method is perfect for those looking to integrate a
+                  different software such Shopify or Hubspot with Slicktext. For
+                  example, upon cashing out online, a subscriber may submit to
+                  have their mobile number to receive marketing messages. The
+                  API will pass this information from said software over to
+                  Slicktext via API integration.
+                  <div
+                    class="accordion nesting2-accordion custom-accordionwithicon accordion-border-box mt-3"
+                    id="accordionnesting2"
+                  >
+                    <ngb-accordion
+                      #acc="ngbAccordion"
+                      [closeOthers]="true"
+                      class="custom-accordionwithicon accordion-border-box"
+                    >
+                      <ngb-panel id="static-5">
+                        <ng-template
+                          ngbPanelTitle
+                          class="accordion-header border-0 bg-transparent"
+                        >
+                          How Do I Search For Contacts?
+                        </ng-template>
+                        <ng-template ngbPanelContent>
+                          <div class="accordion-body">
+                            When you are in need of finding a specific
+                            subscriber, you will want to use the help of
+                            SlickText's search navigation tool, located under
+                            the Contacts tab of your Slicktext account. Once
+                            here, you will have options to sort by, filter, and
+                            search your contacts.
+
+                            <div
+                              class="accordion nesting2-accordion custom-accordionwithicon accordion-border-box mt-3"
+                              id="accordionnesting2"
+                            >
+                              <ngb-accordion
+                                #acc="ngbAccordion"
+                                [closeOthers]="true"
+                                class="custom-accordionwithicon accordion-border-box"
+                              >
+                                <ngb-panel id="static-5">
+                                  <ng-template
+                                    ngbPanelTitle
+                                    class="accordion-header border-0 bg-transparent"
+                                  >
+                                    How do I reset my digital tide watch ?
+                                  </ng-template>
+                                  <ng-template ngbPanelContent>
+                                    <div class="accordion-body">
+                                      Opting out a subscriber will allow
+                                      SlickText to maintain the history of the
+                                      subscriber as it pertains to the textword
+                                      you are opting them out of. If this user
+                                      was to text to join again, the initial
+                                      text they are met with will be a "welcome
+                                      back" message instead of the auto reply.
+                                    </div>
+                                  </ng-template>
+                                </ngb-panel>
+                              </ngb-accordion>
+                            </div>
+                          </div>
+                        </ng-template>
+                      </ngb-panel>
+                      <ngb-panel id="static-6">
+                        <ng-template
+                          ngbPanelTitle
+                          class="accordion-header border-0 bg-transparent"
+                        >
+                          How Do I Delete a Contact From My List?
+                        </ng-template>
+                        <ng-template ngbPanelContent>
+                          <div class="accordion-body">
+                            Opting out a subscriber will allow SlickText to
+                            maintain the history of the subscriber as it
+                            pertains to the textword you are opting them out of.
+                            If this user was to text to join again, the initial
+                            text they are met with will be a "welcome back"
+                            message instead of the auto reply.
+                          </div>
+                        </ng-template>
+                      </ngb-panel>
+                    </ngb-accordion>
+                  </div>
+                </div>
+              </ng-template>
+            </ngb-panel>
+            <ngb-panel id="static-2">
+              <ng-template
+                ngbPanelTitle
+                class="accordion-header border-0 bg-transparent"
+              >
+                How Does Personalization Work?
+              </ng-template>
+              <ng-template ngbPanelContent>
+                <div class="accordion-body">
+                  Personalization allows you to provide a personal touch to your
+                  outbound text marketing campaigns. SlickText uses merge tags
+                  as placeholders that are replaced with contact-specific
+                  information when a text message is sent. These merge tags may
+                  also be known as personalization fields.
+                  <ngb-accordion
+                    #acc="ngbAccordion"
+                    [closeOthers]="true"
+                    class="custom-accordionwithicon accordion-border-box"
+                  >
+                    <ngb-panel id="static-11">
+                      <ng-template
+                        ngbPanelTitle
+                        class="accordion-header border-0 bg-transparent"
+                      >
+                        Howe does temperature impact my watch?
+                      </ng-template>
+                      <ng-template ngbPanelContent>
+                        <div class="accordion-body">
+                          Opting out a subscriber will allow SlickText to
+                          maintain the history of the subscriber as it pertains
+                          to the textword you are opting them out of. If this
+                          user was to text to join again, the initial text they
+                          are met with will be a "welcome back" message instead
+                          of the auto reply.
+                        </div>
+                      </ng-template>
+                    </ngb-panel>
+                  </ngb-accordion>
+                </div>
+              </ng-template>
+            </ngb-panel>
+            <ngb-panel id="static-3">
+              <ng-template
+                ngbPanelTitle
+                class="accordion-header border-0 bg-transparent"
+              >
+                What Happens When I Run Out of Messages?
+              </ng-template>
+              <ng-template ngbPanelContent>
+                <div class="accordion-body">
+                  When you run out of messages, you will not be able to send any
+                  outbound campaigns. This would include any scheduled messages,
+                  drip campaigns, and birthday messages. However, we will
+                  continue to deliver your auto-reply messages to allow your
+                  subscriber list to continue to grow.
+                </div>
+              </ng-template>
+            </ngb-panel>
+          </ngb-accordion>
+        </div>
+        <div class="d-none code-view">
+          <pre class="language-markup" style="height: 275px">
+<code>&lt;!-- Nesting Accordions --&gt;
+&lt;div class=&quot;accordion nesting-accordion custom-accordionwithicon accordion-border-box&quot; id=&quot;accordionnesting&quot;&gt;
+&lt;div class=&quot;accordion-item&quot;&gt;
+&lt;h2 class=&quot;accordion-header&quot; id=&quot;accordionnestingExample1&quot;&gt;
+&lt;button class=&quot;border-0 bg-transparent&quot; type=&quot;button&quot; data-bs-toggle=&quot;collapse&quot; data-bs-target=&quot;#accor_nestingExamplecollapse1&quot; aria-expanded=&quot;true&quot; aria-controls=&quot;accor_nestingExamplecollapse1&quot;&gt;
+How Do I Add Contacts/Subscribers?
+&lt;/button&gt;
+&lt;/h2&gt;
+&lt;div id=&quot;accor_nestingExamplecollapse1&quot; class=&quot;accordion-collapse collapse show&quot; aria-labelledby=&quot;accordionnestingExample1&quot; data-bs-parent=&quot;#accordionnesting&quot;&gt;
+&lt;div class=&quot;accordion-body&quot;&gt;
+This opt in method is perfect for those looking to integrate a different software such Shopify or Hubspot with Slicktext. For example, upon cashing out online, a subscriber may submit to have their mobile number to receive marketing messages. The API will pass this information from said software over to Slicktext via API integration.
+&lt;div class=&quot;accordion nesting2-accordion custom-accordionwithicon accordion-border-box mt-3&quot; id=&quot;accordionnesting2&quot;&gt;
+&lt;div class=&quot;accordion-item&quot;&gt;
+&lt;h2 class=&quot;accordion-header&quot; id=&quot;accordionnesting2Example1&quot;&gt;
+  &lt;button class=&quot;border-0 bg-transparent&quot; type=&quot;button&quot; data-bs-toggle=&quot;collapse&quot; data-bs-target=&quot;#accor_nesting2Examplecollapse1&quot; aria-expanded=&quot;true&quot; aria-controls=&quot;accor_nesting2Examplecollapse1&quot;&gt;
+      How Do I Search For Contacts?
+  &lt;/button&gt;
+&lt;/h2&gt;
+&lt;div id=&quot;accor_nesting2Examplecollapse1&quot; class=&quot;accordion-collapse collapse show&quot; aria-labelledby=&quot;accordionnesting2Example1&quot; data-bs-parent=&quot;#accordionnesting2&quot;&gt;
+  &lt;div class=&quot;accordion-body&quot;&gt;
+      When you are in need of finding a specific subscriber, you will want to use the help of SlickText's search navigation tool, located under the Contacts tab of your Slicktext account. Once here, you will have options to sort by, filter, and search your contacts.
+      &lt;div class=&quot;accordion nesting4-accordion custom-accordionwithicon accordion-border-box mt-3&quot; id=&quot;accordionnesting4&quot;&gt;
+          &lt;div class=&quot;accordion-item&quot;&gt;
+              &lt;h2 class=&quot;accordion-header&quot; id=&quot;accordionnesting4Example2&quot;&gt;
+                  &lt;button class=&quot;border-0 bg-transparent collapsed&quot; type=&quot;button&quot; data-bs-toggle=&quot;collapse&quot; data-bs-target=&quot;#accor_nesting4Examplecollapse2&quot; aria-expanded=&quot;false&quot; aria-controls=&quot;accor_nesting4Examplecollapse2&quot;&gt;
+                      How do I reset my digital tide watch ?
+                  &lt;/button&gt;
+              &lt;/h2&gt;
+              &lt;div id=&quot;accor_nesting4Examplecollapse2&quot; class=&quot;accordion-collapse collapse&quot; aria-labelledby=&quot;accordionnesting4Example2&quot; data-bs-parent=&quot;#accordionnesting4&quot;&gt;
+                  &lt;div class=&quot;accordion-body&quot;&gt;
+                      Opting out a subscriber will allow SlickText to maintain the history of the subscriber as it pertains to the textword you are opting them out of. If this user was to text to join again, the initial text they are met with will be a &quot;welcome back&quot; message instead of the auto reply.
+                  &lt;/div&gt;
+              &lt;/div&gt;
+          &lt;/div&gt;
+      &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;accordion-item&quot;&gt;
+&lt;h2 class=&quot;accordion-header&quot; id=&quot;accordionnesting2Example2&quot;&gt;
+  &lt;button class=&quot;border-0 bg-transparent collapsed&quot; type=&quot;button&quot; data-bs-toggle=&quot;collapse&quot; data-bs-target=&quot;#accor_nesting2Examplecollapse2&quot; aria-expanded=&quot;false&quot; aria-controls=&quot;accor_nesting2Examplecollapse2&quot;&gt;
+      How Do I Delete a Contact From My List?
+  &lt;/button&gt;
+&lt;/h2&gt;
+&lt;div id=&quot;accor_nesting2Examplecollapse2&quot; class=&quot;accordion-collapse collapse&quot; aria-labelledby=&quot;accordionnesting2Example2&quot; data-bs-parent=&quot;#accordionnesting2&quot;&gt;
+  &lt;div class=&quot;accordion-body&quot;&gt;
+      Opting out a subscriber will allow SlickText to maintain the history of the subscriber as it pertains to the textword you are opting them out of. If this user was to text to join again, the initial text they are met with will be a &quot;welcome back&quot; message instead of the auto reply.
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;accordion-item&quot;&gt;
+&lt;h2 class=&quot;accordion-header&quot; id=&quot;accordionnestingExample2&quot;&gt;
+&lt;button class=&quot;border-0 bg-transparent collapsed&quot; type=&quot;button&quot; data-bs-toggle=&quot;collapse&quot; data-bs-target=&quot;#accor_nestingExamplecollapse2&quot; aria-expanded=&quot;false&quot; aria-controls=&quot;accor_nestingExamplecollapse2&quot;&gt;
+How Does Personalization Work?
+&lt;/button&gt;
+&lt;/h2&gt;
+&lt;div id=&quot;accor_nestingExamplecollapse2&quot; class=&quot;accordion-collapse collapse&quot; aria-labelledby=&quot;accordionnestingExample2&quot; data-bs-parent=&quot;#accordionnesting&quot;&gt;
+&lt;div class=&quot;accordion-body&quot;&gt;
+Personalization allows you to provide a personal touch to your outbound text marketing campaigns. SlickText uses merge tags as placeholders that are replaced with contact-specific information when a text message is sent. These merge tags may also be known as personalization fields.
+&lt;div class=&quot;accordion nesting3-accordion custom-accordionwithicon accordion-border-box mt-3&quot; id=&quot;accordionnesting3&quot;&gt;
+&lt;div class=&quot;accordion-item mt-2&quot;&gt;
+&lt;h2 class=&quot;accordion-header&quot; id=&quot;accordionnesting3Example2&quot;&gt;
+  &lt;button class=&quot;border-0 bg-transparent collapsed&quot; type=&quot;button&quot; data-bs-toggle=&quot;collapse&quot; data-bs-target=&quot;#accor_nesting3Examplecollapse2&quot; aria-expanded=&quot;false&quot; aria-controls=&quot;accor_nesting3Examplecollapse2&quot;&gt;
+      Howe does temperature impact my watch?
+  &lt;/button&gt;
+&lt;/h2&gt;
+&lt;div id=&quot;accor_nesting3Examplecollapse2&quot; class=&quot;accordion-collapse collapse&quot; aria-labelledby=&quot;accordionnesting3Example2&quot; data-bs-parent=&quot;#accordionnesting3&quot;&gt;
+  &lt;div class=&quot;accordion-body&quot;&gt;
+      Opting out a subscriber will allow SlickText to maintain the history of the subscriber as it pertains to the textword you are opting them out of. If this user was to text to join again, the initial text they are met with will be a &quot;welcome back&quot; message instead of the auto reply.
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;accordion-item&quot;&gt;
+&lt;h2 class=&quot;accordion-header&quot; id=&quot;accordionnestingExample3&quot;&gt;
+&lt;button class=&quot;border-0 bg-transparent collapsed&quot; type=&quot;button&quot; data-bs-toggle=&quot;collapse&quot; data-bs-target=&quot;#accor_nestingExamplecollapse3&quot; aria-expanded=&quot;false&quot; aria-controls=&quot;accor_nestingExamplecollapse3&quot;&gt;
+What Happens When I Run Out of Messages?
+&lt;/button&gt;
+&lt;/h2&gt;
+&lt;div id=&quot;accor_nestingExamplecollapse3&quot; class=&quot;accordion-collapse collapse&quot; aria-labelledby=&quot;accordionnestingExample3&quot; data-bs-parent=&quot;#accordionnesting&quot;&gt;
+&lt;div class=&quot;accordion-body&quot;&gt;
+When you run out of messages, you will not be able to send any outbound campaigns. This would include any scheduled messages, drip campaigns, and birthday messages. However, we will continue to deliver your auto-reply messages to allow your subscriber list to continue to grow.
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </div>
+      <!-- end card-body -->
+    </div>
+    <!-- end card -->
+  </div>
+  <!--end col-->
+</div>
+<!--end row-->
+
+<div class="row">
+  <div class="col-xxl-6">
+    <div class="card">
+      <div class="card-header align-items-center d-flex">
+        <h4 class="card-title mb-0 flex-grow-1">Collapse Example</h4>
+        <div class="flex-shrink-0">
+          <div class="form-check form-switch form-switch-right form-switch-md">
+            <label for="collapse-showcode" class="form-label text-muted"
+              >Show Code</label
+            >
+            <input
+              class="form-check-input code-switcher"
+              type="checkbox"
+              id="collapse-showcode"
+              (click)="ShowCode($event)"
+            />
+          </div>
+        </div>
+      </div>
+      <!-- end card header -->
+      <div class="card-body">
+        <p></p>
+        <div class="live-preview">
+          <div class="d-flex gap-2 flex-wrap mb-3">
+            <a
+              class="btn btn-primary"
+              data-bs-toggle="collapse"
+              aria-expanded="false"
+              aria-controls="collapseExample"
+              (click)="collapse.toggle()"
+              [attr.aria-expanded]="!Collapsed"
+            >
+              Link with href
+            </a>
+            <button
+              class="btn btn-primary"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#collapseExample"
+              aria-expanded="false"
+              aria-controls="collapseExample"
+              (click)="collapse.toggle()"
+            >
+              Button with data-target
+            </button>
+          </div>
+          <div
+            class="collapse show"
+            id="collapseExample"
+            #collapse="ngbCollapse"
+            [(ngbCollapse)]="Collapsed"
+          >
+            <div class="card border shadow-none card-body text-muted mb-0">
+              Anim pariatur cliche reprehenderit, enim eiusmod high life
+              accusamus terry richardson ad squid. Nihil anim keffiyeh
+              helvetica, craft beer labore wes anderson cred nesciunt sapiente
+              ea proident.Anim pariatur cliche reprehenderit, enim eiusmod high
+              life accusamus terry richardson ad squid. Nihil anim keffiyeh
+              helvetica, craft beer labore wes anderson cred nesciunt sapiente
+              ea proident.Anim pariatur cliche reprehenderit, enim eiusmod high
+              life accusamus terry richardson ad squid.
+            </div>
+          </div>
+        </div>
+        <div class="d-none code-view">
+          <pre class="language-markup" style="height: 275px">
+<code>&lt;!-- Collapse Example --&gt;
+&lt;div class=&quot;hstack gap-2 flex-wrap mb-3&quot;&gt;
+&lt;a class=&quot;btn btn-primary&quot; data-bs-toggle=&quot;collapse&quot; href=&quot;#collapseExample&quot; role=&quot;button&quot; aria-expanded=&quot;true&quot; aria-controls=&quot;collapseExample&quot;&gt;
+Link with href
+&lt;/a&gt;
+&lt;button class=&quot;btn btn-primary&quot; type=&quot;button&quot; data-bs-toggle=&quot;collapse&quot; data-bs-target=&quot;#collapseExample&quot; aria-expanded=&quot;false&quot; aria-controls=&quot;collapseExample&quot;&gt;
+Button with data-bs-target
+&lt;/button&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;collapse show&quot; id=&quot;collapseExample&quot;&gt;
+&lt;div class=&quot;card mb-0&quot;&gt;
+&lt;div class=&quot;card-body&quot;&gt;
+When designing, the goal is to draw someone’s attention and portray to them what you’re trying to say. You can make a big statement by using little tricks, like this one. Use contrasting fonts. you can use a bold sanserif font with a cursive.
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </div>
+      <!-- end card-body -->
+    </div>
+    <!-- end card -->
+  </div>
+  <!--end col-->
+  <div class="col-xxl-6">
+    <div class="card">
+      <div class="card-header align-items-center d-flex">
+        <h4 class="card-title mb-0 flex-grow-1">Horizontal Collapse</h4>
+        <div class="flex-shrink-0">
+          <div class="form-check form-switch form-switch-right form-switch-md">
+            <label
+              for="horizontal-collapse-showcode"
+              class="form-label text-muted"
+              >Show Code</label
+            >
+            <input
+              class="form-check-input code-switcher"
+              type="checkbox"
+              id="horizontal-collapse-showcode"
+              (click)="ShowCode($event)"
+            />
+          </div>
+        </div>
+      </div>
+      <!-- end card header -->
+      <div class="card-body">
+        <p class="text-muted">
+          Use the <code>collapse-horizontal</code> class to transition the
+          <code>width</code> instead of <code>height</code> and set a
+          <code>width</code> on the immediate child element for horizontal
+          collapse.
+        </p>
+        <div class="live-preview">
+          <div class="mb-3">
+            <button
+              class="btn btn-primary"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#collapseWidthExample"
+              aria-expanded="true"
+              aria-controls="collapseWidthExample"
+              (click)="HCollapse.toggle()"
+              [attr.aria-expanded]="!HCollapsed"
+            >
+              Toggle Width Collapse
+            </button>
+          </div>
+          <div>
+            <div
+              class="collapse collapse-horizontal show"
+              id="collapseWidthExample"
+              #HCollapse="ngbCollapse"
+              [(ngbCollapse)]="HCollapsed"
+            >
+              <div class="card card-body mb-0" style="width: 300px">
+                This is some placeholder content for a horizontal collapse. It's
+                hidden by default and shown when triggered.
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="d-none code-view">
+          <pre class="language-markup" style="height: 275px">
+<code>&lt;!-- Horizontal Collapse --&gt;
+&lt;div class=&quot;mb-3&quot;&gt;
+&lt;button class=&quot;btn btn-primary&quot; type=&quot;button&quot; data-bs-toggle=&quot;collapse&quot; data-bs-target=&quot;#collapseWidthExample&quot; aria-expanded=&quot;true&quot; aria-controls=&quot;collapseWidthExample&quot;&gt;
+Toggle width collapse
+&lt;/button&gt;
+&lt;/div&gt;
+
+&lt;div&gt;
+&lt;div class=&quot;collapse collapse-horizontal show&quot; id=&quot;collapseWidthExample&quot;&gt;
+&lt;div class=&quot;card card-body mb-0&quot; style=&quot;width: 300px;&quot;&gt;
+This is some placeholder content for a horizontal collapse. It's hidden by default and shown when triggered.
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </div>
+      <!-- end card-body -->
+    </div>
+    <!-- end card -->
+  </div>
+  <!--end col-->
+</div>
+<!--end row-->
+
+<div class="row">
+  <div class="col-xxl-6">
+    <div class="card">
+      <div class="card-header align-items-center d-flex">
+        <h4 class="card-title mb-0 flex-grow-1">Collapse with Icon</h4>
+        <div class="flex-shrink-0">
+          <div class="form-check form-switch form-switch-right form-switch-md">
+            <label for="collapse-icon-showcode" class="form-label text-muted"
+              >Show Code</label
+            >
+            <input
+              class="form-check-input code-switcher"
+              type="checkbox"
+              id="collapse-icon-showcode"
+              (click)="ShowCode($event)"
+            />
+          </div>
+        </div>
+      </div>
+      <!-- end card header -->
+      <div class="card-body">
+        <p class="text-muted">
+          Here is the example of collapse in which the icon is wrapped within
+          the button collapse toggle.
+        </p>
+        <div class="live-preview">
+          <div class="hstack gap-3 mb-3">
+            <a
+              class="link-success"
+              data-bs-toggle="collapse"
+              href="javascript:void(0);"
+              role="button"
+              aria-expanded="true"
+              aria-controls="collapseWithicon"
+              (click)="DownCollapse.toggle()"
+              [attr.aria-expanded]="!DownCollapsed"
+            >
+              <i class="ri-arrow-down-circle-line fs-16"></i>
+            </a>
+            <button
+              class="btn btn-light"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="javascript:void(0);"
+              aria-expanded="false"
+              aria-controls="collapseWithicon2"
+              (click)="FilterCollapse.toggle()"
+              [attr.aria-expanded]="!FilterCollapsed"
+            >
+              <i class="ri-filter-2-line"></i>
+            </button>
+          </div>
+          <div
+            class="collapse show"
+            id="collapseWithicon"
+            #DownCollapse="ngbCollapse"
+            [(ngbCollapse)]="DownCollapsed"
+          >
+            <div class="card mb-0">
+              <div class="card-body">
+                If you enter text including symbols in the search criteria, the
+                search criteria is interpreted exactly as you entered it, and
+                the search is case sensitive as a case insensitive search that
+                contains certain text but does also provide a lot of search
+                criteria options.
+              </div>
+            </div>
+          </div>
+          <div
+            class="collapse"
+            id="collapseWithicon2"
+            #FilterCollapse="ngbCollapse"
+            [(ngbCollapse)]="FilterCollapsed"
+          >
+            <div class="card mb-0 mt-3">
+              <div class="card-body">
+                When you want to search for data, such as customer names,
+                addresses, or product groups, you enter criteria. In search
+                criteria you can use all the numbers and letters that you
+                normally use in the specific field. In addition, you can use
+                special symbols to further filter the results.
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="d-none code-view">
+          <pre class="language-markup" style="height: 275px">
+<code>&lt;!-- Collapse with Icon --&gt;
+&lt;div class=&quot;hstack gap-3 mb-3&quot;&gt;
+&lt;a class=&quot;link-success&quot; data-bs-toggle=&quot;collapse&quot; href=&quot;#collapseWithicon&quot; role=&quot;button&quot; aria-expanded=&quot;true&quot; aria-controls=&quot;collapseWithicon&quot;&gt;
+&lt;i class=&quot;ri-arrow-down-circle-line fs-16&quot;&gt;&lt;/i&gt;
+&lt;/a&gt;
+&lt;button class=&quot;btn btn-light&quot; type=&quot;button&quot; data-bs-toggle=&quot;collapse&quot; data-bs-target=&quot;#collapseWithicon2&quot; aria-expanded=&quot;false&quot; aria-controls=&quot;collapseWithicon2&quot;&gt;
+&lt;i class=&quot;ri-filter-2-line&quot;&gt;&lt;/i&gt;
+&lt;/button&gt;
+&lt;/div&gt;
+&lt;div class=&quot;collapse show&quot; id=&quot;collapseWithicon&quot;&gt;
+&lt;div class=&quot;card mb-0&quot;&gt;
+&lt;div class=&quot;card-body&quot;&gt;
+If you enter text including symbols in the search criteria, the search criteria is interpreted exactly as you entered it, and the search is case sensitive as a case insensitive search that contains certain text but does also provide a lot of search criteria options.
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;collapse&quot; id=&quot;collapseWithicon2&quot;&gt;
+&lt;div class=&quot;card mb-0&quot;&gt;
+&lt;div class=&quot;card-body&quot;&gt;
+When you want to search for data, such as customer names, addresses, or product groups, you enter criteria. In search criteria you can use all the numbers and letters that you normally use in the specific field. In addition, you can use special symbols to further filter the results.
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </div>
+      <!-- end card-body -->
+    </div>
+    <!-- end card -->
+  </div>
+  <!--end col-->
+  <div class="col-xxl-6">
+    <div class="card">
+      <div class="card-header align-items-center d-flex">
+        <h4 class="card-title mb-0 flex-grow-1">
+          Inline & Block Element Collapse
+        </h4>
+        <div class="flex-shrink-0">
+          <div class="form-check form-switch form-switch-right form-switch-md">
+            <label
+              for="inline-block-collapse-showcode"
+              class="form-label text-muted"
+              >Show Code</label
+            >
+            <input
+              class="form-check-input code-switcher"
+              type="checkbox"
+              id="inline-block-collapse-showcode"
+              (click)="ShowCode($event)"
+            />
+          </div>
+        </div>
+      </div>
+      <!-- end card header -->
+      <div class="card-body">
+        <p class="text-muted">
+          Inline element collapse takes all horizontal space hence you can
+          activate the collapse within by clicking on full-width horizontal
+          space. Block element collapse can be activated by clicking on collapse
+          toggle only.
+        </p>
+        <div class="live-preview">
+          <div class="mb-3">
+            <h6
+              class="text-primary"
+              data-bs-toggle="collapse"
+              data-bs-target="#collapseblock"
+              aria-expanded="true"
+              aria-controls="collapseblock"
+              (click)="InlineCollapse.toggle()"
+              [attr.aria-expanded]="!InlineCollapsed"
+            >
+              <code>&lt;h6&gt;</code> Inline Element Collapse
+            </h6>
+            <span
+              role="button"
+              class="text-primary fw-medium"
+              data-bs-toggle="collapse"
+              data-bs-target="#collapseinline"
+              aria-expanded="true"
+              aria-controls="collapseinline"
+              (click)="BlockCollapse.toggle()"
+              [attr.aria-expanded]="!BlockCollapsed"
+            >
+              <code>&lt;span&gt;</code> Block Element Collapse
+            </span>
+          </div>
+          <div class="row g-2">
+            <div class="col-auto">
+              <div
+                class="collapse collapse-horizontal show"
+                id="collapseblock"
+                #BlockCollapse="ngbCollapse"
+                [(ngbCollapse)]="BlockCollapsed"
+              >
+                <div class="card card-body mb-0" style="width: 300px">
+                  A wonderful serenity has taken possession of my entire soul,
+                  like these sweet mornings of spring heart.
+                </div>
+              </div>
+            </div>
+            <!--end col-->
+            <div class="col-auto">
+              <div
+                class="collapse collapse-horizontal show"
+                id="collapseinline"
+                #InlineCollapse="ngbCollapse"
+                [(ngbCollapse)]="InlineCollapsed"
+              >
+                <div class="card card-body mb-0" style="width: 300px">
+                  When you have created a new account schedule and set up the
+                  rows, you must set up columns.
+                </div>
+              </div>
+            </div>
+            <!--end col-->
+          </div>
+          <!--end row-->
+        </div>
+        <div class="d-none code-view">
+          <pre class="language-markup" style="height: 275px">
+<code>&lt;!-- Inline & Block Element Collapse --&gt;
+&lt;div class=&quot;mb-3&quot;&gt;
+&lt;h6 class=&quot;text-primary&quot; data-bs-toggle=&quot;collapse&quot; data-bs-target=&quot;#collapseblock&quot; aria-expanded=&quot;true&quot; aria-controls=&quot;collapseblock&quot;&gt;
+&lt;h6&gt; Inline Element Collapse
+&lt;/h6&gt;
+&lt;span class=&quot;text-primary fw-medium&quot; data-bs-toggle=&quot;collapse&quot; data-bs-target=&quot;#collapseinline&quot; aria-expanded=&quot;true&quot; aria-controls=&quot;collapseinline&quot;&gt;
+&lt;span&gt; Block Element Collapse
+&lt;/span&gt;
+&lt;/div&gt;
+&lt;div class=&quot;row&quot;&gt;
+&lt;div class=&quot;col-lg-6&quot;&gt;
+&lt;div class=&quot;collapse collapse-horizontal show&quot; id=&quot;collapseblock&quot;&gt;
+&lt;div class=&quot;card card-body mb-0&quot; style=&quot;width: 300px;&quot;&gt;
+A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring heart.
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;col-lg-6&quot;&gt;
+&lt;div class=&quot;collapse collapse-horizontal show&quot; id=&quot;collapseinline&quot;&gt;
+&lt;div class=&quot;card card-body mb-0&quot; style=&quot;width: 300px;&quot;&gt;
+When you have created a new account schedule and set up the rows, you must set up columns.
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </div>
+      <!-- end card-body -->
+    </div>
+    <!-- end card -->
+  </div>
+  <!--end col-->
+</div>
+<!--end row-->
+
+<div class="row">
+  <div class="col-lg-12">
+    <div class="card">
+      <div class="card-header align-items-center d-flex">
+        <h4 class="card-title mb-0 flex-grow-1">Multiple Targets Collapse</h4>
+        <div class="flex-shrink-0">
+          <div class="form-check form-switch form-switch-right form-switch-md">
+            <label
+              for="multiple-collapse-showcode"
+              class="form-label text-muted"
+              >Show Code</label
+            >
+            <input
+              class="form-check-input code-switcher"
+              type="checkbox"
+              id="multiple-collapse-showcode"
+              (click)="ShowCode($event)"
+            />
+          </div>
+        </div>
+      </div>
+      <!-- end card header -->
+      <div class="card-body">
+        <p class="text-muted">
+          A <code>&lt;button&gt;</code> or <code>&lt;a&gt;</code> can show and
+          hide multiple elements by referencing them with a selector in its href
+          or data-bs-target attribute. Multiple <code>&lt;button&gt;</code> or
+          <code>&lt;a&gt;</code> can show and hide an element if they each
+          reference it with their href or data-bs-target attribute.
+        </p>
+        <div class="live-preview">
+          <div class="hstack gap-2 flex-wrap mb-3">
+            <a
+              class="btn btn-primary"
+              data-bs-toggle="collapse"
+              href="javascript:void(0);"
+              role="button"
+              aria-expanded="false"
+              aria-controls="multiCollapseExample1"
+              (click)="firstcollapse.toggle()"
+              [attr.aria-expanded]="!firstColleaps"
+              >Toggle First Element</a
+            >
+            <button
+              class="btn btn-primary"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#multiCollapseExample2"
+              aria-expanded="false"
+              aria-controls="multiCollapseExample2"
+              (click)="secondcollapse.toggle()"
+              [attr.aria-expanded]="!secondColleaps"
+            >
+              Toggle Second Element
+            </button>
+            <button
+              class="btn btn-primary"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target=".multi-collapse"
+              aria-expanded="false"
+              aria-controls="multiCollapseExample1 multiCollapseExample2"
+              (click)="bothcollapse.toggle()"
+              [attr.aria-expanded]="!secondColleaps"
+            >
+              Toggle Both Elements
+            </button>
+          </div>
+          <div
+            class="row"
+            #bothcollapse="ngbCollapse"
+            [(ngbCollapse)]="bothColleaps"
+          >
+            <div class="col">
+              <div
+                class="collapse multi-collapse show"
+                id="multiCollapseExample1"
+                #firstcollapse="ngbCollapse"
+                [(ngbCollapse)]="firstColleaps"
+              >
+                <div class="card card-body mb-0">
+                  Some placeholder content for the first collapse component of
+                  this multi-collapse example. This panel is hidden by default
+                  but revealed when the user activates the relevant trigger.
+                </div>
+              </div>
+            </div>
+            <div class="col">
+              <div
+                class="collapse multi-collapse show"
+                id="multiCollapseExample2"
+                #secondcollapse="ngbCollapse"
+                [(ngbCollapse)]="secondColleaps"
+              >
+                <div class="card card-body mb-0">
+                  Some placeholder content for the second collapse component of
+                  this multi-collapse example. This panel is hidden by default
+                  but revealed when the user activates the relevant trigger.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="d-none code-view">
+          <pre class="language-markup" style="height: 275px">
+<code>&lt;!-- Multiple Targets Example --&gt;
+&lt;div class=&quot;hstack gap-2 flex-wrap mb-3&quot;&gt;
+&lt;a class=&quot;btn btn-primary&quot; data-bs-toggle=&quot;collapse&quot; href=&quot;#multiCollapseExample1&quot; role=&quot;button&quot; aria-expanded=&quot;false&quot; aria-controls=&quot;multiCollapseExample1&quot;&gt;Toggle first element&lt;/a&gt;
+&lt;button class=&quot;btn btn-primary&quot; type=&quot;button&quot; data-bs-toggle=&quot;collapse&quot; data-bs-target=&quot;#multiCollapseExample2&quot; aria-expanded=&quot;false&quot; aria-controls=&quot;multiCollapseExample2&quot;&gt;Toggle second element&lt;/button&gt;
+&lt;button class=&quot;btn btn-primary&quot; type=&quot;button&quot; data-bs-toggle=&quot;collapse&quot; data-bs-target=&quot;.multi-collapse&quot; aria-expanded=&quot;false&quot; aria-controls=&quot;multiCollapseExample1 multiCollapseExample2&quot;&gt;Toggle both elements&lt;/button&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;row&quot;&gt;
+&lt;div class=&quot;col&quot;&gt;
+&lt;div class=&quot;collapse multi-collapse show&quot; id=&quot;multiCollapseExample1&quot;&gt;
+&lt;div class=&quot;card card-body mb-0&quot;&gt;
+Some placeholder content for the first collapse component of this multi-collapse example. This panel is hidden by default but revealed when the user activates the relevant trigger.
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;col&quot;&gt;
+&lt;div class=&quot;collapse multi-collapse show&quot; id=&quot;multiCollapseExample2&quot;&gt;
+&lt;div class=&quot;card card-body mb-0&quot;&gt;
+Some placeholder content for the second collapse component of this multi-collapse example. This panel is hidden by default but revealed when the user activates the relevant trigger.
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </div>
+      <!-- end card-body -->
+    </div>
+    <!-- end card -->
+  </div>
+  <!--end col-->
+</div>
+<!--end row-->

@@ -1,0 +1,433 @@
+<app-breadcrumbs
+  title="Branches"
+  [breadcrumbItems]="breadCrumbItems"
+></app-breadcrumbs>
+
+<div class="row">
+  <div class="col-lg-12">
+    <div class="card">
+      <div class="card-body">
+        <div class="row g-3">
+          <div class="col-sm-4">
+            <div class="search-box">
+              <form [formGroup]="searchForm">
+                <input
+                  type="text"
+                  formControlName="searchTerm"
+                  class="form-control search bg-light border-light"
+                  id="searchJob"
+                  autocomplete="off"
+                  placeholder="{{ 'CONTACT.search' | translate }}"
+                />
+              </form>
+              <i class="ri-search-line search-icon"></i>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="input-group">
+              <input
+                type="text"
+                class="form-control bg-light border-light"
+                id="datepicker"
+                mwlFlatpickr
+                [convertModelValue]="true"
+                data-date-format="d M, Y"
+                placeholder="{{ 'CONTACT.selectDate' | translate }}"
+                [(ngModel)]="selectedDate"
+                (change)="onChangeTime($event)"
+                mode="range"
+              />
+              <div
+                class="input-group-text bg-primary border-primary text-white"
+              >
+                <i class="ri-calendar-2-line"></i>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-auto">
+            <button
+              type="button"
+              class="btn btn-soft-primary w-100"
+              (click)="clearFilter()"
+            >
+              <i class="ri-equalizer-fill me-1 align-bottom"></i>
+              {{ "CONTACT.clearFilter" | translate }}
+            </button>
+          </div>
+          <div class="col-auto">
+            <a>
+              <button
+                type="button"
+                class="btn btn-soft-success"
+                (click)="addBranch(content)"
+              >
+                <i class="ri-add-circle-line align-middle me-1"></i>
+                {{ "Add Branch" | translate }}
+              </button></a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- end row -->
+
+<div class="row">
+  <div class="col-lg-12">
+    <div class="d-flex align-items-center mb-4">
+      <div class="flex-grow-1">
+        <p class="text-muted fs-14 mb-0">
+          Branches:
+          <span id="total-result" class="badge badge-soft-danger">{{
+            branches.length!
+          }}</span>
+        </p>
+      </div>
+      <div class="flex-shrink-0"></div>
+    </div>
+  </div>
+</div>
+<!-- end row -->
+<div class="row" id="job-list">
+  <ng-container *ngIf="checkSkeleton && branches.length > 0">
+    <div *ngFor="let item of branches; let i = index" class="col-lg-3 col-md-6">
+      <div class="card">
+        <div class="card-body">
+          <button
+            type="button"
+            class="btn btn-icon btn-soft-primary float-end"
+            data-bs-toggle="button"
+            aria-pressed="true"
+          >
+            <i class="mdi mdi-cards-heart fs-16"></i>
+          </button>
+          <div class="avatar-sm mb-4">
+            <img src="{{ item.image }}" alt="" class="avatar-custom" />
+          </div>
+          <a href="javascript:void(0);">
+            <h5>{{ item.name }}</h5>
+          </a>
+          <div class="mb-3">
+            <a href="{{ item.location }}" target="_blank">
+              <i class="ri-map-pin-2-line text-primary me-1 align-bottom"></i
+            ></a>
+            {{ item.address }}
+          </div>
+          <div>
+            <i class="ri-phone-line"></i>
+            {{ item.phone | mask : "(000) 000-0000" }}
+          </div>
+          <p class="text-muted mt-3">
+            <i class="ri-time-line text-primary me-1 align-bottom"></i>
+            {{ item.createdAt | date : "hh:mm:ss a dd/MM/YYYY" }}
+          </p>
+          <p class="text-muted mt-3">
+            <i class="ri-alarm-line"></i>
+            {{ item.updatedAt | date : "hh:mm:ss a dd/MM/YYYY" }}
+          </p>
+
+          <div class="mt-4 hstack gap-2">
+            <a
+              href="javascript:void(0);"
+              class="btn btn-soft-danger w-100"
+              (click)="confirm(deleteModel, item._id)"
+            >
+              {{ "Delete" | translate }}</a
+            >
+            <a
+              class="btn btn-soft-primary w-100"
+              (click)="editDataGet(content, item)"
+            >
+              {{ "Edit" | translate }}</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+
+  <ngb-alert
+    *ngIf="checkSkeleton && branches.length === 0"
+    role="alert"
+    class="alert show alert-dismissible text-center alert-additional fade custom-alert alert-light"
+    ><div class="alert-body">
+      <div class="d-flex">
+        <div class="flex-shrink-0 me-3">
+          <i class="ri-notification-off-line fs-16 align-middle"></i>
+        </div>
+        <div class="flex-grow-1">
+          <h5 class="alert-heading">Yey! Everything worked!</h5>
+          <p class="mb-0">
+            This alert needs your attention, but it's not super important.
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="alert-content">
+      <p class="mb-0">
+        Whenever you need to, be sure to use margin utilities to keep things
+        nice and tidy.
+      </p>
+    </div>
+    <button type="button" aria-label="Close" class="btn-close"></button
+  ></ngb-alert>
+
+  <div class="item card pt-3" *ngIf="!checkSkeleton">
+    <ngx-skeleton-loader count="14"></ngx-skeleton-loader>
+  </div>
+  <!-- pagination -->
+  <ngb-pagination
+    *ngIf="branches.length > 0"
+    class="d-flex justify-content-end pt-2"
+    aria-label="Custom pagination"
+    [collectionSize]="total"
+    [(page)]="page"
+    [pageSize]="pagesize"
+    (click)="loadPageClick()"
+  >
+    <ng-template ngbPaginationPrevious let-page let-pages="pages">
+      <i class="ci-arrow-left me-2"></i>
+      Prev
+    </ng-template>
+    <ng-template ngbPaginationNext>
+      Next
+      <i class="ci-arrow-right ms-2"></i>
+    </ng-template>
+  </ngb-pagination>
+</div>
+
+<!-- removeItemModal -->
+<ng-template #deleteModel let-modal>
+  <div class="modal-content">
+    <div class="modal-header">
+      <button
+        type="button"
+        class="btn-close"
+        data-bs-dismiss="modal"
+        aria-label="Close"
+        id="deleteRecord-close"
+        (click)="modal.dismiss('Cross click')"
+      ></button>
+    </div>
+    <div class="modal-body">
+      <div class="mt-2 text-center">
+        <lord-icon
+          src="https://cdn.lordicon.com/gsqxdxog.json"
+          trigger="loop"
+          colors="primary:#405189,secondary:#f06548"
+          style="width: 90px; height: 90px"
+        ></lord-icon>
+        <div class="mt-4 pt-2 fs-15 mx-4 mx-sm-5">
+          <h4>You are about to delete a branch ?</h4>
+          <p class="text-muted mx-4 mb-0">
+            Deleting your branch will remove all of your information from our
+            database.
+          </p>
+        </div>
+      </div>
+      <div class="d-flex gap-2 justify-content-center mt-4 mb-2">
+        <button
+          class="btn btn-link link-success fw-medium text-decoration-none"
+          data-bs-dismiss="modal"
+          id="deleteRecord-close"
+          (click)="modal.close('Close click')"
+        >
+          <i class="ri-close-line me-1 align-middle"></i> Close
+        </button>
+        <button
+          type="button"
+          class="btn w-sm btn-danger"
+          id="delete-product"
+          (click)="deleteBranch(deleteId)"
+          (click)="modal.close('Close click')"
+        >
+          Yes, Delete It!
+        </button>
+      </div>
+    </div>
+  </div>
+  <!-- /.modal-content -->
+</ng-template>
+
+<ng-template #content role="document" let-modal>
+  <div class="modal-header bg-soft-info p-3">
+    <h5 class="modal-title" id="exampleModalLabel">Add Branch</h5>
+    <button
+      type="button"
+      class="btn-close"
+      data-bs-dismiss="modal"
+      aria-label="Close"
+      id="close-modal"
+      (click)="modal.dismiss('Cross click')"
+    ></button>
+  </div>
+  <form
+    (ngSubmit)="saveBranch()"
+    [formGroup]="branchesForm"
+    class="tablelist-form"
+    autocomplete="off"
+  >
+    <div class="modal-body">
+      <input type="hidden" id="id-field" />
+      <div class="row g-3">
+        <div class="col-lg-12">
+          <div>
+            <label for="name-field" class="form-label required">Name</label>
+            <input
+              type="text"
+              id="customername-field"
+              class="form-control"
+              placeholder="Enter name"
+              required
+              formControlName="name"
+              [ngClass]="{
+                'is-invalid': submitted && form['name'].errors
+              }"
+            />
+            <div
+              *ngIf="submitted && form['name'].errors"
+              class="invalid-feedback"
+              align="left"
+            >
+              <div *ngIf="form['name'].errors['required']">
+                Name is required
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-12">
+          <div>
+            <label for="email_id-field" class="form-label required"
+              >Address</label
+            >
+            <input
+              type="text"
+              id="email_id-field"
+              class="form-control"
+              placeholder="Enter address"
+              required
+              formControlName="address"
+              [ngClass]="{
+                'is-invalid': submitted && form['address'].errors
+              }"
+            />
+            <div
+              *ngIf="submitted && form['address'].errors"
+              class="invalid-feedback"
+              align="left"
+            >
+              <div *ngIf="form['address'].errors['required']">
+                Address ID is required
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-12">
+          <div>
+            <label for="phone-field" class="form-label required">Phone</label>
+            <input
+              type="text"
+              id="phone-field"
+              class="form-control"
+              placeholder="Enter phone"
+              mask="(000) 000-0000"
+              required
+              formControlName="phone"
+              [ngClass]="{
+                'is-invalid': submitted && form['phone'].errors
+              }"
+            />
+            <div
+              *ngIf="submitted && form['phone'].errors"
+              class="invalid-feedback"
+              align="left"
+            >
+              <div *ngIf="form['phone'].errors['required']">
+                Phone is required
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-12">
+          <div>
+            <label for="location-field" class="form-label required"
+              >Location</label
+            >
+            <input
+              type="text"
+              id="location-field"
+              class="form-control"
+              placeholder="Enter location"
+              required
+              formControlName="location"
+              [ngClass]="{
+                'is-invalid': submitted && form['location'].errors
+              }"
+            />
+            <div
+              *ngIf="submitted && form['location'].errors"
+              class="invalid-feedback"
+              align="left"
+            >
+              <div *ngIf="form['location'].errors['required']">
+                Location is required
+              </div>
+              <div *ngIf="form['location']?.errors.pattern">
+                Link is invalid URL format
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-12">
+          <div>
+            <label for="phone-field" class="form-label required">Image</label>
+            <input
+              type="text"
+              id="phone-field"
+              class="form-control"
+              placeholder="Enter image"
+              formControlName="image"
+              [ngClass]="{
+                'is-invalid': submitted && form['image'].errors
+              }"
+            />
+
+            <div
+              *ngIf="submitted && form['image'].errors"
+              class="invalid-feedback"
+              align="left"
+            >
+              <div *ngIf="form['image'].errors['required']">
+                Image is required
+              </div>
+              <div *ngIf="form['image']?.errors.pattern">
+                Link is invalid URL format
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <div class="hstack gap-2 justify-content-end">
+        <button
+          type="button"
+          class="btn btn-light"
+          data-bs-dismiss="modal"
+          (click)="modal.close('Close click')"
+        >
+          Close
+        </button>
+        <button
+          type="submit"
+          class="btn btn-primary"
+          id="add-btn"
+          [disabled]="checkEnableSave()"
+        >
+          Add Branch
+        </button>
+      </div>
+    </div>
+  </form>
+</ng-template>

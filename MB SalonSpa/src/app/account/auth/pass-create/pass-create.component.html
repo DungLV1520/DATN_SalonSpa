@@ -1,0 +1,131 @@
+<div class="row h-100 overflow-auto">
+  <div class="col-12 text-center mb-auto px-0">
+    <header class="header">
+      <div class="row">
+        <div class="col-auto mt-3 mx-1">
+          <a
+            routerLink="/account/reset-password"
+            target="_self"
+            class="btn btn-light btn-44"
+            ><i class="bi bi-arrow-left"></i
+          ></a>
+        </div>
+        <div class="col-auto custom-ml">
+          <div>
+            <img src="../../../../assets/img/logo.svg" alt="" />
+          </div>
+        </div>
+      </div>
+    </header>
+  </div>
+  <div
+    class="col-10 col-md-6 col-lg-5 col-xl-3 mx-auto align-self-center py-4 custom-ml"
+  >
+    <h1 class="mb-4 text-color-theme text-center">Reset Password</h1>
+    <p class="text-muted mb-4 text-center">
+      Please create unique password for account includes at-least 1 capital
+      latter & 1 special character sign
+    </p>
+    <div class="alert alert-danger" role="alert" *ngIf="checkError">
+      {{ error }}
+    </div>
+    <form [formGroup]="passresetForm" (ngSubmit)="onSubmit()">
+      <div class="form-group form-floating is-valid mb-3">
+        <input
+          [type]="passwordField ? 'text' : 'password'"
+          class="form-control"
+          value="1546828"
+          id="newpass"
+          formControlName="password"
+          placeholder="New Password"
+        />
+        <label class="form-control-label" for="newpass">New Password</label>
+        <button
+          type="button"
+          class="btn btn-link text-success tooltip-btn"
+          data-bs-toggle="tooltip"
+          data-bs-placement="left"
+          title="Enter valid Password"
+          id="passworderror"
+          (click)="togglepasswordField()"
+        >
+          <i class="bi bi-eye-slash"></i>
+        </button>
+      </div>
+      <div
+        *ngIf="submitted && passresetForm.controls['password'].errors"
+        class="invalid-feed mb-2"
+      >
+        <div
+          class="text-left"
+          *ngIf="passresetForm.controls['password'].errors['required']"
+        >
+          New password is required
+        </div>
+      </div>
+
+      <div class="form-group form-floating is-invalid mb-3">
+        <input
+          [type]="confirmField ? 'text' : 'password'"
+          class="form-control"
+          id="password"
+          required
+          formControlName="cpassword"
+          placeholder="Confirm New Password"
+        />
+        <label class="form-control-label" for="password"
+          >Confirm New Password</label
+        >
+
+        <button
+          type="button"
+          class="btn btn-link text-danger tooltip-btn"
+          data-bs-toggle="tooltip"
+          data-bs-placement="left"
+          title="Enter valid Password"
+          id="passworderror"
+          (click)="toggleconfirmField()"
+        >
+          <i class="bi bi-eye-slash"></i>
+        </button>
+      </div>
+      <div
+        *ngIf="submitted && passresetForm.controls['cpassword'].errors"
+        class="invalid-feed mb-2 mt-2"
+      >
+        <div *ngIf="passresetForm.controls['cpassword'].errors['required']">
+          Confirm password is required
+        </div>
+      </div>
+
+      <div
+        class="invalid-feed mb-2 mt-2"
+        *ngIf="
+          passresetForm.hasError('passwordNotMatch') &&
+          (cpasswordControl.dirty || submitted)
+        "
+      >
+        Passwords do not match.
+      </div>
+
+      <button type="submit" class="btn btn-lg btn-default w-100 shadow">
+        Update
+      </button>
+    </form>
+  </div>
+  <div class="col-12 text-center mt-auto" *ngIf="loading">
+    <div class="row justify-content-center footer-info">
+      <div class="col-auto text-center">
+        <span class="progressstimer">
+          <img src="assets/img/progress.png" alt="" />
+        </span>
+        <br />
+      </div>
+    </div>
+  </div>
+  <div class="col-12 text-center mt-auto">
+    <div class="row justify-content-center footer-info">
+      <div class="col-auto"></div>
+    </div>
+  </div>
+</div>

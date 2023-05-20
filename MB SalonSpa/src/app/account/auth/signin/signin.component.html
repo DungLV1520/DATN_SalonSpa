@@ -1,0 +1,120 @@
+<div class="row h-100 overflow-auto" style="background-color: #f4f7fe">
+  <div class="col-12 text-center mb-auto px-0">
+    <header class="header">
+      <div class="row">
+        <div class="col-auto"></div>
+        <div class="col">
+          <div style="margin-left: 27px">
+            <img src="../../../../assets/img/logo.svg" alt="" />
+          </div>
+        </div>
+        <div class="col-auto"></div>
+      </div>
+    </header>
+  </div>
+  <div
+    class="col-10 col-md-6 col-lg-5 col-xl-3 mx-auto align-self-center text-center py-4 custom-ml"
+  >
+    <h1 class="mb-4 text-color-theme">Sign in</h1>
+    <div class="alert alert-danger" role="alert" *ngIf="checkError">
+      {{ error }}
+    </div>
+    <form
+      class="needs-validation"
+      novalidate
+      [formGroup]="loginForm"
+      (ngSubmit)="onSubmit()"
+    >
+      <div class="form-group form-floating mb-2 is-valid">
+        <input
+          type="email"
+          formControlName="email"
+          class="form-control"
+          value="maxartkiller"
+          id="email"
+          placeholder="email"
+        />
+        <label class="form-control-label" for="email">Email</label>
+      </div>
+      <div
+        *ngIf="submitted && loginForm.controls['email'].errors"
+        class="invalid-feed mb-2"
+      >
+        <div *ngIf="loginForm.controls['email'].errors['required']">
+          Email is required
+        </div>
+        <div *ngIf="loginForm.controls['email'].errors['email']">
+          Email must be a valid email address
+        </div>
+      </div>
+
+      <div class="form-group form-floating is-invalid mb-2">
+        <input
+          [type]="passwordField ? 'text' : 'password'"
+          formControlName="password"
+          class="form-control"
+          id="password"
+          placeholder="Password"
+        />
+        <label class="form-control-label" for="password">Password</label>
+        <button
+          type="button"
+          class="btn btn-link text-danger tooltip-btn"
+          data-bs-toggle="tooltip"
+          data-bs-placement="left"
+          title="Enter valid Password"
+          id="passworderror"
+          (click)="togglepasswordField()"
+        >
+          <i class="bi bi-eye-slash"></i>
+        </button>
+      </div>
+
+      <div
+        *ngIf="submitted && loginForm.controls['password'].errors"
+        class="invalid-feed"
+      >
+        <span *ngIf="loginForm.controls['password'].errors['required']"
+          >Password is required</span
+        >
+      </div>
+
+      <p class="mb-3 text-center mt-3">
+        <a routerLink="/account/reset-password"> Forgot your password? </a>
+      </p>
+
+      <button type="submit" class="btn btn-lg btn-default w-100 mb-4 shadow">
+        Sign in
+      </button>
+    </form>
+    <p class="mb-2 text-muted">Don't have account?</p>
+    <a routerLink="/account/signup" target="_self" class="">
+      Sign up <i class="bi bi-arrow-right"></i>
+    </a>
+  </div>
+  <div class="col-12 text-center mt-auto" *ngIf="loading">
+    <div class="row justify-content-center footer-info">
+      <div class="col-auto text-center">
+        <span class="progressstimer">
+          <img src="assets/img/progress.png" alt="" />
+        </span>
+        <br />
+      </div>
+    </div>
+  </div>
+  <div class="col-12 text-center mt-auto">
+    <div class="row justify-content-center footer-info">
+      <div class="col-auto">
+        <p class="text-muted">Or you can continue with</p>
+      </div>
+      <div class="col-auto ps-0">
+        <a class="p-1"><i class="bi bi-twitter" (click)="twiterAuth()"></i></a>
+        <a class="p-1"><i class="bi bi-google" (click)="googleAuth()"></i></a>
+        <a class="p-1"
+          ><i class="bi bi-facebook" (click)="facebookAuth()"></i
+        ></a>
+        <a class="p-1"><i class="bi bi-github" (click)="githubAuth()"></i></a>
+      </div>
+    </div>
+  </div>
+</div>

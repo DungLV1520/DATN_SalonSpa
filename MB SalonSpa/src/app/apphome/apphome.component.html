@@ -1,0 +1,10 @@
+<app-sidebar class="sidebar-wrap sidebar-pushcontent"></app-sidebar>
+<main #mainPage>
+  <app-header class="header position-fixed" #HeaderEl></app-header>
+  <div class="main-container container">
+    <div class="clearfix"></div>
+    <router-outlet></router-outlet>
+    <div class="clearfix"></div>
+  </div>
+</main>
+<app-footer class="footer" #FooterEl></app-footer>

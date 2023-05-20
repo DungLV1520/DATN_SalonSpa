@@ -1,0 +1,17 @@
+/* You can add global styles to this file, and also import other style files */
+
+.overflow-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+}
+
+img {
+  object-fit: cover;
+}
+
+.bgc-img {
+  object-fit: fill;
+}

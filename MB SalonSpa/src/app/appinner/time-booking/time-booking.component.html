@@ -1,0 +1,83 @@
+<!-- categories -->
+<div class="row mb-2">
+  <div class="col-12 px-0">
+    <div class="tag active">Choose Date <i class="bi bi-calendar"></i></div>
+
+    <div class="mb-2">
+      <input
+        type="radio"
+        class="btn-check cursor"
+        name="option"
+        id="today"
+        (click)="onDateChange(0)"
+      />
+      <label class="tag" for="today" [ngClass]="{ active: isActive === 0 }">
+        Today {{ showDate(0) }}</label
+      >
+      <input
+        type="radio"
+        class="btn-check"
+        name="option"
+        id="today1"
+        (click)="onDateChange(1)"
+      />
+      <label
+        class="tag my-2"
+        for="today1"
+        [ngClass]="{ active: isActive === 1 }"
+      >
+        Tomorrow {{ showDate(1) }}</label
+      >
+      <input
+        type="radio"
+        class="btn-check"
+        name="option"
+        id="today2"
+        (click)="onDateChange(2)"
+      />
+      <label class="tag" for="today2" [ngClass]="{ active: isActive === 2 }">
+        Day after tomorrow {{ showDate(2) }}</label
+      >
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-6" *ngFor="let hour of hours; let i = index">
+    <div
+      class="card shadow-sm mb-4"
+      [ngClass]="isPast(hour) ? 'alert-primary' : 'custom-card'"
+    >
+      <div class="card-body">
+        <div class="row" (click)="getTimeBooking(hour)">
+          <div class="col-auto">
+            <button class="btn text-white btn-44">
+              <input
+                class="form-check-input"
+                style="margin-top: 13px"
+                type="radio"
+                id="{{ i }}"
+                (click)="radioClick(i)"
+                [disabled]="isPast(hour)"
+              />
+            </button>
+          </div>
+          <div class="col px-0 custom_time-booking">
+            <label class="mb-0" for="{{ +i }}">
+              {{ hour }}
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<button
+  class="btn btn-default py-2 w-100 mb-4"
+  style="border-radius: 4px"
+  [disabled]="!timeBookingLine"
+  (click)="bookingForUser()"
+>
+  Submit
+</button>

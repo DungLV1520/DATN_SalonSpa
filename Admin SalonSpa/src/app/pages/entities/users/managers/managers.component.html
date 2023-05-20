@@ -1,0 +1,643 @@
+<app-breadcrumbs
+  title="Employees"
+  [breadcrumbItems]="breadCrumbItems"
+></app-breadcrumbs>
+
+<div class="row">
+  <div class="col-lg-12">
+    <div class="card" id="leadsList">
+      <div class="card-header border-0" style="border-radius: 4px">
+        <div class="row g-4 align-items-center">
+          <div class="col-sm-6 d-flex">
+            <div class="search-box w-100">
+              <form [formGroup]="searchForm">
+                <input
+                  type="text"
+                  formControlName="searchTerm"
+                  name="searchTerm"
+                  class="form-control"
+                  placeholder="{{ 'CONTACT.search' | translate }}"
+                />
+              </form>
+              <i class="ri-search-line search-icon"></i>
+            </div>
+            <div class="input-group mx-2">
+              <input
+                type="text"
+                class="form-control bg-light border-light"
+                id="datepicker"
+                mwlFlatpickr
+                [convertModelValue]="true"
+                data-date-format="d M, Y"
+                placeholder="{{ 'CONTACT.selectDate' | translate }}"
+                [(ngModel)]="selectedDate"
+                (change)="onChangeTime($event)"
+                mode="range"
+              />
+              <div
+                class="input-group-text bg-primary border-primary text-white"
+              >
+                <i class="ri-calendar-2-line"></i>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="search-box">
+              <ng-select
+                [items]="branchesData"
+                [multiple]="false"
+                bindLabel="name"
+                bindValue="_id"
+                [(ngModel)]="searchBranch"
+                placeholder="{{ 'CONTACT.chooseBranch' | translate }}"
+                (change)="filterBranch()"
+              ></ng-select>
+            </div>
+          </div>
+          <div class="col-sm-auto ms-auto">
+            <div class="hstack gap-2">
+              <button
+                class="btn btn-soft-danger"
+                id="remove-actions"
+                style="display: none"
+                (click)="deleteMultiple(deleteModel)"
+              >
+                <i class="ri-delete-bin-2-line"></i>
+              </button>
+              <button
+                type="button"
+                class="btn btn-soft-primary"
+                data-bs-toggle="offcanvas"
+                href="javascript:void(0);"
+                (click)="clearFilter()"
+              >
+                <i class="ri-filter-3-line align-bottom me-1"></i>
+                {{ "CONTACT.clearFilter" | translate }}
+              </button>
+              <button
+                type="button"
+                class="btn btn-soft-primary add-btn"
+                data-bs-toggle="modal"
+                id="create-btn"
+                data-bs-target="#showModal"
+                (click)="openModal(content)"
+              >
+                <i class="ri-add-line align-bottom me-1"></i
+                >{{ "Add Manager" | translate }}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--end col-->
+</div>
+<div class="row">
+  <div class="col-lg-12">
+    <div class="card" id="leadsList">
+      <div class="card-body">
+        <div>
+          <div class="table-responsive table-card">
+            <div class="item p-3">
+              <ngx-skeleton-loader count="15" *ngIf="!checkSkeleton">
+              </ngx-skeleton-loader>
+              <ngb-alert
+                *ngIf="managers.length === 0 && checkSkeleton"
+                role="alert"
+                class="alert show alert-dismissible text-center alert-additional fade custom-alert alert-light"
+                ><div class="alert-body">
+                  <div class="d-flex">
+                    <div class="flex-shrink-0 me-3">
+                      <i
+                        class="ri-notification-off-line fs-16 align-middle"
+                      ></i>
+                    </div>
+                    <div class="flex-grow-1">
+                      <h5 class="alert-heading">Yey! Everything worked!</h5>
+                      <p class="mb-0">
+                        This alert needs your attention, but it's not super
+                        important.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="alert-content">
+                  <p class="mb-0">
+                    Whenever you need to, be sure to use margin utilities to
+                    keep things nice and tidy.
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  aria-label="Close"
+                  class="btn-close"
+                ></button
+              ></ngb-alert>
+            </div>
+
+            <table class="table" *ngIf="checkSkeleton && managers.length > 0">
+              <thead>
+                <tr class="bg-light text-muted">
+                  <th scope="col" style="width: 50px">
+                    <div class="form-check">
+                      <input
+                        class="form-check-input"
+                        type="checkbox"
+                        id="checkAll"
+                        value="option"
+                        [(ngModel)]="masterSelected"
+                        (change)="checkUncheckAll($event)"
+                      />
+                    </div>
+                  </th>
+                  <th>{{ "CONTACT.name" | translate }}</th>
+                  <th>{{ "CONTACT.email" | translate }}</th>
+                  <th>{{ "CONTACT.phone" | translate }}</th>
+                  <th>{{ "CONTACT.status" | translate }}</th>
+                  <th>{{ "CONTACT.gender" | translate }}</th>
+                  <th>{{ "CONTACT.age" | translate }}</th>
+                  <th>{{ "CONTACT.branch" | translate }}</th>
+                  <th>{{ "CONTACT.createdAt" | translate }}</th>
+                  <th>{{ "CONTACT.updatedAt" | translate }}</th>
+                  <th>{{ "CONTACT.action" | translate }}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let data of managers" id="l_{{ data._id }}">
+                  <th scope="row">
+                    <div class="form-check">
+                      <input
+                        class="form-check-input"
+                        type="checkbox"
+                        name="checkAll"
+                        value="{{ data._id }}"
+                        [(ngModel)]="data.state"
+                        (change)="onCheckboxChange($event, data)"
+                      />
+                    </div>
+                  </th>
+                  <td class="cursor" (click)="editDataGet(content, data)">
+                    <div class="d-flex align-items-center">
+                      <div class="flex-grow-1 name">
+                        {{ data.user.fullname }}
+                      </div>
+                    </div>
+                  </td>
+                  <td class="cursor" (click)="editDataGet(content, data)">
+                    <div class="d-flex align-items-center">
+                      <div class="flex-grow-1 name">
+                        {{ data.user.email }}
+                      </div>
+                    </div>
+                  </td>
+                  <td class="cursor" (click)="editDataGet(content, data)">
+                    <div class="d-flex align-items-center">
+                      <div class="flex-grow-1 name">
+                        {{ data.user.phone | mask : "(000) 000-0000" }}
+                      </div>
+                    </div>
+                  </td>
+                  <td class="cursor" (click)="editDataGet(content, data)">
+                    <div class="d-flex gap-1">
+                      <span
+                        class="badge"
+                        [ngClass]="checkClassStatus(data.user.status)"
+                        >{{ data.user.status | translate }}</span
+                      >
+                    </div>
+                  </td>
+                  <td class="cursor">
+                    <div class="d-flex gap-1">
+                      <span
+                        class="badge"
+                        [ngClass]="checkClassGender(data.user.gender)"
+                        >{{ data.user.gender | translate | uppercase }}</span
+                      >
+                    </div>
+                  </td>
+                  <td>
+                    <div class="d-flex gap-1">
+                      <span class="badge badge-soft-primary">{{
+                        data.age
+                      }}</span>
+                    </div>
+                  </td>
+
+                  <td>
+                    <ngb-highlight [result]="data?.branch?.name">
+                    </ngb-highlight>
+                  </td>
+                  <td>
+                    <ngb-highlight
+                      [result]="data.createdAt | date : 'hh:mm:ss a dd/MM/YYYY'"
+                    ></ngb-highlight>
+                  </td>
+                  <td>
+                    <ngb-highlight
+                      [result]="data.updatedAt | date : 'hh:mm:ss a dd/MM/YYYY'"
+                    ></ngb-highlight>
+                  </td>
+                  <td>
+                    <ul class="list-inline hstack gap-2 mb-0">
+                      <li class="list-inline-item">
+                        <div class="dropdown" ngbDropdown>
+                          <button
+                            class="btn btn-soft-secondary btn-sm dropdown arrow-none"
+                            type="button"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false"
+                            ngbDropdownToggle
+                          >
+                            <i class="ri-more-fill align-middle"></i>
+                          </button>
+                          <ul
+                            class="dropdown-menu dropdown-menu-end"
+                            ngbDropdownMenu
+                          >
+                            <li>
+                              <a
+                                class="dropdown-item edit-item-btn"
+                                data-bs-toggle="modal"
+                                (click)="editDataGet(content, data)"
+                                ><i
+                                  class="ri-eye-fill align-bottom me-2 text-muted"
+                                ></i>
+                                {{ "View" | translate }}</a
+                              >
+                            </li>
+                            <li>
+                              <a
+                                class="dropdown-item edit-item-btn"
+                                data-bs-toggle="modal"
+                                (click)="editDataGet(content, data)"
+                                ><i
+                                  class="ri-pencil-fill align-bottom me-2 text-muted"
+                                ></i>
+                                {{ "Edit" | translate }}</a
+                              >
+                            </li>
+                            <li>
+                              <a
+                                class="dropdown-item remove-item-btn"
+                                data-bs-toggle="modal"
+                                (click)="confirm(deleteModel, data._id)"
+                              >
+                                <i
+                                  class="ri-delete-bin-fill align-bottom me-2 text-muted"
+                                ></i>
+                                {{ "Delete" | translate }}
+                              </a>
+                            </li>
+                          </ul>
+                        </div>
+                      </li>
+                    </ul>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div
+            *ngIf="managers.length > 0"
+            class="row justify-content-md-between align-items-md-center mt-3"
+          >
+            <div class="col col-sm-6">
+              <div
+                class="dataTables_info mb-2"
+                id="tickets-table_info"
+                role="status"
+                aria-live="polite"
+              >
+                {{ "Showing" | translate }}
+                {{ (page - 1) * pagesize + 1 }}-{{
+                  total > page * pagesize ? page * pagesize : total
+                }}
+                of
+                {{ total }}
+                {{ "Entries" | translate }}
+              </div>
+            </div>
+            <!-- Pagination -->
+            <div class="col col-sm-6">
+              <div class="text-sm-right float-sm-end listjs-pagination">
+                <ngb-pagination
+                  [collectionSize]="total"
+                  [(page)]="page"
+                  [pageSize]="pagesize"
+                  (click)="loadPageClick()"
+                >
+                </ngb-pagination>
+              </div>
+            </div>
+            <!-- End Pagination -->
+          </div>
+        </div>
+        <ng-template #content role="document" let-modal>
+          <div class="modal-header bg-light p-3">
+            <h5 class="modal-title" id="exampleModalLabel">Add Manager</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+              id="close-modal"
+              (click)="modal.dismiss('Cross click')"
+            ></button>
+          </div>
+          <form
+            (ngSubmit)="saveManager()"
+            [formGroup]="managersForm"
+            class="tablelist-form"
+            autocomplete="off"
+          >
+            <div class="modal-body">
+              <input type="hidden" name="id" formControlName="ids" />
+              <div class="row g-3">
+                <div class="col-lg-12">
+                  <div class="text-center">
+                    <div class="position-relative d-inline-block">
+                      <div class="avatar-lg p-1">
+                        <div class="avatar-title bg-light rounded-circle">
+                          <img
+                            src="assets/images/users/user-dummy-img.jpg"
+                            id="lead-img"
+                            class="avatar-md rounded-circle object-cover"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <label for="name-field" class="form-label required"
+                      >Name</label
+                    >
+                    <input
+                      type="text"
+                      id="customername-field"
+                      class="form-control"
+                      placeholder="Enter Name"
+                      required
+                      formControlName="fullname"
+                      [ngClass]="{
+                        'is-invalid': submitted && form['fullname'].errors
+                      }"
+                    />
+                    <div
+                      *ngIf="submitted && form['fullname'].errors"
+                      class="invalid-feedback"
+                      align="left"
+                    >
+                      <div *ngIf="form['fullname'].errors['required']">
+                        Name is required
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!--end col-->
+
+                <div class="col-lg-12">
+                  <div>
+                    <label for="email-field" class="form-label required"
+                      >Email</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control pe-5"
+                      placeholder="Enter email"
+                      id="email-input"
+                      formControlName="email"
+                      autocomplete="new-email"
+                      [ngClass]="{
+                        'is-invalid': submitted && form['email'].errors
+                      }"
+                    />
+                    <div
+                      *ngIf="submitted && form['email'].errors"
+                      class="invalid-feedback"
+                      align="left"
+                    >
+                      <div *ngIf="form['email'].errors['required']">
+                        Email is required
+                      </div>
+                      <div *ngIf="form['email'].errors['email']">
+                        Email must be a valid email address
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-12">
+                  <div>
+                    <label for="phone-field" class="form-label required"
+                      >Phone</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control pe-5"
+                      placeholder="Enter phone"
+                      id="phone-input"
+                      mask="(000) 000-0000"
+                      formControlName="phone"
+                      autocomplete="new-phone"
+                      [ngClass]="{
+                        'is-invalid': submitted && form['phone'].errors
+                      }"
+                    />
+                    <div
+                      *ngIf="submitted && form['phone'].errors"
+                      class="invalid-feedback"
+                      align="left"
+                    >
+                      <div *ngIf="form['phone'].errors['required']">
+                        Phone is required
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-12">
+                  <div>
+                    <label for="age-field" class="form-label required"
+                      >Age</label
+                    >
+                    <input
+                      type="number"
+                      id="age-field"
+                      class="form-control"
+                      placeholder="Enter age"
+                      required
+                      formControlName="age"
+                      [ngClass]="{
+                        'is-invalid': submitted && form['age'].errors
+                      }"
+                    />
+                    <div
+                      *ngIf="submitted && form['age'].errors"
+                      class="invalid-feedback"
+                      align="left"
+                    >
+                      <div *ngIf="form['age'].errors['required']">
+                        Age is required
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-lg-12">
+                  <div>
+                    <label for="taginput1-choices" class="form-label required"
+                      >Gender</label
+                    >
+                    <ng-select
+                      [items]="selectGender"
+                      [multiple]="false"
+                      formControlName="gender"
+                      placeholder="Choose gender"
+                      [ngClass]="{
+                        'is-invalid': submitted && form['gender'].errors
+                      }"
+                    ></ng-select>
+                    <div
+                      *ngIf="submitted && form['gender'].errors"
+                      class="invalid-feedback"
+                      align="left"
+                    >
+                      <div *ngIf="form['gender'].errors['required']">
+                        Gender is required
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-12">
+                  <div>
+                    <label for="taginput-choices" class="form-label required"
+                      >Branch</label
+                    >
+                    <ng-select
+                      [items]="branchesData"
+                      [multiple]="false"
+                      bindLabel="name"
+                      bindValue="_id"
+                      placeholder="Choose branch"
+                      formControlName="branch"
+                      [ngClass]="{
+                        'is-invalid': submitted && form['branch'].errors
+                      }"
+                    ></ng-select>
+                    <div
+                      *ngIf="submitted && form['branch'].errors"
+                      class="invalid-feedback"
+                      align="left"
+                    >
+                      <div *ngIf="form['branch'].errors['required']">
+                        Branch is required
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-12">
+                  <div>
+                    <label for="taginput-choices" class="form-label required"
+                      >Status</label
+                    >
+                    <ng-select
+                      [items]="statusUser"
+                      [multiple]="false"
+                      formControlName="status"
+                      [ngClass]="{
+                        'is-invalid': submitted && form['status'].errors
+                      }"
+                    ></ng-select>
+                    <div
+                      *ngIf="submitted && form['status'].errors"
+                      class="invalid-feedback"
+                      align="left"
+                    >
+                      <div *ngIf="form['status'].errors['required']">
+                        Status is required
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!--end row-->
+            </div>
+            <div class="modal-footer">
+              <div class="hstack gap-2 justify-content-end">
+                <button
+                  type="button"
+                  class="btn btn-light"
+                  data-bs-dismiss="modal"
+                  (click)="modal.close('Close click')"
+                >
+                  Close
+                </button>
+                <button
+                  #btnEmployee
+                  type="submit"
+                  class="btn btn-primary"
+                  id="add-btn"
+                  [disabled]="checkEnableSave()"
+                >
+                  Add Manager
+                </button>
+              </div>
+            </div>
+          </form>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- removeItemModal -->
+<ng-template #deleteModel let-modal>
+  <div class="modal-content">
+    <div class="modal-header">
+      <button
+        type="button"
+        class="btn-close"
+        data-bs-dismiss="modal"
+        aria-label="Close"
+        id="btn-close"
+        (click)="modal.dismiss('Cross click')"
+      ></button>
+    </div>
+    <div class="modal-body">
+      <div class="mt-2 text-center">
+        <lord-icon
+          src="https://cdn.lordicon.com/gsqxdxog.json"
+          trigger="loop"
+          colors="primary:#405189,secondary:#f06548"
+          style="width: 90px; height: 90px"
+        ></lord-icon>
+        <div class="mt-4 pt-2 fs-15 mx-4 mx-sm-5">
+          <h4>You are about to delete a employee?</h4>
+          <p class="text-muted mx-4 mb-0">
+            Deleting your employee will remove all of your information from our
+            database.
+          </p>
+        </div>
+      </div>
+      <div class="d-flex gap-2 justify-content-center mt-4 mb-2">
+        <button
+          class="btn btn-link link-success fw-medium text-decoration-none"
+          data-bs-dismiss="modal"
+          id="deleteRecord-close"
+          (click)="modal.close('Close click')"
+        >
+          <i class="ri-close-line me-1 align-middle"></i> Close
+        </button>
+        <button
+          type="button"
+          class="btn w-sm btn-danger"
+          id="delete-product"
+          (click)="deleteManager(deleteId)"
+          (click)="modal.close('Close click')"
+        >
+          Yes, Delete It!
+        </button>
+      </div>
+    </div>
+  </div>
+  <!-- /.modal-content -->
+</ng-template>

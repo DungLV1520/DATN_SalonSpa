@@ -1,0 +1,149 @@
+/* You can add global styles to this file, and also import other style files or in angular json file*/
+//@import "~swiper/swiper-bundle";
+//@import "~ng2-daterangepicker/assets/daterangepicker.css";
+
+.bg-1 .sidebar-wrap .sidebar {
+  background-image: url("assets/img/backgorund-image.svg");
+}
+.bg-2 .sidebar-wrap .sidebar {
+  background-image: url("assets/img/backgorund-image2.svg");
+}
+.bg-3 .sidebar-wrap .sidebar {
+  background-image: url("assets/img/backgorund-image3.svg");
+}
+
+.dark-mode tspan {
+  fill: #888888;
+
+  &:first-child {
+    fill: #ffffff;
+  }
+}
+.top-20 {
+  margin-top: -15px !important;
+}
+
+:root .menu-open app-apphomelayout {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  display: block;
+}
+
+// full calendar
+.fc {
+  border-radius: 5px;
+  overflow: hidden;
+
+  a {
+    text-decoration: none;
+  }
+  .fc-toolbar-title {
+    margin: 0 !important;
+    font-size: 16px !important;
+  }
+  .fc-button {
+    padding: 0.275em 0.475em;
+    font-size: 0.95em;
+    line-height: 1.7;
+  }
+  .fc-toolbar.fc-header-toolbar {
+    margin-bottom: 0em !important;
+    padding: 10px 15px !important;
+
+    .fc-button {
+      &:focus {
+        box-shadow: none;
+        outline: none;
+      }
+    }
+  }
+  &.fc-theme-standard {
+    table {
+      border: 0 none;
+      border-collapse: collapse;
+      th {
+        font-size: 14px;
+        text-decoration: none;
+        padding: 10px 0;
+        line-height: 20px;
+        border: none;
+
+        a.fc-col-header-cell-cushion {
+          font-weight: normal;
+        }
+      }
+
+      td {
+        border: none;
+      }
+      table {
+        td {
+          background-color: transparent;
+          color: inherit;
+          font-size: 14px;
+          text-decoration: none;
+          padding: 0;
+
+          a {
+            color: inherit;
+            font-weight: normal;
+          }
+
+          .fc-daygrid-more-link {
+            font-size: 10px;
+          }
+          .fc-daygrid-day-events {
+            margin-top: -8px;
+          }
+
+          &:first-child {
+            border-left: none;
+          }
+
+          &:last-child {
+            border-right: none;
+          }
+        }
+        tr:first-child {
+          td {
+            border-bottom: none;
+          }
+        }
+        tr:last-child {
+          td {
+            border-bottom: none;
+          }
+        }
+      }
+    }
+  }
+}
+
+.custom-ml {
+  margin-left: 43px !important;
+}
+
+.invalid-feed {
+  color: #f73563;
+  text-align: left;
+  font-size: 13px;
+}
+
+@media screen and (max-width: 480px) {
+  .fc.fc-theme-standard table table td .fc-daygrid-more-link {
+    height: 8px;
+    width: 8px;
+    border-radius: 5px;
+    text-indent: 15px;
+    overflow: hidden;
+    display: block;
+  }
+}
+
+.content-limit {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 250px;
+}

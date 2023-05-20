@@ -1,0 +1,6 @@
+<!-- Vertical layout -->
+<app-vertical *ngIf="isVerticalLayoutRequested()"></app-vertical>
+
+<!-- Horizontal layout -->
+<app-horizontal *ngIf="isHorizontalLayoutRequested()"></app-horizontal>
+<app-footer *ngIf="router.url.startsWith('/chat')"></app-footer>

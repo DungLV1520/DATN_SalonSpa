@@ -1,0 +1,824 @@
+<!-- Start Breadcrumbs -->
+<app-breadcrumbs
+  title="Widgets"
+  [breadcrumbItems]="breadCrumbItems"
+></app-breadcrumbs>
+<!-- End Breadcrumbs -->
+
+<div class="row">
+  <div class="col-xl-3 col-md-6" *ngFor="let data of tileBoxs1">
+    <!-- card -->
+    <div class="card card-animate">
+      <div class="card-body" [ngClass]="{ 'bg-info': data.bgColor }">
+        <div class="d-flex align-items-center">
+          <div class="flex-grow-1">
+            <p class="text-uppercase fw-medium text-{{ data.labelClass }} mb-0">
+              {{ data.label }}
+            </p>
+          </div>
+          <div class="flex-shrink-0">
+            <h5 class="text-{{ data.percentageClass }} fs-14 mb-0">
+              <i class="{{ data.percentageIcon }} fs-13 align-middle"></i>
+              {{ data.percentage }}
+            </h5>
+          </div>
+        </div>
+        <div class="d-flex align-items-end justify-content-between mt-4">
+          <div>
+            <h4
+              class="fs-22 fw-semibold ff-secondary mb-4"
+              [ngClass]="{ 'text-white': data.counterClass }"
+            >
+              {{ data.prefix
+              }}<span
+                [CountTo]="data.counter"
+                class="counter-value"
+                [from]="0"
+                [duration]="data.decimals"
+              ></span
+              >{{ data.suffix }}
+            </h4>
+            <a
+              href="javascript:void(0);"
+              class="text-decoration-underline"
+              [ngClass]="{ 'text-white-50': data.captionClass }"
+              >{{ data.caption }}</a
+            >
+          </div>
+          <div class="avatar-sm flex-shrink-0">
+            <span
+              class="avatar-title bg-soft-{{ data.iconClass }} rounded fs-3"
+            >
+              <i class="{{ data.icon }} text-{{ data.iconClass }}"></i>
+            </span>
+          </div>
+        </div>
+      </div>
+      <!-- end card body -->
+    </div>
+    <!-- end card -->
+  </div>
+  <!-- end col -->
+</div>
+<!-- end row-->
+
+<div class="row">
+  <div class="col-xl-12">
+    <div class="card crm-widget">
+      <div class="card-body p-0">
+        <div class="row row-cols-md-3 row-cols-1">
+          <div class="col col-lg border-end" *ngFor="let data of tileBoxs2">
+            <div class="py-4 px-3">
+              <h5 class="text-muted text-uppercase fs-13">
+                {{ data.label }}
+                <i class="{{ data.badge }} fs-18 float-end align-middle"></i>
+              </h5>
+              <div class="d-flex align-items-center">
+                <div class="flex-shrink-0">
+                  <i class="{{ data.icon }} display-6 text-muted"></i>
+                </div>
+                <div class="flex-grow-1 ms-3">
+                  <h2 class="mb-0">
+                    <span
+                      [CountTo]="data.counter"
+                      class="counter-value"
+                      [from]="0"
+                      [duration]="data.decimals"
+                    ></span>
+                  </h2>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- end col -->
+        </div>
+        <!-- end row -->
+      </div>
+      <!-- end card body -->
+    </div>
+    <!-- end card -->
+  </div>
+  <!-- end col -->
+</div>
+<!-- end row -->
+
+<div class="row">
+  <div class="col-xl-3 col-md-6" *ngFor="let data of tileBoxs3">
+    <div class="card card-animate" [ngClass]="{ 'bg-primary': data.bgColor }">
+      <div class="card-body">
+        <div class="d-flex justify-content-between">
+          <div>
+            <p class="fw-medium text-{{ data.labelClass }} mb-0">
+              {{ data.label }}
+            </p>
+            <h2
+              class="mt-4 ff-secondary fw-semibold"
+              [ngClass]="{ 'text-white': data.counterClass }"
+            >
+              <span *ngFor="let user of data.subCounter"
+                ><span
+                  [CountTo]="user.counter"
+                  class="counter-value"
+                  [from]="0"
+                  [duration]="user.decimals"
+                ></span
+                >{{ user.suffix }}</span
+              >
+            </h2>
+            <p class="mb-0 text-{{ data.labelClass }}">
+              <span class="badge {{ data.badgeClass }} mb-0">
+                <i class="{{ data.badge }}"></i> {{ data.percentage }}
+              </span>
+              vs. previous month
+            </p>
+          </div>
+          <div>
+            <div class="avatar-sm flex-shrink-0">
+              <span
+                class="avatar-title bg-soft-{{
+                  data.iconClass
+                }} rounded-circle fs-2"
+              >
+                <i-feather
+                  name="{{ data.feaIcon }}"
+                  class="text-{{ data.iconClass }} feather-icon-align"
+                >
+                </i-feather>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- end card body -->
+    </div>
+    <!-- end card-->
+  </div>
+  <!-- end col-->
+</div>
+<!-- end row-->
+
+<div class="row">
+  <div class="col-xl-3 col-md-6" *ngFor="let data of tileBoxs4">
+    <div
+      class="card card-height-100"
+      [ngClass]="{ 'bg-success': data.bgColor }"
+    >
+      <div class="card-body">
+        <div class="d-flex align-items-center">
+          <div class="avatar-sm flex-shrink-0">
+            <span
+              class="avatar-title bg-soft-{{ data.iconClass }} text-{{
+                data.iconClass
+              }} rounded-2 fs-2"
+            >
+              <i class="{{ data.icon }}"></i>
+            </span>
+          </div>
+          <div class="flex-grow-1 ms-3">
+            <p class="text-uppercase fw-medium text-{{ data.labelClass }} mb-3">
+              {{ data.label }}
+            </p>
+            <h4 class="fs-4 mb-3 {{ data.counterClass }}">
+              <span
+                [CountTo]="data.counter"
+                class="counter-value"
+                [from]="0"
+                [duration]="data.decimals"
+              ></span>
+            </h4>
+            <p class="text-{{ data.captionClass }} mb-0">{{ data.caption }}</p>
+          </div>
+          <div class="flex-shrink-0 align-self-center">
+            <span class="badge badge-soft-{{ data.percentageClass }} fs-12"
+              ><i class="{{ data.badge }} fs-13 align-middle me-1"></i
+              >{{ data.percentage }}<span> </span
+            ></span>
+          </div>
+        </div>
+      </div>
+      <!-- end card body -->
+    </div>
+  </div>
+  <!-- end col-->
+</div>
+<!-- end row-->
+
+<div class="row">
+  <div class="col-xl-3 col-md-6" *ngFor="let data of tileBoxs5">
+    <div
+      class="card card-height-100 {{ data.bgColor }} shadow-none bg-opacity-10"
+    >
+      <div class="card-body">
+        <div ngbDropdown class="dropdown float-end">
+          <a
+            ngbDropdownToggle
+            class="text-reset dropdown-btn arrow-none"
+            href="javascript:void(0);"
+            data-bs-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
+            <span class="text-muted fs-18"
+              ><i class="mdi mdi-dots-vertical"></i
+            ></span>
+          </a>
+          <div ngbDropdownMenu class="dropdown-menu dropdown-menu-end">
+            <a class="dropdown-item" href="javascript:void(0);">Favorite</a>
+            <a class="dropdown-item" href="javascript:void(0);">Apply Now</a>
+          </div>
+        </div>
+        <div class="mb-4 pb-2">
+          <img src="{{ data.icon }}" alt="" class="avatar-sm" />
+        </div>
+        <a href="javascript:void(0);">
+          <h6 class="fs-15 fw-semibold">
+            {{ data.label }}
+            <span class="text-muted fs-13">({{ data.experience }})</span>
+          </h6>
+        </a>
+        <p class="text-muted mb-0">
+          <i class="ri-building-line align-bottom"></i> {{ data.companyname }}
+          <span class="ms-2"
+            ><i class="ri-map-pin-2-line align-bottom"></i>
+            {{ data.location }}</span
+          >
+        </p>
+      </div>
+    </div>
+  </div>
+  <!-- end col-->
+</div>
+<!-- end row-->
+
+<div class="row">
+  <div class="col-lg-4" *ngFor="let data of otherWidgets">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="fs-15 fw-semibold">{{ data.title }}</h5>
+        <p class="text-muted">{{ data.subTitle }}</p>
+        <div class="d-flex flex-wrap justify-content-evenly">
+          <p class="text-muted mb-0" *ngFor="let item of data.subItem">
+            <i
+              class="{{ item.icon }} text-{{
+                item.iconClass
+              }} fs-18 align-middle me-2"
+            ></i
+            >{{ item.label }}
+          </p>
+        </div>
+      </div>
+      <div
+        class="progress animated-progess rounded-bottom rounded-0"
+        style="height: 6px"
+      >
+        <div
+          class="progress-bar {{ progress.bgColor }} rounded-0"
+          role="progressbar"
+          style="width: 30%"
+          aria-valuenow="30"
+          aria-valuemin="0"
+          aria-valuemax="100"
+          *ngFor="let progress of data.progressBar"
+        ></div>
+      </div>
+    </div>
+  </div>
+  <!-- end col -->
+</div>
+<!-- end row-->
+
+<div class="row">
+  <div class="col-xxl-5">
+    <div class="card card-height-100">
+      <div class="card-header align-items-center d-flex">
+        <h4 class="card-title mb-0 flex-grow-1">Upcoming Activities</h4>
+        <div class="flex-shrink-0">
+          <div class="dropdown card-header-dropdown" ngbDropdown>
+            <a
+              class="text-reset dropdown-btn arrow-none"
+              href="javascript:void(0);"
+              data-bs-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+              ngbDropdownToggle
+            >
+              <span class="text-muted fs-18"
+                ><i class="mdi mdi-dots-vertical"></i
+              ></span>
+            </a>
+            <div class="dropdown-menu dropdown-menu-end" ngbDropdownMenu>
+              <a class="dropdown-item" href="javascript:void(0);">Edit</a>
+              <a class="dropdown-item" href="javascript:void(0);">Remove</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- end card header -->
+      <div class="card-body pt-0">
+        <ul class="list-group list-group-flush border-dashed">
+          <li
+            class="list-group-item ps-0"
+            *ngFor="let data of widgetsActivities"
+          >
+            <div class="row align-items-center g-3">
+              <div class="col-auto">
+                <div class="avatar-sm p-1 py-2 h-auto bg-light rounded-3">
+                  <div class="text-center">
+                    <h5 class="mb-0">{{ data.date }}</h5>
+                    <div class="text-muted">{{ data.weekDay }}</div>
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <h5 class="text-muted mt-0 mb-1 fs-13">{{ data.time }}</h5>
+                <a href="javascript:void(0);" class="text-reset fs-14 mb-0">{{
+                  data.caption
+                }}</a>
+              </div>
+              <div class="col-sm-auto">
+                <div class="avatar-group">
+                  <div
+                    class="avatar-group-item"
+                    *ngFor="let item of data.subItem"
+                  >
+                    <a
+                      href="javascript: void(0);"
+                      class="d-inline-block"
+                      ngbTooltip="{{ item.name }}"
+                      placement="top"
+                      *ngIf="item.img"
+                    >
+                      <img
+                        src="{{ item.img }}"
+                        alt=""
+                        class="rounded-circle avatar-xxs"
+                      />
+                    </a>
+                    <a href="javascript: void(0);" *ngIf="!item.img">
+                      <div class="avatar-xxs">
+                        <span
+                          class="avatar-title rounded-circle {{
+                            item.bgcolor
+                          }} text-white"
+                        >
+                          {{ item.imgNumber }}
+                        </span>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- end row -->
+          </li>
+          <!-- end -->
+        </ul>
+        <!-- end -->
+        <div class="align-items-center mt-2 row text-center text-sm-start">
+          <div class="col-sm">
+            <div class="text-muted">
+              Showing<span class="fw-semibold">4</span> of
+              <span class="fw-semibold">125</span> Results
+            </div>
+          </div>
+          <div class="col-sm-auto">
+            <ul
+              class="pagination pagination-separated pagination-sm justify-content-center justify-content-sm-start mb-0"
+            >
+              <li class="page-item disabled">
+                <a href="javascript:void(0);" class="page-link">←</a>
+              </li>
+              <li class="page-item">
+                <a href="javascript:void(0);" class="page-link">1</a>
+              </li>
+              <li class="page-item active">
+                <a href="javascript:void(0);" class="page-link">2</a>
+              </li>
+              <li class="page-item">
+                <a href="javascript:void(0);" class="page-link">3</a>
+              </li>
+              <li class="page-item">
+                <a href="javascript:void(0);" class="page-link">→</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <!-- end card body -->
+    </div>
+    <!-- end card -->
+  </div>
+  <!-- end col-->
+  <div class="col-xxl-7">
+    <div class="row">
+      <div class="col-xl-6">
+        <div class="card card-height-100">
+          <div class="card-header align-items-center d-flex">
+            <h4 class="card-title mb-0 flex-grow-1">My Tasks</h4>
+            <div class="flex-shrink-0">
+              <div class="dropdown card-header-dropdown" ngbDropdown>
+                <a
+                  class="text-reset dropdown-btn arrow-none"
+                  href="javascript:void(0);"
+                  data-bs-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                  ngbDropdownToggle
+                >
+                  <span class="text-muted"
+                    ><i class="ri-settings-4-line align-middle me-1 fs-15"></i
+                    >Settings</span
+                  >
+                </a>
+                <div class="dropdown-menu dropdown-menu-end" ngbDropdownMenu>
+                  <a class="dropdown-item" href="javascript:void(0);">Edit</a>
+                  <a class="dropdown-item" href="javascript:void(0);">Remove</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- end card header -->
+
+          <div class="card-body p-0">
+            <div class="align-items-center p-3 justify-content-between d-flex">
+              <div class="flex-shrink-0">
+                <div class="text-muted">
+                  <span class="fw-semibold">4</span> of
+                  <span class="fw-semibold">10</span> remaining
+                </div>
+              </div>
+              <button
+                type="button"
+                class="btn btn-sm btn-success"
+                routerLink="/tasks/list-view"
+              >
+                <i class="ri-add-line align-middle me-1"></i> Add Task
+              </button>
+            </div>
+            <!-- end card header -->
+
+            <ngx-simplebar style="max-height: 257px">
+              <ul class="list-group list-group-flush border-dashed px-3">
+                <li
+                  class="list-group-item ps-0"
+                  *ngFor="let data of widgetsTasks"
+                >
+                  <div class="d-flex align-items-start">
+                    <div class="form-check ps-0 flex-sharink-0">
+                      <input
+                        type="checkbox"
+                        class="form-check-input ms-0"
+                        id="{{ data.forId }}"
+                      />
+                    </div>
+                    <div class="flex-grow-1">
+                      <label
+                        class="form-check-label mb-0 ps-2"
+                        for="task_one"
+                        >{{ data.text }}</label
+                      >
+                    </div>
+                    <div class="flex-shrink-0 ms-2">
+                      <p class="text-muted fs-12 mb-0">{{ data.date }}</p>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+              <!-- end ul -->
+            </ngx-simplebar>
+
+            <div class="p-3">
+              <a
+                href="javascript:void(0);"
+                class="text-muted text-decoration-underline"
+                >Show more...</a
+              >
+            </div>
+          </div>
+          <!-- end card body -->
+        </div>
+        <!-- end card -->
+      </div>
+      <!-- end col -->
+      <div class="col-xl-6">
+        <div class="card card-height-100">
+          <div
+            class="card-header border-bottom-dashed align-items-center d-flex"
+          >
+            <h4 class="card-title mb-0 flex-grow-1">Recent Activity</h4>
+            <div class="flex-shrink-0">
+              <button type="button" class="btn btn-soft-primary btn-sm">
+                View All Activity
+              </button>
+            </div>
+          </div>
+          <!-- end cardheader -->
+          <div class="card-body p-0">
+            <ngx-simplebar class="p-3" style="max-height: 364px">
+              <div class="acitivity-timeline acitivity-main">
+                <div class="acitivity-item d-flex">
+                  <div class="flex-shrink-0 avatar-xs acitivity-avatar">
+                    <div
+                      class="avatar-title bg-soft-success text-success rounded-circle"
+                    >
+                      <i class="ri-shopping-cart-2-line"></i>
+                    </div>
+                  </div>
+                  <div class="flex-grow-1 ms-3">
+                    <h6 class="mb-1">Purchase by James Price</h6>
+                    <p class="text-muted mb-1">
+                      Product noise evolve smartwatch
+                    </p>
+                    <small class="mb-0 text-muted">02:14 PM Today</small>
+                  </div>
+                </div>
+                <div class="acitivity-item py-3 d-flex">
+                  <div class="flex-shrink-0 avatar-xs acitivity-avatar">
+                    <div
+                      class="avatar-title bg-soft-primary text-primary rounded-circle"
+                    >
+                      <i class="ri-stack-fill"></i>
+                    </div>
+                  </div>
+                  <div class="flex-grow-1 ms-3">
+                    <h6 class="mb-1">
+                      Added new
+                      <span class="fw-semibold">style collection</span>
+                    </h6>
+                    <p class="text-muted mb-1">By Nesta Technologies</p>
+                    <div
+                      class="d-inline-flex gap-2 border border-dashed p-2 mb-2 w-75"
+                    >
+                      <a
+                        href="ecommerce/product-detail/1"
+                        class="bg-light rounded p-1"
+                      >
+                        <img
+                          src="assets/images/products/img-8.png"
+                          alt=""
+                          class="img-fluid d-block"
+                        />
+                      </a>
+                      <a
+                        href="ecommerce/product-detail/1"
+                        class="bg-light rounded p-1"
+                      >
+                        <img
+                          src="assets/images/products/img-2.png"
+                          alt=""
+                          class="img-fluid d-block"
+                        />
+                      </a>
+                      <a
+                        href="ecommerce/product-detail/1"
+                        class="bg-light rounded p-1"
+                      >
+                        <img
+                          src="assets/images/products/img-10.png"
+                          alt=""
+                          class="img-fluid d-block"
+                        />
+                      </a>
+                    </div>
+                    <p class="mb-0 text-muted">
+                      <small>9:47 PM Yesterday</small>
+                    </p>
+                  </div>
+                </div>
+                <div class="acitivity-item py-3 d-flex">
+                  <div class="flex-shrink-0">
+                    <img
+                      src="assets/images/users/avatar-2.jpg"
+                      alt=""
+                      class="avatar-xs rounded-circle acitivity-avatar"
+                    />
+                  </div>
+                  <div class="flex-grow-1 ms-3">
+                    <h6 class="mb-1">Natasha Carey have liked the products</h6>
+                    <p class="text-muted mb-1">
+                      Allow users to like products in your WooCommerce store.
+                    </p>
+                    <small class="mb-0 text-muted">25 Dec, 2021</small>
+                  </div>
+                </div>
+                <div class="acitivity-item py-3 d-flex">
+                  <div class="flex-shrink-0">
+                    <div class="avatar-xs acitivity-avatar">
+                      <div class="avatar-title rounded-circle bg-secondary">
+                        <i class="mdi mdi-sale fs-14"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="flex-grow-1 ms-3">
+                    <h6 class="mb-1">
+                      Today offers by
+                      <a href="ecommerce/seller-details" class="link-secondary"
+                        >Digitech Galaxy</a
+                      >
+                    </h6>
+                    <p class="text-muted mb-2">
+                      Offer is valid on orders of Rs.500 Or above for selected
+                      products only.
+                    </p>
+                    <small class="mb-0 text-muted">12 Dec, 2021</small>
+                  </div>
+                </div>
+                <div class="acitivity-item py-3 d-flex">
+                  <div class="flex-shrink-0">
+                    <div class="avatar-xs acitivity-avatar">
+                      <div
+                        class="avatar-title rounded-circle bg-soft-danger text-danger"
+                      >
+                        <i class="ri-bookmark-fill"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="flex-grow-1 ms-3">
+                    <h6 class="mb-1">Favoried Product</h6>
+                    <p class="text-muted mb-2">
+                      Esther James have favorited product.
+                    </p>
+                    <small class="mb-0 text-muted">25 Nov, 2021</small>
+                  </div>
+                </div>
+                <div class="acitivity-item py-3 d-flex">
+                  <div class="flex-shrink-0">
+                    <div class="avatar-xs acitivity-avatar">
+                      <div class="avatar-title rounded-circle bg-secondary">
+                        <i class="mdi mdi-sale fs-14"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="flex-grow-1 ms-3">
+                    <h6 class="mb-1">
+                      Flash sale starting
+                      <span class="text-primary">Tomorrow.</span>
+                    </h6>
+                    <p class="text-muted mb-0">
+                      Flash sale by
+                      <a
+                        href="javascript:void(0);"
+                        class="link-secondary fw-medium"
+                        >Zoetic Fashion</a
+                      >
+                    </p>
+                    <small class="mb-0 text-muted">22 Oct, 2021</small>
+                  </div>
+                </div>
+                <div class="acitivity-item py-3 d-flex">
+                  <div class="flex-shrink-0">
+                    <div class="avatar-xs acitivity-avatar">
+                      <div
+                        class="avatar-title rounded-circle bg-soft-info text-info"
+                      >
+                        <i class="ri-line-chart-line"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="flex-grow-1 ms-3">
+                    <h6 class="mb-1">Monthly sales report</h6>
+                    <p class="text-muted mb-2">
+                      <span class="text-danger">2 days left</span> notification
+                      to submit the monthly sales report.
+                      <a
+                        href="javascript:void(0);"
+                        class="link-warning text-decoration-underline"
+                        >Reports Builder</a
+                      >
+                    </p>
+                    <small class="mb-0 text-muted">15 Oct</small>
+                  </div>
+                </div>
+                <div class="acitivity-item d-flex">
+                  <div class="flex-shrink-0">
+                    <img
+                      src="assets/images/users/avatar-3.jpg"
+                      alt=""
+                      class="avatar-xs rounded-circle acitivity-avatar"
+                    />
+                  </div>
+                  <div class="flex-grow-1 ms-3">
+                    <h6 class="mb-1">Frank Hook Commented</h6>
+                    <p class="text-muted mb-2 fst-italic">
+                      " A product that has reviews is more likable to be sold
+                      than a product. "
+                    </p>
+                    <small class="mb-0 text-muted">26 Aug, 2021</small>
+                  </div>
+                </div>
+              </div>
+            </ngx-simplebar>
+          </div>
+          <!-- end card body -->
+        </div>
+        <!-- end card -->
+      </div>
+      <!-- end col -->
+    </div>
+    <!-- end row-->
+  </div>
+  <!-- end col-xl-7-->
+</div>
+<!-- end row-->
+
+<div class="row">
+  <div class="col-xl-4 col-md-6">
+    <div class="card card-height-100">
+      <div class="d-flex">
+        <div class="flex-grow-1 p-3">
+          <h5 class="mb-3">Application</h5>
+          <p class="mb-0 text-muted">
+            <span class="badge bg-light text-success mb-0">
+              <i class="ri-arrow-up-line align-middle"></i> 16.24 %
+            </span>
+            vs. previous month
+          </p>
+        </div>
+        <div>
+          <div
+            class="apex-charts"
+            data-colors='["--vz-success" , "--vz-transparent"]'
+            dir="ltr"
+            id="results_sparkline_charts"
+          >
+            <apx-chart
+              [series]="ApplicationChart.series"
+              [chart]="ApplicationChart.chart"
+              [dataLabels]="ApplicationChart.dataLabels"
+              [stroke]="ApplicationChart.stroke"
+              [fill]="ApplicationChart.fill"
+              [colors]="ApplicationChart.colors"
+              dir="ltr"
+            ></apx-chart>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-xl-4 col-md-6">
+    <div class="card card-height-100">
+      <div class="d-flex">
+        <div class="flex-grow-1 p-3">
+          <h5 class="mb-3">Interviewed</h5>
+          <p class="mb-0 text-muted">
+            <span class="badge bg-light text-success mb-0">
+              <i class="ri-arrow-up-line align-middle"></i> 34.24 %
+            </span>
+            vs. previous month
+          </p>
+        </div>
+        <div>
+          <div
+            class="apex-charts"
+            data-colors='["--vz-danger" , "--vz-transparent"]'
+            dir="ltr"
+            id="results_sparkline_charts2"
+          >
+            <apx-chart
+              [series]="InterviewedChart.series"
+              [chart]="InterviewedChart.chart"
+              [dataLabels]="InterviewedChart.dataLabels"
+              [stroke]="InterviewedChart.stroke"
+              [fill]="InterviewedChart.fill"
+              [colors]="InterviewedChart.colors"
+              dir="ltr"
+            ></apx-chart>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-xl-4 col-md-6">
+    <div class="card card-height-100">
+      <div class="d-flex">
+        <div class="flex-grow-1 p-3">
+          <h5 class="mb-3">Hired</h5>
+          <p class="mb-0 text-muted">
+            <span class="badge bg-light text-success mb-0">
+              <i class="ri-arrow-up-line align-middle"></i> 6.67 %
+            </span>
+            vs. previous month
+          </p>
+        </div>
+        <div>
+          <div
+            class="apex-charts"
+            data-colors='["--vz-success" , "--vz-transparent"]'
+            dir="ltr"
+            id="results_sparkline_charts3"
+          >
+            <apx-chart
+              [series]="HiredChart.series"
+              [chart]="HiredChart.chart"
+              [dataLabels]="HiredChart.dataLabels"
+              [stroke]="HiredChart.stroke"
+              [fill]="HiredChart.fill"
+              [colors]="HiredChart.colors"
+              dir="ltr"
+            ></apx-chart>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

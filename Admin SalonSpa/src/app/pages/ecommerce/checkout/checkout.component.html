@@ -1,0 +1,645 @@
+<app-breadcrumbs
+  title="Checkout"
+  [breadcrumbItems]="breadCrumbItems"
+></app-breadcrumbs>
+
+<div class="row">
+  <div class="col-xl-8">
+    <div class="card">
+      <div class="card-body checkout-tab">
+        <aw-wizard
+          #wizard
+          [navBarLayout]="'large-empty-symbols'"
+          class="nav nav-pills custom-nav nav-wizard nav-justified"
+        >
+          <aw-wizard-step>
+            <div class="step-arrow-nav mt-n3 mb-3">
+              <ng-template class="step-arrow-nav mt-n3 mb-3" awWizardStepSymbol>
+                <li class="nav-item" role="presentation">
+                  <button
+                    class="nav-link done"
+                    id="steparrow-gen-info-tab"
+                    data-bs-toggle="pill"
+                    data-bs-target="#steparrow-gen-info"
+                    type="button"
+                    role="tab"
+                    aria-controls="steparrow-gen-info"
+                    aria-selected="true"
+                  >
+                    <i
+                      class="ri-user-2-line fs-16 p-2 bg-soft-primary text-primary rounded-circle align-middle me-2"
+                    ></i>
+                    Branch Info
+                  </button>
+                </li>
+              </ng-template>
+            </div>
+            <div>
+              <div>
+                <h5 class="mb-1">Billing Information</h5>
+                <p class="text-muted mb-4">Please view all information below</p>
+              </div>
+              <div>
+                <div class="row">
+                  <div class="col-sm-6">
+                    <div class="mb-3">
+                      <label for="billinginfo-email" class="form-label"
+                        >Customer Name
+                        <span class="text-muted">(Optional)</span>
+                      </label>
+                      <ng-select
+                        placeholder="Find customer"
+                        [items]="users"
+                        bindValue="_id"
+                        bindLabel="fullname"
+                        [multiple]="false"
+                        (change)="getDataUser($event)"
+                      ></ng-select>
+                    </div>
+                  </div>
+
+                  <div class="col-sm-6">
+                    <div class="mb-3">
+                      <label for="billinginfo-phonecus" class="form-label"
+                        >Customer Phone</label
+                      >
+                      <input
+                        type="text"
+                        class="form-control"
+                        mask="(000) 000-0000"
+                        id="billinginfo-phonecus"
+                        placeholder="Enter phone no."
+                        [readOnly]="true"
+                        value="{{ user?.phone! | mask : '(000) 000-0000' }}"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="mb-3">
+                      <label for="billinginfo-email" class="form-label"
+                        >Customer Email</label
+                      >
+                      <input
+                        type="email"
+                        class="form-control"
+                        id="billinginfo-email"
+                        placeholder="Enter email."
+                        [readOnly]="true"
+                        value="{{ user?.email }}"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <ngx-skeleton-loader
+                  count="5"
+                  *ngIf="!checkSkeleton"
+                ></ngx-skeleton-loader>
+
+                <div class="row" *ngIf="checkSkeleton">
+                  <hr />
+
+                  <div class="col-sm-6">
+                    <div class="mb-3">
+                      <label for="billinginfo-email" class="form-label"
+                        >Name Branch
+                      </label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="billinginfo-email"
+                        [readOnly]="true"
+                        placeholder="Enter name"
+                        value="{{ branchData?.name }}"
+                      />
+                    </div>
+                  </div>
+
+                  <div class="col-sm-6">
+                    <div class="mb-3">
+                      <label for="billinginfo-phone" class="form-label"
+                        >Phone Branch</label
+                      >
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="billinginfo-phone"
+                        placeholder="Enter phone no."
+                        [readOnly]="true"
+                        value="{{
+                          branchData?.phone! | mask : '(000) 000-0000'
+                        }}"
+                      />
+                    </div>
+                  </div>
+
+                  <div class="col-sm-12">
+                    <label for="billinginfo-phone" class="form-label"
+                      >Address Branch
+                      <a href="{{ branchData?.location }}" target="_blank"
+                        ><i class="bx bx-current-location cursor"></i></a
+                    ></label>
+                    <textarea
+                      class="form-control"
+                      id="description-field"
+                      rows="3"
+                      [readOnly]="true"
+                      placeholder="Enter address"
+                      required
+                      value="{{ branchData?.address }}"
+                    ></textarea>
+                  </div>
+                </div>
+
+                <div class="d-flex align-items-start gap-3 mt-3">
+                  <button
+                    type="button"
+                    class="btn btn-primary btn-label right ms-auto nexttab"
+                    data-nexttab="pills-bill-address-tab"
+                    awNextStep
+                  >
+                    <i
+                      class="ri-truck-line label-icon align-middle fs-16 ms-2"
+                    ></i
+                    >Continue
+                  </button>
+                </div>
+              </div>
+            </div>
+          </aw-wizard-step>
+
+          <aw-wizard-step>
+            <ng-template awWizardStepSymbol>
+              <li class="nav-item" role="presentation">
+                <button
+                  class="nav-link"
+                  id="pills-experience-tab"
+                  data-bs-toggle="pill"
+                  data-bs-target="#pills-experience"
+                  type="button"
+                  role="tab"
+                  aria-controls="pills-experience"
+                  aria-selected="false"
+                >
+                  <i
+                    class="ri-bank-card-line fs-16 p-2 bg-soft-primary text-primary rounded-circle align-middle me-2"
+                  ></i>
+                  Payment Info
+                </button>
+              </li>
+            </ng-template>
+            <div>
+              <h5 class="mb-1">Payment Selection</h5>
+              <p class="text-muted mb-4">
+                Please select and enter your billing information
+              </p>
+            </div>
+
+            <div class="row g-4">
+              <div
+                class="col-lg-4"
+                (click)="checkCard(false, TypePayment.ONLINE_PAYMNET)"
+              >
+                <div
+                  data-bs-toggle="collapse"
+                  data-bs-target="#paymentmethodCollapse.show"
+                  aria-expanded="false"
+                  aria-controls="paymentmethodCollapse"
+                >
+                  <div class="form-check card-radio">
+                    <input
+                      id="paymentMethod01"
+                      name="paymentMethod"
+                      type="radio"
+                      class="form-check-input"
+                    />
+                    <label class="form-check-label" for="paymentMethod01">
+                      <span class="fs-16 text-muted me-2"
+                        ><i class="ri-paypal-fill align-bottom"></i
+                      ></span>
+                      <span class="fs-14 text-wrap">Paypal</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="col-lg-4"
+                (click)="checkCard(true, TypePayment.CARD_CREDIT)"
+              >
+                <div
+                  data-bs-toggle="collapse"
+                  data-bs-target="#paymentmethodCollapse"
+                  aria-expanded="true"
+                  aria-controls="paymentmethodCollapse"
+                >
+                  <div class="form-check card-radio">
+                    <input
+                      id="paymentMethod02"
+                      name="paymentMethod"
+                      type="radio"
+                      class="form-check-input"
+                      checked
+                    />
+                    <label class="form-check-label" for="paymentMethod02">
+                      <span class="fs-16 text-muted me-2"
+                        ><i class="ri-bank-card-fill align-bottom"></i
+                      ></span>
+                      <span class="fs-14 text-wrap">Credit / Debit Card</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="col-lg-4"
+                (click)="checkCard(false, TypePayment.DIRECT_CASH)"
+              >
+                <div
+                  data-bs-toggle="collapse"
+                  data-bs-target="#paymentmethodCollapse.show"
+                  aria-expanded="false"
+                  aria-controls="paymentmethodCollapse"
+                >
+                  <div class="form-check card-radio">
+                    <input
+                      id="paymentMethod03"
+                      name="paymentMethod"
+                      type="radio"
+                      class="form-check-input"
+                    />
+                    <label class="form-check-label" for="paymentMethod03">
+                      <span class="fs-16 text-muted me-2"
+                        ><i class="ri-bank-card-line align-bottom"></i
+                      ></span>
+                      <span class="fs-14 text-wrap">Direct cash</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="collapse show">
+              <ngb-alert
+                *ngIf="typePayment === TypePayment.ONLINE_PAYMNET"
+                role="alert"
+                class="alert show alert-dismissible alert-additional fade custom-alert alert-success"
+                ><div class="alert-body">
+                  <div class="d-flex">
+                    <div class="flex-shrink-0 me-3">
+                      <i
+                        class="ri-notification-off-line fs-16 align-middle"
+                      ></i>
+                    </div>
+                    <div class="flex-grow-1">
+                      <h5 class="alert-heading">Yey! Everything worked!</h5>
+                      <p class="mb-0">
+                        This alert needs your attention, but it's not super
+                        important.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="alert-content">
+                  <p class="mb-0">
+                    Employee creates link online payment for customer
+                  </p>
+                </div>
+              </ngb-alert>
+            </div>
+            <!-- Show Link Online Payment -->
+            <div
+              *ngIf="paypal && typePayment === TypePayment.ONLINE_PAYMNET"
+              class="collapse show"
+            >
+              <ngb-alert
+                role="alert"
+                class="alert show alert-primary alert-border-left alert-dismissible fade custom-alert alert-success cursor"
+                ><i
+                  class="align-middle fs-16 me-3 ri-file-copy-fill"
+                  (click)="copyToClipboard()"
+                ></i
+                ><strong>Link PayPal: </strong>
+                <a href="{{ paypal.paymentUrl }}" target="_blank">
+                  {{ paypal.paymentUrl?.substring(0, 90) }}</a
+                >
+                <button
+                  type="button"
+                  aria-label="Close"
+                  class="btn-close"
+                ></button
+              ></ngb-alert>
+            </div>
+            <div class="collapse show">
+              <ngb-alert
+                *ngIf="typePayment === TypePayment.DIRECT_CASH"
+                role="alert"
+                class="alert show alert-dismissible alert-additional fade custom-alert alert-success"
+                ><div class="alert-body">
+                  <div class="d-flex">
+                    <div class="flex-shrink-0 me-3">
+                      <i
+                        class="ri-notification-off-line fs-16 align-middle"
+                      ></i>
+                    </div>
+                    <div class="flex-grow-1">
+                      <h5 class="alert-heading">Yey! Everything worked!</h5>
+                      <p class="mb-0">
+                        This alert needs your attention, but it's not super
+                        important.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="alert-content">
+                  <p class="mb-0">Payment direct with employee</p>
+                </div>
+              </ngb-alert>
+            </div>
+
+            <div
+              class="collapse show"
+              id="paymentmethodCollapse"
+              *ngIf="showCard"
+            >
+              <div class="card p-4 border shadow-none mb-0 mt-4">
+                <div class="row gy-3">
+                  <div class="col-md-12">
+                    <label for="cc-name" class="form-label">Name on card</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="cc-name"
+                      placeholder="Enter name"
+                      [readOnly]="true"
+                      value="LUONG VAN DUNG"
+                    />
+                    <small class="text-muted"
+                      >Full name as displayed on card</small
+                    >
+                  </div>
+
+                  <div class="col-md-6">
+                    <label for="cc-number" class="form-label"
+                      >Credit card number</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="cc-number"
+                      placeholder="xxxx xxxx xxxx xxxx"
+                      [readOnly]="true"
+                      value="04270341801"
+                    />
+                  </div>
+
+                  <div class="col-md-3">
+                    <label for="cc-expiration" class="form-label"
+                      >Expiration</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="cc-expiration"
+                      placeholder="MM/YY"
+                      [readOnly]="true"
+                      value="01/25"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="text-muted mt-2 fst-italic">
+                <i data-feather="lock" class="text-muted icon-xs"></i> TPBANK
+              </div>
+            </div>
+
+            <div class="d-flex align-items-start gap-3 mt-4">
+              <button
+                type="button"
+                class="btn btn-light btn-label previestab"
+                data-previous="pills-bill-address-tab"
+                awPreviousStep
+              >
+                <i
+                  class="ri-arrow-left-line label-icon align-middle fs-16 me-2"
+                ></i
+                >Back
+              </button>
+              <button
+                *ngIf="
+                  !checkOrderFinish &&
+                  this.typePayment !== TypePayment.ONLINE_PAYMNET &&
+                  userDataLocal.role !== RoleSpa.ROLE_ADMIN
+                "
+                (click)="checkOut()"
+                [disabled]="cartData.length === 0"
+                type="button"
+                class="btn btn-primary btn-label right ms-auto nexttab"
+                data-nexttab="pills-finish-tab"
+                awNextStep
+              >
+                <i
+                  class="ri-shopping-basket-line label-icon align-middle fs-16 ms-2"
+                ></i
+                >Complete Order
+              </button>
+              <button
+                *ngIf="
+                  checkOrderFinish &&
+                  this.typePayment === TypePayment.CARD_CREDIT
+                "
+                type="button"
+                class="btn btn-primary btn-label right ms-auto nexttab"
+                data-nexttab="pills-finish-tab"
+                awNextStep
+              >
+                <i
+                  class="ri-shopping-basket-line label-icon align-middle fs-16 ms-2"
+                ></i
+                >Next Finish
+              </button>
+              <button
+                (click)="createLinkAndQrCode()"
+                *ngIf="
+                  this.typePayment === TypePayment.ONLINE_PAYMNET &&
+                  userDataLocal.role !== RoleSpa.ROLE_ADMIN
+                "
+                [disabled]="cartData.length === 0"
+                type="button"
+                class="btn btn-primary btn-label right ms-auto nexttab"
+                data-nexttab="pills-finish-tab"
+              >
+                <i
+                  class="ri-shopping-basket-line label-icon align-middle fs-16 ms-2"
+                ></i
+                >Create Online Payment
+              </button>
+            </div>
+          </aw-wizard-step>
+
+          <aw-wizard-step>
+            <ng-template awWizardStepSymbol>
+              <li class="nav-item" role="presentation">
+                <button
+                  class="nav-link done"
+                  id="steparrow-gen-info-tab"
+                  data-bs-toggle="pill"
+                  data-bs-target="#steparrow-gen-info"
+                  type="button"
+                  role="tab"
+                  aria-controls="steparrow-gen-info"
+                  aria-selected="true"
+                >
+                  <i
+                    class="ri-checkbox-circle-line fs-16 p-2 bg-soft-primary text-primary rounded-circle align-middle me-2"
+                  ></i
+                  >Finish
+                </button>
+              </li>
+            </ng-template>
+            <div class="text-center py-5">
+              <div class="mb-4">
+                <lord-icon
+                  [src]="
+                    finishOrder
+                      ? 'https://cdn.lordicon.com/lupuorrc.json'
+                      : 'https://cdn.lordicon.com/hrqwmuhr.json'
+                  "
+                  trigger="loop"
+                  colors="primary:#0ab39c,secondary:#405189"
+                  style="width: 120px; height: 120px"
+                >
+                </lord-icon>
+              </div>
+              <h5>
+                {{
+                  finishOrder
+                    ? "Thank you ! Your Order is Completed !"
+                    : "Sorry ! Your Order is Failed. Payment Again !"
+                }}
+              </h5>
+              <button
+                class="btn btn-soft-primary"
+                [routerLink]="'/ecommerce/market'"
+              >
+                Back to Shopping
+              </button>
+            </div>
+          </aw-wizard-step>
+        </aw-wizard>
+
+        <!-- Tab panes -->
+      </div>
+      <!-- end card body -->
+    </div>
+    <!-- end card -->
+  </div>
+  <!-- end col -->
+
+  <div class="col-xl-4" style="max-height: 700px; overflow: scroll">
+    <div class="card" *ngIf="paypal?.qrCodeUrl">
+      <div class="card-header">
+        <div class="d-flex">
+          <div class="flex-grow-1">
+            <h5 class="card-title mb-0">QRCODE PAYMENT</h5>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive table-card">
+          <div class="avatar-xxl mx-auto card">
+            <div class="avatar-title bg-light rounded">
+              <img
+                class="w-100 mt-3"
+                alt=""
+                class="avatar-square companyLogo-img"
+                src="{{ paypal?.qrCodeUrl }}"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- end card body -->
+    </div>
+    <!-- end card -->
+    <div class="card">
+      <div class="card-header">
+        <div class="d-flex">
+          <div class="flex-grow-1">
+            <h5 class="card-title mb-0">Order Summary</h5>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive table-card">
+          <table class="table table-borderless align-middle mb-0">
+            <thead class="table-light text-muted">
+              <tr>
+                <th style="width: 90px" scope="col">Product</th>
+                <th scope="col">Product Info</th>
+                <th scope="col" class="text-end">Price</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of cartData">
+                <td>
+                  <div class="avatar-md bg-light rounded p-1">
+                    <img
+                      src="{{ item.image }}"
+                      alt=""
+                      class="img-fluid d-block w-100 h-100"
+                    />
+                  </div>
+                </td>
+                <td>
+                  <h5 class="fs-14">
+                    <a
+                      routerLink="/ecommerce/product-detail/1"
+                      class="text-dark"
+                      >{{ item.name }}</a
+                    >
+                  </h5>
+                  <p class="text-muted mb-0">
+                    (
+                    {{
+                      item.amount.$numberDecimal | currency : "" : "" : "1.0"
+                    }}
+                    x {{ item.quantity }})
+                  </p>
+                </td>
+                <td class="text-end">
+                  {{
+                    item.amount.$numberDecimal * item.quantity
+                      | currency : "" : "" : "1.0"
+                  }}
+                </td>
+              </tr>
+              <tr>
+                <td class="fw-semibold" colspan="2">Sub Total :</td>
+                <td class="fw-semibold text-end">
+                  {{ objLength.total | currency : "" : "" : "1.0" }}
+                </td>
+              </tr>
+              <tr>
+                <td colspan="2">
+                  Discount <span class="text-muted">(SalonSpa)</span> :
+                </td>
+                <td class="text-end">
+                  -{{ discount | currency : "" : "" : "1.0" }}
+                </td>
+              </tr>
+              <tr class="table-active">
+                <th colspan="2">Total :</th>
+                <td class="text-end">
+                  <span class="fw-semibold">{{
+                    objLength.total - discount | currency : "" : "" : "1.0"
+                  }}</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <!-- end card body -->
+    </div>
+    <!-- end card -->
+  </div>
+  <!-- end col -->
+</div>

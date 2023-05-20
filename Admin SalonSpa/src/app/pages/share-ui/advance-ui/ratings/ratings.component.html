@@ -1,0 +1,115 @@
+<!-- Start Breadcrumbs -->
+<app-breadcrumbs title="Ratings" [breadcrumbItems]="breadCrumbItems"></app-breadcrumbs>
+<!-- End Breadcrumbs -->
+
+<div class="row">
+  <div class="col-lg-12">
+      <div class="card">
+          <div class="card-header align-items-center d-flex">
+              <h4 class="card-title mb-0 flex-grow-1">Rater Js</h4>
+          </div><!-- end card header -->
+
+          <div class="card-body">
+              <p class="text-muted">Rater-js is a star rating widget for the browser. here are the various examples of rating shown below with variation.</p>
+              <div class="live-preview">
+                  <div class="table-responsive">
+                      <table class="table align-middle mb-0">
+                          <thead>
+                              <tr>
+                                  <th scope="col">Title</th>
+                                  <th scope="col">Example</th>
+                                  <th scope="col">Description</th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                              <tr>
+                                  <th scope="row">Basic Rater</th>
+                                  <td>
+                                    <ngb-rating [(rate)]="defaultSelect" [readonly]="readonly" class="stars" [max]=5>
+                                    </ngb-rating>
+                                  </td>
+                                  <td><pre><code class="language-markup">&lt;ngb-rating [(rate)]="defaultSelect" [readonly]="readonly" class="stars" [max]=5>&lt;/ngb-rating></code></pre></td>
+                              </tr>
+                              <tr>
+                                  <th scope="row">Rater with Step</th>
+                                  <td>
+                                      <!-- <div id="rater-step" dir="ltr"></div> -->
+                                      <ng-template #t let-fill="fill">
+                                        <span class="star" [class.full]="fill === 100">
+                                            <span class="half" [style.width.%]="fill">★</span>☆
+                                        </span>
+                                      </ng-template>
+                                      <ngb-rating class="d-inline-flex stars align-middle star-rating" [(rate)]="currentRate"
+                                          [starTemplate]="t" [readonly]="true" [max]="5">
+                                      </ngb-rating>
+                                      <button class="btn btn-light btn-sm ms-2" (click)="currentRate = 1.5">1.5</button>
+                                      <button class="btn btn-light btn-sm ms-2" (click)="currentRate = 4.5">4.5</button>
+                                  </td>
+                                  <td><pre><code class="language-markup">&lt;ngb-rating class=&quot;d-inline-flex stars align-middle star-rating&quot; [(rate)]=&quot;currentRate&quot; [starTemplate]=&quot;t&quot; [readonly]=&quot;true&quot; [max]=&quot;5&quot;&gt;&lt;/ngb-rating&gt;</code></pre></td>
+                              </tr>
+                              <tr>
+                                  <th scope="row">Custom Color</th>
+                                  <td>
+                                    <ngb-rating [(rate)]="customColor">
+                                      <ng-template let-fill="fill" let-index="index">
+                                          <span class="stars star_fill" [class.filled]="fill === 100" [class.bad]="index < 3">&#9733;</span>
+                                      </ng-template>
+                                    </ngb-rating>
+                                  </td>
+                                  <td><pre><code class="language-markup">&lt;ngb-rating [(rate)]=&quot;customColor&quot;&gt;
+&lt;ng-template let-fill=&quot;fill&quot; let-index=&quot;index&quot;&gt;
+  &lt;span class=&quotstars star_fill&quot [class.filled]=&quotfill === 100&quot [class.bad]=&quotindex < 3 &quot;&gt;&lt;/span&gt;
+&lt;/ngb-rating&gt;</code></pre></td>
+                              </tr>
+                              <tr>
+                                  <th scope="row">Example with unlimited number of stars. readOnly option is set to true.</th>
+                                  <td>
+                                    <ngb-rating [rate]="3" [readonly]="true" [max]="16" class="stars"></ngb-rating>
+                                  </td>
+                                  <td><pre><code class="language-markup">&lt;ngb-rating [rate]=&quot;3&quot; [readonly]=&quot;true&quot; [max]=&quot;16&quot; class=&quot;stars&quot;&gt;&lt;/ngb-rating&gt;</code></pre></td>
+                              </tr>
+                              <tr>
+                                  <th scope="row">On Hover Event</th>
+                                  <td>
+                                      <div dir="ltr">
+                                        <ngb-rating [(rate)]="hoverSelect" (hover)="hovered=$event" (leave)="hovered=0" [readonly]="readonly" class="stars" [max]=5></ngb-rating>
+                                        <span class="ratingnum badge bg-info align-middle ms-2">{{hovered}}</span>
+                                      </div>
+                                  </td>
+                                  <td><pre><code class="language-markup">&lt;ngb-rating [(rate)]=&quot;hoverSelect&quot; (hover)=&quot;hovered=$event&quot; (leave)=&quot;hovered=0&quot; [readonly]=&quot;readonly&quot; class=&quot;stars&quot; [max]=5&gt&lt;/ngb-rating&gt;
+&lt;span class=&quot;ratingnum badge bg-info align-middle ms-2&quot;&gt;&lt;/span&gt;
+</code></pre></td>
+                              </tr>
+
+                              <tr>
+                                  <th scope="row">Clear/Reset Rater</th>
+                                  <td>
+                                      <div dir="ltr">
+                                          <div id="raterreset" class="align-middle"></div>
+                                          <ngb-rating [(rate)]="clearRate" [readonly]="readonly" class="stars align-middle star-rating" [max]=5></ngb-rating>
+                                          <button id="raterreset-button" class="btn btn-light btn-sm ms-2" (click)="clearRate = 0">Reset</button>
+                                      </div>
+                                  </td>
+                                  <td><pre><code class="language-markup">&lt;ngb-rating [(rate)]=&quot;clearRate" [readonly]=&quot;readonly&quot; class=&quot;stars align-middle star-rating&quot; [max]=5&gt;&lt;/ngb-rating&gt;
+&lt;button id=&quot;raterreset-button&quot; class=&quot;btn btn-light btn-sm ms-2&quot; (click)=&quot;clearRate = 0 &quot&gt;Reset&lt;/button&gt;
+</code></pre></td>
+                              </tr>
+                          </tbody>
+                      </table>
+                      <!-- end table -->
+                  </div>
+                  <!-- end table responsive -->
+              </div>
+
+              <div class="d-none code-view">
+                  <pre>
+<code class="language-markup">&lt;div data-simplebar style=&quot;max-height: 220px;&quot;&gt;
+...
+&lt;/div&gt;</code></pre>
+              </div>
+          </div><!-- end card-body -->
+      </div><!-- end card -->
+  </div>
+  <!-- end col -->
+</div>
+<!-- end row -->

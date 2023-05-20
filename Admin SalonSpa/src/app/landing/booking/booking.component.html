@@ -1,0 +1,2034 @@
+<div
+  appScrollspy
+  [spiedTags]="['SECTION']"
+  (sectionChange)="onSectionChange($event)"
+>
+  <div class="layout-wrapper landing">
+    <nav
+      class="navbar navbar-expand-lg navbar-landing fixed-top job-navbar"
+      id="navbar"
+      (window:scroll)="windowScroll()"
+    >
+      <div class="container-fluid custom-container">
+        <a class="navbar-brand">
+          <img
+            src="../../../assets/images/svg/logo-booking.svg"
+            class="card-logo card-logo-dark"
+            alt="logo dark"
+            height="32"
+          />
+          <img
+            src="./../../assets/images/svg/logo-booking.svg"
+            class="card-logo card-logo-light"
+            alt="logo light"
+            height="32"
+          />
+        </a>
+
+        <button
+          class="navbar-toggler py-0 fs-20 text-body"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+          (click)="collapse.toggle()"
+        >
+          <i class="mdi mdi-menu"></i>
+        </button>
+
+        <div
+          #collapse="ngbCollapse"
+          [(ngbCollapse)]="isCollapsed"
+          class="collapse navbar-collapse"
+          id="navbarSupportedContent"
+        >
+          <ul class="navbar-nav mx-auto mt-2 mt-lg-0" id="navbar-example">
+            <li class="nav-item">
+              <a
+                class="nav-link active"
+                href="javascript:void(0);"
+                [ngClass]="{ active: currentSection === 'hero' }"
+                [ngxScrollTo]="'#hero'"
+                >BOOKING</a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                href="javascript:void(0);"
+                [ngClass]="{ active: currentSection === 'categories' }"
+                [ngxScrollTo]="'#categories'"
+              >
+                SERVICES</a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                href="javascript:void(0);"
+                [ngClass]="{ active: currentSection === 'findJob' }"
+                [ngxScrollTo]="'#findJob'"
+                >BRANCHES</a
+              >
+            </li>
+            <li class="nav-item" *ngIf="checkNotRoleAdmin()">
+              <a
+                class="nav-link"
+                href="javascript:void(0);"
+                [ngClass]="{ active: currentSection === 'blog' }"
+                [ngxScrollTo]="'#blog'"
+                >PROMOTION</a
+              >
+            </li>
+
+            <div
+              *ngIf="objLocal?._id && objLocal.role === RoleSpa.ROLE_USER"
+              class="dropdown topbar-head-dropdown ms-auto header-item"
+              style="height: 54px"
+              ngbDropdown
+            >
+              <button
+                type="button"
+                class="btn btn-icon btn-topbar btn-ghost-secondary rounded-circle"
+                id="page-header-notifications-dropdown"
+                data-bs-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+                ngbDropdownToggle
+                (click)="openNotification()"
+              >
+                <i class="bx bx-bell fs-22"></i>
+              </button>
+              <div
+                class="dropdown-menu dropdown-menu-lg dropdown-menu-start p-0"
+                aria-labelledby="page-header-notifications-dropdown"
+                ngbDropdownMenu
+              >
+                <div class="dropdown-head bg-primary bg-pattern rounded-top">
+                  <div class="p-3">
+                    <div class="row align-items-center">
+                      <div class="col">
+                        <h6 class="m-0 fs-16 fw-semibold text-white">
+                          Notifications
+                        </h6>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="px-2 pt-2">
+                    <ul
+                      ngbNav
+                      #nav="ngbNav"
+                      [activeId]="1"
+                      class="nav nav-tabs dropdown-tabs nav-tabs-custom"
+                      id="notificationItemsTab"
+                    >
+                      <li [ngbNavItem]="1">
+                        <a ngbNavLink> All({{ totalNotification }})</a>
+                        <ng-template ngbNavContent>
+                          <div
+                            class="tab-pane fade show active py-2 ps-2"
+                            id="all-noti-tab"
+                            role="tabpanel"
+                          >
+                            <div class="p-2" *ngIf="checkSkeleton">
+                              <ngx-skeleton-loader
+                                count="5"
+                              ></ngx-skeleton-loader>
+                            </div>
+                            <ngx-simplebar
+                              style="height: 300px"
+                              *ngIf="
+                                arrayNotification.length > 0 && !checkSkeleton
+                              "
+                              #scrollRef
+                            >
+                              <div class="pe-2">
+                                <div
+                                  *ngFor="let item of arrayNotification"
+                                  class="text-reset notification-item d-block dropdown-item position-relative"
+                                >
+                                  <div class="d-flex">
+                                    <div class="avatar-xs me-3">
+                                      <span
+                                        class="avatar-title bg-soft-info text-info rounded-circle fs-16"
+                                      >
+                                        <i class="bx bx-badge-check"></i>
+                                      </span>
+                                    </div>
+                                    <div class="flex-1">
+                                      <a
+                                        href="javascript:void(0);"
+                                        class="stretched-link"
+                                      >
+                                        <h6 class="mt-0 mb-2 lh-base">
+                                          {{ item.content }}
+                                        </h6>
+                                      </a>
+                                      <p
+                                        class="mb-0 fs-11 fw-medium text-uppercase text-muted"
+                                      >
+                                        <span
+                                          ><i class="mdi mdi-clock-outline"></i>
+                                          {{
+                                            getTimeDifference(item.createdAt)
+                                          }}</span
+                                        >
+                                      </p>
+                                    </div>
+                                  </div>
+                                </div>
+
+                                <div
+                                  *ngIf="checkLoading"
+                                  class="text-center position-absolute loading show-loading"
+                                  style="left: 50%; transform: translateX(-50%)"
+                                >
+                                  <button
+                                    class="btn text-success mt-2"
+                                    id="loadmore"
+                                  >
+                                    <i
+                                      class="mdi mdi-loading mdi-spin fs-20 align-middle me-2"
+                                    ></i>
+                                    Load More
+                                  </button>
+                                </div>
+                              </div>
+                            </ngx-simplebar>
+
+                            <div
+                              *ngIf="
+                                arrayNotification.length === 0 && !checkSkeleton
+                              "
+                            >
+                              <div
+                                class="tab-pane p-4"
+                                id="alerts-tab"
+                                role="tabpanel"
+                              >
+                                <div class="w-25 w-sm-50 pt-3 mx-auto">
+                                  <img
+                                    src="assets/images/svg/bell.svg"
+                                    class="img-fluid"
+                                    alt="user-pic"
+                                  />
+                                </div>
+                                <div class="text-center pb-5 mt-2">
+                                  <h6 class="fs-18 fw-semibold lh-base">
+                                    Hey! You have no any notifications
+                                  </h6>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </ng-template>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div
+                  class="tab-content position-relative"
+                  id="notificationItemsTabContent"
+                >
+                  <div class="tab-content text-muted">
+                    <div [ngbNavOutlet]="nav"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ul>
+
+          <div *ngIf="!objLocal?._id">
+            <button
+              type="button"
+              class="btn btn-soft-primary mx-3"
+              data-bs-toggle="modal"
+              data-bs-target="#signupModals"
+              (click)="loginModal(loginDataModal)"
+            >
+              <i class="ri-user-3-line align-bottom me-1"></i>
+              Login
+            </button>
+            <button
+              type="button"
+              class="btn btn-soft-primary"
+              data-bs-toggle="modal"
+              data-bs-target="#signupModals"
+              (click)="signupModal(signupDataModal)"
+            >
+              <i class="ri-user-3-line align-bottom me-1"></i>
+              Register
+            </button>
+          </div>
+          <div class="col-auto" *ngIf="objLocal?._id">
+            <div
+              class="btn-group"
+              role="group"
+              aria-label="Button group with nested dropdown"
+            >
+              <div class="btn-group" role="group" ngbDropdown>
+                <button
+                  id="btnGroupDrop1"
+                  type="button"
+                  class="btn btn-primary dropdown-toggle arrow-none"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                  ngbDropdownToggle
+                >
+                  {{ objLocal.email ? objLocal.email : objLocal.username }}
+                  <i class="mdi mdi-chevron-down"></i>
+                </button>
+                <ul
+                  class="dropdown-menu"
+                  aria-labelledby="btnGroupDrop1"
+                  ngbDropdownMenu
+                >
+                  <ng-container *ngIf="objLocal.role !== RoleSpa.ROLE_ADMIN">
+                    <li *ngIf="objLocal.role === RoleSpa.ROLE_USER">
+                      <a
+                        class="dropdown-item cursor"
+                        (click)="getBooking(bookingModal)"
+                        ><i
+                          class="ri-shopping-bag-fill text-muted fs-16 align-middle me-1"
+                        ></i>
+                        <span>Booking</span></a
+                      >
+                    </li>
+                    <li *ngIf="objLocal.role === RoleSpa.ROLE_USER">
+                      <a
+                        class="dropdown-item cursor"
+                        (click)="getBill(billsModal)"
+                        ><i
+                          class="ri-file-list-3-line text-muted fs-16 align-middle me-1"
+                        ></i>
+                        <span>Bill</span></a
+                      >
+                    </li>
+                    <li>
+                      <a
+                        class="dropdown-item cursor"
+                        (click)="openEndProfile(profilecontent)"
+                        ><i
+                          class="ri-account-circle-fill text-muted fs-16 align-middle me-1"
+                        ></i>
+                        <span>Account</span></a
+                      >
+                    </li>
+                    <li>
+                      <a
+                        class="dropdown-item cursor"
+                        (click)="openEndPass(passwordcontent)"
+                        ><i
+                          class="ri-key-2-fill text-muted fs-16 align-middle me-1"
+                        ></i>
+                        <span>Password</span></a
+                      >
+                    </li>
+                  </ng-container>
+                  <li (click)="logout()">
+                    <a class="dropdown-item" href="javascript:void(0);">
+                      <i
+                        class="ri-logout-box-r-line ext-muted fs-16 align-middle me-1"
+                      ></i
+                      >Logout</a
+                    >
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <section class="section job-hero-section bg-light pb-0" id="hero">
+      <div class="container">
+        <div class="row justify-content-between align-items-center">
+          <div class="col-lg-6">
+            <div>
+              <h1 class="display-6 fw-semibold text-capitalize mb-3 lh-base">
+                Find your service and booking here
+              </h1>
+              <p class="lead text-muted lh-base mb-4">
+                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nam
+                voluptatem eaque reiciendis facilis.
+              </p>
+              <ul class="treding-keywords list-inline mb-0 mt-3 fs-13">
+                <li class="list-inline-item text-danger fw-semibold">
+                  <i class="mdi mdi-tag-multiple-outline align-middle"></i>
+                  Trending Keywords:
+                </li>
+                <li class="list-inline-item">
+                  <a href="javascript:void(0)">Ultimate Relaxation,</a>
+                </li>
+                <li class="list-inline-item">
+                  <a href="javascript:void(0)">Luxury Experience,</a>
+                </li>
+                <li class="list-inline-item">
+                  <a href="javascript:void(0)">Indulge in Pampering,</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <!--end col-->
+          <div class="col-lg-4">
+            <div class="position-relative home-img text-center mt-5 mt-lg-0">
+              <div class="card p-3 rounded shadow-lg cursor inquiry-box">
+                <div
+                  class="d-flex align-items-center"
+                  (click)="fullModal(fullDataModal)"
+                >
+                  <div class="avatar-sm flex-shrink-0 me-3">
+                    <div
+                      class="avatar-title bg-soft-warning text-warning rounded fs-18"
+                    >
+                      <i class="ri-alarm-warning-fill"></i>
+                    </div>
+                  </div>
+                  <h5 class="fs-15 lh-base mb-0">Booking Now</h5>
+                </div>
+              </div>
+
+              <div class="card p-3 rounded shadow-lg application-box">
+                <h5 class="fs-15 lh-base mb-3">Bookings</h5>
+                <div class="avatar-group">
+                  <a
+                    href="javascript: void(0);"
+                    class="avatar-group-item"
+                    data-bs-toggle="tooltip"
+                    data-bs-trigger="hover"
+                    data-bs-placement="top"
+                    ngbTooltip="Brent Gonzalez"
+                  >
+                    <div class="avatar-xs">
+                      <img
+                        src="assets/images/users/avatar-3.jpg"
+                        alt=""
+                        class="rounded-circle img-fluid"
+                      />
+                    </div>
+                  </a>
+                  <a
+                    href="javascript: void(0);"
+                    class="avatar-group-item"
+                    data-bs-toggle="tooltip"
+                    data-bs-trigger="hover"
+                    data-bs-placement="top"
+                    ngbTooltip="Ellen Smith"
+                  >
+                    <div class="avatar-xs">
+                      <div class="avatar-title rounded-circle bg-danger">S</div>
+                    </div>
+                  </a>
+                  <a
+                    href="javascript: void(0);"
+                    class="avatar-group-item"
+                    data-bs-toggle="tooltip"
+                    data-bs-trigger="hover"
+                    data-bs-placement="top"
+                    ngbTooltip="Ellen Smith"
+                  >
+                    <div class="avatar-xs">
+                      <img
+                        src="assets/images/users/avatar-10.jpg"
+                        alt=""
+                        class="rounded-circle img-fluid"
+                      />
+                    </div>
+                  </a>
+                  <a
+                    href="javascript: void(0);"
+                    class="avatar-group-item"
+                    data-bs-toggle="tooltip"
+                    data-bs-trigger="hover"
+                    data-bs-placement="top"
+                  >
+                    <div class="avatar-xs">
+                      <div class="avatar-title rounded-circle bg-success">
+                        Z
+                      </div>
+                    </div>
+                  </a>
+                  <a
+                    href="javascript: void(0);"
+                    class="avatar-group-item"
+                    data-bs-toggle="tooltip"
+                    data-bs-trigger="hover"
+                    data-bs-placement="top"
+                    title="Brent Gonzalez"
+                  >
+                    <div class="avatar-xs">
+                      <img
+                        src="assets/images/users/avatar-9.jpg"
+                        alt=""
+                        class="rounded-circle img-fluid"
+                      />
+                    </div>
+                  </a>
+                  <a
+                    href="javascript: void(0);"
+                    class="avatar-group-item"
+                    data-bs-toggle="tooltip"
+                    data-bs-trigger="hover"
+                    data-bs-placement="top"
+                    title="More Appliances"
+                  >
+                    <div class="avatar-xs">
+                      <div
+                        class="avatar-title fs-13 rounded-circle bg-light border-dashed border text-primary"
+                      >
+                        2k+
+                      </div>
+                    </div>
+                  </a>
+                </div>
+              </div>
+              <img
+                src="assets/images/job-profile2.png"
+                alt=""
+                class="user-img"
+              />
+
+              <div class="circle-effect">
+                <div class="circle"></div>
+                <div class="circle2"></div>
+                <div class="circle3"></div>
+                <div class="circle4"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- end row -->
+      </div>
+      <!-- end container -->
+    </section>
+
+    <app-process></app-process>
+    <app-services></app-services>
+    <app-branches></app-branches>
+    <app-post *ngIf="checkNotRoleAdmin()"></app-post>
+    <app-booking-footer></app-booking-footer>
+
+    <div
+      class="customizer-setting d-none d-md-block"
+      style="bottom: 10px !important"
+      *ngIf="checkShowChat && checkIsRoleUser()"
+    >
+      <button
+        type="button"
+        class="btn-info btn-rounded shadow-lg btn btn-icon btn-lg p-2"
+        (click)="openEnd()"
+      >
+        <i
+          class="ri-chat-1-fill"
+          [ngClass]="checkClassMess ? 'bx-tada' : ''"
+        ></i>
+        <span
+          *ngIf="checkClassMess"
+          class="position-absolute topbar-badge fs-10 translate-middle badge rounded-pill bg-danger"
+          ><i class="bx bx-chat bx-tada"></i
+        ></span>
+      </button>
+    </div>
+
+    <button
+      (click)="topFunction()"
+      class="btn btn-info btn-icon landing-back-top"
+      style="bottom: 69px"
+      id="back-to-top"
+    >
+      <i class="ri-arrow-up-line"></i>
+    </button>
+  </div>
+</div>
+
+<ng-template #signupDataModal let-modal>
+  <div class="modal-content border-0 overflow-hidden">
+    <div class="modal-header p-3">
+      <h4 class="card-title mb-0">Sign Up</h4>
+      <button
+        type="button"
+        class="btn-close"
+        data-bs-dismiss="modal"
+        aria-label="Close"
+        (click)="modal.dismiss('Cross click')"
+      ></button>
+    </div>
+    <div class="alert alert-success rounded-0 mb-0">
+      <p class="mb-0">
+        Up to <span class="fw-semibold">50% OFF</span>, Hurry up before the
+        stock ends
+      </p>
+    </div>
+    <div class="modal-body">
+      <form [formGroup]="signupForm" (ngSubmit)="signUp()">
+        <div class="mb-3">
+          <label for="fullName" class="form-label"
+            >FullName <span class="text-danger">*</span></label
+          >
+          <input
+            type="text"
+            class="form-control"
+            id="fullName"
+            placeholder="Enter your name"
+            formControlName="fullname"
+            [ngClass]="{
+              'is-invalid': submittedSignup && formSignup['fullname'].errors
+            }"
+          />
+          <div class="invalid-feedback">Please enter name</div>
+        </div>
+        <div class="mb-3">
+          <label for="emailInput" class="form-label"
+            >Email address <span class="text-danger">*</span></label
+          >
+          <input
+            type="email"
+            class="form-control"
+            id="emailInput"
+            autocomplete="new-email"
+            placeholder="Enter your email"
+            formControlName="email"
+            [ngClass]="{
+              'is-invalid': submittedSignup && formSignup['email'].errors
+            }"
+          />
+          <div class="invalid-feedback">Please enter email</div>
+        </div>
+        <div class="mb-3">
+          <label for="phoneInput" class="form-label"
+            >Phone <span class="text-danger">*</span></label
+          >
+          <input
+            type="text"
+            class="form-control"
+            id="phoneInput"
+            placeholder="Enter your phone"
+            mask="(000) 000-0000"
+            formControlName="phone"
+            [ngClass]="{
+              'is-invalid': submittedSignup && formSignup['phone'].errors
+            }"
+          />
+          <div class="invalid-feedback">Please enter phone</div>
+        </div>
+        <div class="mb-3">
+          <label for="exampleInputPassword1" class="form-label"
+            >Password <span class="text-danger">*</span></label
+          >
+          <input
+            type="password"
+            class="form-control"
+            id="exampleInputPassword1"
+            placeholder="Enter your password"
+            formControlName="password"
+            autocomplete="new-password"
+            [ngClass]="{
+              'is-invalid': submittedSignup && formSignup['password'].errors
+            }"
+          />
+          <div class="invalid-feedback">Please enter password</div>
+        </div>
+        <div class="mb-3 form-check">
+          <input
+            type="checkbox"
+            class="form-check-input"
+            id="checkTerms"
+            formControlName="agree"
+          />
+          <label class="form-check-label" for="checkTerms"
+            >I agree to the
+            <span class="fw-semibold">Terms of Service</span> and Privacy
+            Policy</label
+          >
+        </div>
+        <div class="text-end">
+          <button type="submit" class="btn btn-primary w-100 my-4">
+            Sign Up Now
+          </button>
+        </div>
+        <div class="content-footer">
+          <div class="mt-4 text-center">
+            <div class="signin-other-title">
+              <h5 class="fs-13 mb-4 title text-muted">Create account with</h5>
+            </div>
+            <div class="d-flex gap-2 justify-content-center">
+              <button
+                type="button"
+                class="btn btn-primary btn-icon waves-effect waves-light"
+                (click)="facebookAuth()"
+              >
+                <i class="ri-facebook-fill fs-16"></i></button
+              ><button
+                type="button"
+                class="btn btn-danger btn-icon waves-effect waves-light"
+                (click)="googleAuth()"
+              >
+                <i class="ri-google-fill fs-16"></i></button
+              ><button
+                type="button"
+                class="btn btn-dark btn-icon waves-effect waves-light"
+                (click)="githubAuth()"
+              >
+                <i class="ri-github-fill fs-16"></i></button
+              ><button
+                type="button"
+                class="btn btn-info btn-icon waves-effect waves-light"
+                (click)="twiterAuth()"
+              >
+                <i class="ri-twitter-fill fs-16"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #loginDataModal let-modal>
+  <div class="modal-content border-0 overflow-hidden">
+    <div class="modal-header p-3">
+      <h4 class="card-title mb-0">Login</h4>
+      <button
+        type="button"
+        class="btn-close"
+        data-bs-dismiss="modal"
+        aria-label="Close"
+        (click)="modal.dismiss('Cross click')"
+      ></button>
+    </div>
+    <div class="modal-body">
+      <form [formGroup]="loginForm" (ngSubmit)="login()">
+        <div class="mb-3">
+          <label for="emailInput" class="form-label"
+            >Email address <span class="text-danger">*</span></label
+          >
+          <input
+            type="email"
+            class="form-control"
+            id="emailInput"
+            autocomplete="new-email"
+            placeholder="Enter your email"
+            formControlName="email"
+            [ngClass]="{
+              'is-invalid': submittedLogin && formLogin['email'].errors
+            }"
+          />
+          <div class="invalid-feedback">Please enter email</div>
+        </div>
+        <div class="mb-3">
+          <label for="exampleInputPassword1" class="form-label"
+            >Password <span class="text-danger">*</span></label
+          >
+          <input
+            type="password"
+            class="form-control"
+            id="exampleInputPassword1"
+            placeholder="Enter your password"
+            formControlName="password"
+            autocomplete="new-password"
+            [ngClass]="{
+              'is-invalid': submittedLogin && formLogin['password'].errors
+            }"
+          />
+          <div class="invalid-feedback">Please enter password</div>
+        </div>
+        <div class="mb-3">
+          <a class="form-label cursor" (click)="navigateForgotPassReset()"
+            >Forgot password?</a
+          >
+        </div>
+        <div class="text-end">
+          <button type="submit" class="btn btn-primary w-100 my-4">
+            Login Now
+          </button>
+        </div>
+        <div class="content-footer">
+          <div class="mt-4 text-center">
+            <div class="signin-other-title">
+              <h5 class="fs-13 mb-4 title text-muted">Login account with</h5>
+            </div>
+            <div class="d-flex gap-2 justify-content-center">
+              <button
+                type="button"
+                class="btn btn-primary btn-icon waves-effect waves-light"
+                (click)="facebookAuth()"
+              >
+                <i class="ri-facebook-fill fs-16"></i></button
+              ><button
+                type="button"
+                class="btn btn-danger btn-icon waves-effect waves-light"
+                (click)="googleAuth()"
+              >
+                <i class="ri-google-fill fs-16"></i></button
+              ><button
+                type="button"
+                class="btn btn-dark btn-icon waves-effect waves-light"
+                (click)="githubAuth()"
+              >
+                <i class="ri-github-fill fs-16"></i></button
+              ><button
+                type="button"
+                class="btn btn-info btn-icon waves-effect waves-light"
+                (click)="twiterAuth()"
+              >
+                <i class="ri-twitter-fill fs-16"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</ng-template>
+
+<div class="chat" *ngIf="checkShowChatPop && checkIsRoleUser()">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-header align-items-center d-flex">
+        <h4 class="card-title mb-0 flex-grow-1">Chat</h4>
+        <div (click)="closeChatMess()">
+          <img
+            src="assets/images/svg/crypto-icons/chat.svg"
+            alt=""
+            class="avatar-xxs cursor"
+          />
+        </div>
+      </div>
+
+      <div class="w-100">
+        <div class="chat-content d-lg-flex">
+          <div class="w-100 position-relative">
+            <div class="position-relative">
+              <div
+                *ngIf="showLoading"
+                class="text-center position-absolute"
+                style="left: 50%; transform: translateX(-50%)"
+              >
+                <button class="btn btn-link text-success mt-2" id="loadmore">
+                  <i
+                    class="mdi mdi-loading mdi-spin fs-20 align-middle me-2"
+                  ></i>
+                  Load More
+                </button>
+              </div>
+              <div class="position-relative" id="users-chat">
+                <ngx-simplebar
+                  class="chat-conversation p-3 p-lg-4"
+                  #scrollRefChat
+                >
+                  <ul
+                    class="list-unstyled chat-conversation-list"
+                    id="users-conversation"
+                  >
+                    <li
+                      class="chat-list left"
+                      *ngFor="let data of chatMessagesData"
+                      [ngClass]="{ right: data.align === this.objLocal._id }"
+                    >
+                      <div class="conversation-list">
+                        <div class="chat-avatar" *ngIf="data.profile">
+                          <p class="rounded-circle avatar-xs chat-custom">
+                            {{ username.charAt(0) }}
+                          </p>
+                        </div>
+                        <div class="user-chat-content">
+                          <div class="ctext-wrap">
+                            <div class="ctext-wrap-content">
+                              <p class="mb-0 ctext-content">
+                                {{ data.content }}
+                              </p>
+                            </div>
+                            <div
+                              class="dropdown align-self-start message-box-drop"
+                              ngbDropdown
+                            >
+                              <a
+                                class="dropdown-toggle"
+                                href="javascript:void(0);"
+                                role="button"
+                                data-bs-toggle="dropdown"
+                                aria-haspopup="true"
+                                aria-expanded="false"
+                                ngbDropdownToggle
+                              >
+                                <i class="ri-more-2-fill"></i>
+                              </a>
+                              <div class="dropdown-menu" ngbDropdownMenu>
+                                <a
+                                  class="dropdown-item copy-message"
+                                  href="javascript:void(0);"
+                                  (click)="copyMessage($event)"
+                                  ><i
+                                    class="ri-file-copy-line me-2 text-muted align-bottom"
+                                  ></i
+                                  >Copy</a
+                                >
+                              </div>
+                            </div>
+                          </div>
+                          <div class="conversation-name">
+                            <small class="text-muted time">{{
+                              data.time
+                            }}</small>
+                            <span class="text-success check-message-icon"
+                              ><i class="ri-check-double-line align-bottom"></i
+                            ></span>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+                </ngx-simplebar>
+                <div
+                  class="alert alert-warning alert-dismissible copyclipboard-alert px-4 fade show"
+                  id="copyClipBoard"
+                  role="alert"
+                >
+                  Message copied
+                </div>
+              </div>
+
+              <div
+                class="chat-input-section p-3 p-lg-4 mt-3"
+                style="border-radius: 5px"
+              >
+                <form
+                  (ngSubmit)="messageSave()"
+                  [formGroup]="formSendMess"
+                  id="chatinput-form"
+                  enctype="multipart/form-data"
+                >
+                  <div class="row g-0 align-items-center">
+                    <div class="col-auto">
+                      <div class="chat-input-links me-2">
+                        <div class="links-list-item">
+                          <button
+                            type="button"
+                            class="btn btn-link text-decoration-none emoji-btn"
+                            id="emoji-btn"
+                            (click)="toggleEmojiPicker()"
+                          >
+                            <i class="bx bx-smile align-middle"></i>
+                          </button>
+                          <emoji-mart
+                            class="emoji-mart"
+                            *ngIf="showEmojiPicker"
+                            (emojiSelect)="addEmoji($event)"
+                            title="Pick your emoji…"
+                          ></emoji-mart>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col">
+                      <div
+                        *ngIf="submitted && form['message'].errors"
+                        class="chat-input-feedback"
+                      >
+                        <span *ngIf="form['message'].errors['required']"
+                          >Please Enter a Message</span
+                        >
+                      </div>
+                      <input
+                        type="text"
+                        class="form-control chat-input bg-light border-light"
+                        id="chat-input"
+                        placeholder="Type your message..."
+                        autocomplete="off"
+                        formControlName="message"
+                        [ngClass]="{
+                          'is-invalid': submitted && form['message'].errors
+                        }"
+                        [(ngModel)]="emoji"
+                        (focus)="onFocus()"
+                      />
+                    </div>
+                    <div class="col-auto">
+                      <div class="chat-input-links ms-2">
+                        <div class="links-list-item">
+                          <button
+                            type="submit"
+                            class="btn btn-primary chat-send waves-effect waves-light shadow"
+                          >
+                            <i class="ri-send-plane-2-fill align-bottom"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #profilecontent let-offcanvas>
+  <ngx-skeleton-loader
+    count="25"
+    class="m-4"
+    *ngIf="!isProfile"
+  ></ngx-skeleton-loader>
+
+  <ng-container *ngIf="isProfile">
+    <div class="offcanvas-header bg-light">
+      <h5 class="offcanvas-title" id="offcanvasExampleLabel">My Profile</h5>
+      <button
+        type="button"
+        class="btn-close text-reset"
+        data-bs-dismiss="offcanvas"
+        aria-label="Close"
+        (click)="offcanvas.dismiss('Cross click')"
+      ></button>
+    </div>
+    <form
+      (ngSubmit)="saveProfile()"
+      [formGroup]="profileForm"
+      class="d-flex flex-column justify-content-end h-100"
+      style="overflow: scroll"
+    >
+      <div class="offcanvas-body">
+        <div class="mb-4">
+          <label
+            for="fullname"
+            class="form-label text-muted text-uppercase fw-semibold mb-3"
+            >Full Name</label
+          >
+          <input
+            class="form-control flatpickr-input"
+            type="text"
+            placeholder="Enter name"
+            id="fullname"
+            formControlName="fullname"
+            [ngClass]="{
+              'is-invalid': submitted && formProfile['fullname'].errors
+            }"
+          />
+          <div
+            *ngIf="submitted && formProfile['fullname'].errors"
+            class="invalid-feedback"
+            align="left"
+          >
+            <div *ngIf="formProfile['fullname'].errors['required']">
+              Name is required
+            </div>
+          </div>
+        </div>
+        <div class="mb-4">
+          <label
+            for="email"
+            class="form-label text-muted text-uppercase fw-semibold mb-3"
+            >Email</label
+          >
+          <input
+            class="form-control flatpickr-input"
+            type="text"
+            placeholder="Enter email"
+            id="email"
+            formControlName="email"
+            [ngClass]="{
+              'is-invalid': submitted && formProfile['email'].errors
+            }"
+          />
+          <div
+            *ngIf="submitted && formProfile['email'].errors"
+            class="invalid-feedback"
+            align="left"
+          >
+            <div *ngIf="formProfile['email'].errors['required']">
+              Email ID is required
+            </div>
+            <div *ngIf="formProfile['email'].errors['email']">
+              Email must be a valid email address
+            </div>
+          </div>
+        </div>
+        <div class="mb-4">
+          <label
+            for="phone"
+            class="form-label text-muted text-uppercase fw-semibold mb-3"
+            >Phone</label
+          >
+          <input
+            class="form-control flatpickr-input"
+            type="text"
+            placeholder="Enter phone"
+            id="phone"
+            formControlName="phone"
+            [ngClass]="{
+              'is-invalid': submitted && formProfile['phone'].errors
+            }"
+          />
+          <div
+            *ngIf="submitted && formProfile['phone'].errors"
+            class="invalid-feedback"
+            align="left"
+          >
+            <div *ngIf="formProfile['phone'].errors['required']">
+              Phone is required
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="offcanvas-footer border-top p-3 text-center hstack gap-2">
+        <button
+          class="btn btn-light w-100"
+          type="button"
+          (click)="offcanvas.dismiss('Cross click')"
+        >
+          Cancel
+        </button>
+        <button
+          type="submit"
+          class="btn btn-success w-100"
+          [disabled]="profileForm.invalid"
+        >
+          Save
+        </button>
+      </div>
+    </form>
+  </ng-container>
+</ng-template>
+
+<ng-template #passwordcontent let-offcanvas>
+  <div class="offcanvas-header bg-light">
+    <h5 class="offcanvas-title" id="offcanvasExampleLabel">Change Password</h5>
+    <button
+      type="button"
+      class="btn-close text-reset"
+      data-bs-dismiss="offcanvas"
+      aria-label="Close"
+      (click)="offcanvas.dismiss('Cross click')"
+    ></button>
+  </div>
+  <form
+    (ngSubmit)="savePass()"
+    [formGroup]="passwordForm"
+    class="d-flex flex-column justify-content-end h-100"
+    style="overflow: scroll"
+  >
+    <div class="offcanvas-body">
+      <div class="mb-4">
+        <label
+          for="fullname"
+          class="form-label text-muted text-uppercase fw-semibold mb-3"
+          >Current Password</label
+        >
+        <input
+          class="form-control flatpickr-input"
+          type="password"
+          placeholder="Enter current password"
+          id="currentPassword"
+          formControlName="currentPassword"
+          [ngClass]="{
+            'is-invalid': submittedPass && formPass['currentPassword'].errors
+          }"
+        />
+        <div
+          *ngIf="submittedPass && formPass['currentPassword'].errors"
+          class="invalid-feedback"
+          align="left"
+        >
+          <div *ngIf="formPass['currentPassword'].errors['required']">
+            Current Password is required
+          </div>
+        </div>
+      </div>
+      <div class="mb-4">
+        <label
+          for="newPassword"
+          class="form-label text-muted text-uppercase fw-semibold mb-3"
+          >New Password</label
+        >
+        <input
+          class="form-control flatpickr-input"
+          type="password"
+          placeholder="Enter new password"
+          id="newPassword"
+          formControlName="newPassword"
+          [ngClass]="{
+            'is-invalid': submittedPass && formPass['newPassword'].errors
+          }"
+        />
+        <div
+          *ngIf="submittedPass && formPass['newPassword'].errors"
+          class="invalid-feedback"
+          align="left"
+        >
+          <div *ngIf="formPass['newPassword'].errors['required']">
+            New Password is required
+          </div>
+        </div>
+      </div>
+      <div class="mb-4">
+        <label
+          for="confirmPassword"
+          class="form-label text-muted text-uppercase fw-semibold mb-3"
+          >Confirm Password</label
+        >
+        <input
+          class="form-control flatpickr-input"
+          type="password"
+          placeholder="Enter confirm password"
+          id="confirmPassword"
+          formControlName="confirmPassword"
+          [ngClass]="{
+            'is-invalid': submittedPass && formPass['confirmPassword'].errors
+          }"
+        />
+        <div
+          *ngIf="submittedPass && formPass['confirmPassword'].errors"
+          class="invalid-feedback"
+          align="left"
+        >
+          <div *ngIf="formPass['confirmPassword'].errors['required']">
+            Confirm Password is required
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="offcanvas-footer border-top p-3 text-center hstack gap-2">
+      <button
+        class="btn btn-light w-100"
+        type="button"
+        (click)="offcanvas.dismiss('Cross click')"
+      >
+        Cancel
+      </button>
+      <button
+        type="submit"
+        class="btn btn-success w-100"
+        [disabled]="passwordForm.invalid"
+      >
+        Save
+      </button>
+    </div>
+  </form>
+</ng-template>
+
+<ng-template #codemodel let-modal>
+  <div class="modal-body text-center p-5">
+    <div class="mt-4">
+      <h4 class="mb-3">You've made it!</h4>
+      <div class="row justify-content-center">
+        <div class="col-12">
+          <div class="card mt-4">
+            <div class="card-body p-4">
+              <div class="mb-4">
+                <div class="avatar-lg mx-auto">
+                  <div
+                    class="avatar-title bg-light text-primary display-5 rounded-circle"
+                  >
+                    <i class="ri-mail-line"></i>
+                  </div>
+                </div>
+              </div>
+
+              <div class="p-2 mt-4">
+                <div class="text-muted text-center mb-4 mx-lg-3">
+                  <h4 class="">Verify Your Email</h4>
+                  <p>
+                    Please enter the 6 digit code sent to
+                    <span class="fw-semibold">{{ email }}</span>
+                  </p>
+                </div>
+
+                <!-- <form autocomplete="off"> -->
+                <!-- <div class="row twostep-input"> -->
+                <ng-otp-input
+                  [config]="config"
+                  (onInputChange)="onOtpChange($event)"
+                ></ng-otp-input>
+                <!-- </div> -->
+                <!-- </form> -->
+              </div>
+            </div>
+          </div>
+
+          <div class="text-center">
+            <p class="mb-0">
+              Didn't receive a code ?
+              <a
+                (click)="resendOtp()"
+                class="fw-semibold text-primary text-decoration-underline cursor"
+                >Resend</a
+              >
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="hstack gap-2 justify-content-center mt-3">
+        <a
+          href="javascript:void(0);"
+          class="btn btn-link link-success fw-medium"
+          data-bs-dismiss="modal"
+          (click)="modal.close('Close click')"
+          ><i class="ri-close-line me-1 align-middle"></i> Close</a
+        >
+        <button
+          type="button"
+          class="btn btn-soft-primary"
+          [disabled]="code.toString().length < 6"
+          (click)="confirmCode()"
+        >
+          Confirm
+        </button>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<!-- Full screen modal content -->
+<ng-template #fullDataModal let-modal>
+  <div class="modal-content" style="background: #f3f3f9">
+    <div class="modal-header">
+      <h5 class="modal-title" id="exampleModalFullscreenLabel">
+        SalonSpa Booking
+      </h5>
+      <button
+        type="button"
+        class="btn-close"
+        data-bs-dismiss="modal"
+        aria-label="Close"
+        (click)="modal.dismiss('Close click')"
+        (click)="dismissModal()"
+      ></button>
+    </div>
+    <div class="modal-body">
+      <div class="row">
+        <div class="col-xl-8">
+          <div class="card">
+            <div class="card-body form-steps" style="background: #f3f3f9">
+              <div class="text-center pt-3 pb-4 mb-1">
+                <h5>Find Your Service And Booking Now</h5>
+              </div>
+              <aw-wizard
+                [navBarLayout]="'large-empty-symbols'"
+                class="nav nav-pills progress-bar-tab custom-nav"
+              >
+                <aw-wizard-step>
+                  <ng-template awWizardStepSymbol>
+                    <li class="nav-item" role="presentation">
+                      <button
+                        class="nav-link rounded-pill active"
+                        data-progressbar="custom-progress-bar"
+                        id="pills-gen-info-tab"
+                        data-bs-toggle="pill"
+                        data-bs-target="#pills-gen-info"
+                        type="button"
+                        role="tab"
+                        aria-controls="pills-gen-info"
+                        aria-selected="true"
+                      >
+                        1
+                      </button>
+                    </li>
+                  </ng-template>
+                  <div>
+                    <div class="mb-4">
+                      <div>
+                        <h5 class="mb-1">General Information Branch</h5>
+                        <p class="text-muted">Choose Information as below</p>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div *ngFor="let item of branches" class="col-lg-4">
+                        <div class="card shadow-lg">
+                          <div class="card-body">
+                            <label
+                              for="{{ 'formradioRight5' + item._id }}"
+                              class="d-flex"
+                            >
+                              <div class="avatar-sm">
+                                <div
+                                  class="avatar-title bg-soft-warning rounded"
+                                >
+                                  <img
+                                    src="{{ item.image }}"
+                                    alt=""
+                                    class="avatar-xxs"
+                                  />
+                                </div>
+                              </div>
+                              <div class="ms-3 flex-grow-1">
+                                <a>
+                                  <h5>{{ item.name }}</h5>
+                                </a>
+                                <ul class="list-inline text-muted mb-3">
+                                  <li class="list-inline-item">
+                                    <i
+                                      class="ri-phone-fill align-bottom me-1"
+                                    ></i>
+                                    {{ item.phone | mask : "(000) 000-0000" }}
+                                  </li>
+                                  <li class="list-inline-item">
+                                    <a
+                                      href="{{ item.location }}"
+                                      target="_blank"
+                                    >
+                                      <i
+                                        class="ri-map-pin-2-line align-bottom me-1"
+                                      ></i>
+                                      {{ item.address }}
+                                    </a>
+                                  </li>
+                                </ul>
+                              </div>
+                              <div>
+                                <input
+                                  class="form-check-input cursor"
+                                  type="radio"
+                                  name="formradiocolor1"
+                                  id="{{ 'formradioRight5' + item._id }}"
+                                  (click)="getDataChooseBranch(item)"
+                                />
+                              </div>
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- wizard-tab -->
+                  <div class="d-flex align-items-start gap-3 mt-4">
+                    <button
+                      type="button"
+                      class="btn btn-success btn-label right ms-auto nexttab nexttab"
+                      data-nexttab="pills-info-desc-tab"
+                      awNextStep
+                      [disabled]="!branchBooking"
+                    >
+                      <i
+                        class="ri-arrow-right-line label-icon align-middle fs-16 ms-2"
+                      ></i
+                      >Next
+                    </button>
+                  </div>
+                </aw-wizard-step>
+
+                <aw-wizard-step>
+                  <ng-template awWizardStepSymbol>
+                    <li class="nav-item" role="presentation">
+                      <button
+                        class="nav-link rounded-pill"
+                        data-progressbar="custom-progress-bar"
+                        id="pills-info-desc-tab"
+                        data-bs-toggle="pill"
+                        data-bs-target="#pills-info-desc"
+                        type="button"
+                        role="tab"
+                        aria-controls="pills-info-desc"
+                        aria-selected="false"
+                      >
+                        2
+                      </button>
+                    </li>
+                  </ng-template>
+                  <div>
+                    <div class="mb-4">
+                      <div>
+                        <h5 class="mb-1">General Information Service</h5>
+                        <p class="text-muted">Choose Information as below</p>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div
+                        *ngFor="let list of listService; let i = index"
+                        class="col-lg-4"
+                      >
+                        <div class="card shadow-lg">
+                          <div class="card-body">
+                            <label for="{{ list._id }}" class="d-flex mb-4">
+                              <div class="avatar-sm">
+                                <div class="avatar-title bg-light rounded">
+                                  <img
+                                    src="{{ list.image }}"
+                                    alt=""
+                                    class="avatar-custom"
+                                  />
+                                </div>
+                              </div>
+                              <div class="ms-3 flex-grow-1">
+                                <a href="javascript:void(0);">
+                                  <h5 class="job-title">
+                                    {{ list.name | uppercase }}
+                                  </h5>
+                                </a>
+                                <p class="company-name text-muted mb-0">
+                                  {{
+                                    list?.amount?.$numberDecimal
+                                      | currency : "" : "" : "1.0"
+                                  }}
+                                </p>
+                              </div>
+                              <div>
+                                <input
+                                  class="form-check-input cursor"
+                                  type="checkbox"
+                                  id="{{ list._id }}"
+                                  (click)="getServiceBooking(list)"
+                                />
+                              </div>
+                            </label>
+                            <p class="text-muted job-description overflow-text">
+                              {{ list.description }}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="d-flex align-items-start gap-3 mt-4">
+                    <button
+                      type="button"
+                      class="btn btn-link text-decoration-none btn-label previestab"
+                      data-previous="pills-gen-info-tab"
+                      awPreviousStep
+                    >
+                      <i
+                        class="ri-arrow-left-line label-icon align-middle fs-16 me-2"
+                      ></i>
+                      Back to General
+                    </button>
+                    <button
+                      type="button"
+                      class="btn btn-success btn-label right ms-auto nexttab nexttab"
+                      data-nexttab="pills-success-tab"
+                      awNextStep
+                      [disabled]="isServiceBooking(serviceBooking)"
+                    >
+                      <i
+                        class="ri-arrow-right-line label-icon align-middle fs-16 ms-2"
+                      ></i
+                      >Next
+                    </button>
+                  </div>
+                </aw-wizard-step>
+                <aw-wizard-step>
+                  <ng-template awWizardStepSymbol>
+                    <li class="nav-item" role="presentation">
+                      <button
+                        class="nav-link rounded-pill"
+                        data-progressbar="custom-progress-bar"
+                        id="pills-info-desc-tab"
+                        data-bs-toggle="pill"
+                        data-bs-target="#pills-info-desc"
+                        type="button"
+                        role="tab"
+                        aria-controls="pills-info-desc"
+                        aria-selected="false"
+                      >
+                        3
+                      </button>
+                    </li>
+                  </ng-template>
+                  <div>
+                    <div class="mb-4">
+                      <div>
+                        <h5 class="mb-1">Time Booking</h5>
+                        <p class="text-muted">Choose Information as below</p>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-3">
+                        <div class="live-preview">
+                          <div class="d-flex gap-2 flex-wrap mb-3">
+                            <a
+                              class="btn btn-primary"
+                              data-bs-toggle="collapse"
+                              aria-expanded="false"
+                              aria-controls="collapseExample"
+                              (click)="collapse.toggle()"
+                              [attr.aria-expanded]="!Collapsed"
+                            >
+                              <i class="ri-calendar-2-line"></i>
+                              Choose Date
+                            </a>
+                          </div>
+                          <div
+                            class="collapse show"
+                            id="collapseExample"
+                            #collapse="ngbCollapse"
+                            [(ngbCollapse)]="Collapsed"
+                          >
+                            <div class="mb-0">
+                              <input
+                                type="radio"
+                                class="btn-check cursor"
+                                name="option"
+                                id="today"
+                                (click)="onDateChange(0)"
+                              />
+                              <label class="btn btn-soft-primary" for="today">
+                                Today {{ showDate(0) }}</label
+                              >
+                              <input
+                                type="radio"
+                                class="btn-check"
+                                name="option"
+                                id="today1"
+                                (click)="onDateChange(1)"
+                              />
+                              <label class="btn btn-soft-primary" for="today1">
+                                Tomorrow {{ showDate(1) }}</label
+                              >
+                              <input
+                                type="radio"
+                                class="btn-check"
+                                name="option"
+                                id="today2"
+                                (click)="onDateChange(2)"
+                              />
+                              <label class="btn btn-soft-primary" for="today2">
+                                Day after tomorrow {{ showDate(2) }}</label
+                              >
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row mt-4">
+                      <div
+                        *ngFor="let hour of hours; let i = index"
+                        class="col-lg-2"
+                      >
+                        <div class="card shadow-lg">
+                          <input
+                            type="radio"
+                            class="btn-check"
+                            name="options"
+                            id="{{ i }}"
+                            [disabled]="isPast(hour)"
+                            (click)="getTimeBooking(hour)"
+                          />
+                          <label class="btn btn-soft-primary" for="{{ i }}">
+                            {{ hour }}</label
+                          >
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="d-flex align-items-start gap-3 mt-4">
+                    <button
+                      type="button"
+                      class="btn btn-link text-decoration-none btn-label previestab"
+                      data-previous="pills-gen-info-tab"
+                      awPreviousStep
+                    >
+                      <i
+                        class="ri-arrow-left-line label-icon align-middle fs-16 me-2"
+                      ></i>
+                      Back to General
+                    </button>
+                    <button
+                      type="button"
+                      class="btn btn-success btn-label right ms-auto nexttab nexttab"
+                      data-nexttab="pills-success-tab"
+                      [disabled]="
+                        !timeBookingLine || objLocal.role !== RoleSpa.ROLE_USER
+                      "
+                      (click)="bookingForUser()"
+                      awNextStep
+                    >
+                      <i
+                        class="ri-arrow-right-line label-icon align-middle fs-16 ms-2"
+                      ></i
+                      >Submit
+                    </button>
+                  </div>
+                </aw-wizard-step>
+
+                <aw-wizard-step>
+                  <ng-template awWizardStepSymbol>
+                    <li class="nav-item" role="presentation">
+                      <button
+                        class="nav-link rounded-pill"
+                        data-progressbar="custom-progress-bar"
+                        id="pills-success-tab"
+                        data-bs-toggle="pill"
+                        data-bs-target="#pills-success"
+                        type="button"
+                        role="tab"
+                        aria-controls="pills-success"
+                        aria-selected="false"
+                      >
+                        4
+                      </button>
+                    </li>
+                  </ng-template>
+                  <div>
+                    <div class="text-center">
+                      <div class="mb-4">
+                        <lord-icon
+                          lord-icon
+                          [src]="
+                            showSuccess
+                              ? 'https://cdn.lordicon.com/lupuorrc.json'
+                              : 'https://cdn.lordicon.com/hrqwmuhr.json'
+                          "
+                          trigger="loop"
+                          colors="primary:#0ab39c,secondary:#405189"
+                          style="width: 120px; height: 120px"
+                        ></lord-icon>
+                      </div>
+                      <h5>Well Done !</h5>
+                      <p class="text-muted">
+                        {{
+                          showSuccess
+                            ? "You have Successfully Booking"
+                            : "Sorry ! Booking is Failed. Booking Again !"
+                        }}
+                      </p>
+                    </div>
+                  </div>
+                </aw-wizard-step>
+              </aw-wizard>
+            </div>
+            <!-- end card body -->
+          </div>
+          <!-- end card -->
+        </div>
+
+        <div class="col-xl-4">
+          <div>
+            <div class="timeline-2">
+              <div class="timeline-continue">
+                <div class="row timeline-right">
+                  <div class="col-12">
+                    <p class="timeline-date">Step 1: Choose Branch</p>
+                  </div>
+                  <div class="col-12">
+                    <div class="timeline-box">
+                      <div class="timeline-text">
+                        <h5>Branch Your Booking</h5>
+                        <p class="text-muted mb-0"></p>
+                        <div class="d-flex" *ngIf="branchBooking?.name">
+                          <div class="flex-shrink-0">
+                            <i class="ri-checkbox-circle-fill text-success"></i>
+                          </div>
+                          <div class="flex-grow-1 ms-2">
+                            <p class="text-muted mb-0">
+                              {{ branchBooking.name }}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row timeline-right">
+                  <div class="col-12">
+                    <p class="timeline-date">Step 2: Choose Service</p>
+                  </div>
+                  <div class="col-12">
+                    <div class="timeline-box">
+                      <div class="timeline-text">
+                        <h5>Service Your Booking</h5>
+                        <div *ngFor="let item of serviceBooking" class="d-flex">
+                          <div class="flex-shrink-0">
+                            <i class="ri-checkbox-circle-fill text-success"></i>
+                          </div>
+                          <div class="flex-grow-1 ms-2">
+                            <p class="text-muted mb-0">
+                              {{
+                                (item.name | uppercase) +
+                                  " (" +
+                                  (item?.amount?.$numberDecimal
+                                    | currency : "" : "" : "1.0") +
+                                  ")"
+                              }}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row timeline-right">
+                  <div class="col-12">
+                    <p class="timeline-date">Step 3: Choose Time Booking</p>
+                  </div>
+                  <div class="col-12">
+                    <div class="timeline-box">
+                      <div class="timeline-text">
+                        <h5>Time Your Booking</h5>
+                        <div *ngIf="timeBookingLine" class="d-flex">
+                          <div class="flex-shrink-0">
+                            <i class="ri-checkbox-circle-fill text-success"></i>
+                          </div>
+                          <div class="flex-grow-1 ms-2">
+                            <p class="text-muted mb-0">
+                              {{ timeBookingLine }}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="timeline-launch">
+                <div class="timeline-box">
+                  <div class="timeline-text">
+                    <h5>Our Company Activity</h5>
+                    <p class="text-muted text-capitalize mb-0">
+                      Wow...!!! What a Journey So Far...!!!
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--end col-->
+        <!-- end col -->
+      </div>
+      <!-- end row -->
+    </div>
+    <div class="modal-footer">
+      <a
+        href="javascript:void(0);"
+        class="btn btn-link link-success fw-medium"
+        data-bs-dismiss="modal"
+        (click)="modal.close('Close click')"
+        (click)="dismissModal()"
+        ><i class="ri-close-line me-1 align-middle"></i> Close</a
+      >
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #bookingModal role="document" let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title" id="exampleModalScrollableTitle">My Booking</h5>
+    <button
+      type="button"
+      class="btn-close"
+      aria-hidden="true"
+      (click)="modal.dismiss('Cross click')"
+    ></button>
+  </div>
+  <div class="modal-body">
+    <ng-container *ngFor="let item of bookingUserData; let i = index">
+      <hr style="opacity: 0.1" />
+      <h6 class="fs-15 mt-2">
+        {{ item.time | date : "hh:mm:ss a dd/MM/YYYY" }}
+      </h6>
+      <div class="d-flex">
+        <div class="flex-shrink-0">
+          <i class="ri-checkbox-circle-fill text-success"></i>
+        </div>
+        <div class="flex-grow-1 ms-2">
+          <p class="text-muted mb-0">Booking ID: {{ item._id }}</p>
+        </div>
+      </div>
+      <div class="d-flex">
+        <div class="flex-shrink-0">
+          <i class="ri-checkbox-circle-fill text-success"></i>
+        </div>
+        <div class="flex-grow-1 ms-2">
+          <p class="text-muted mb-0">Branch: {{ item.branch.name }}</p>
+        </div>
+      </div>
+      <div class="d-flex">
+        <div class="flex-shrink-0">
+          <i class="ri-checkbox-circle-fill text-success"></i>
+        </div>
+        <div class="flex-grow-1 ms-2">
+          <p class="text-muted mb-0">
+            Status:
+            <span class="badge" [ngClass]="checkClassStatus(item.status)">{{
+              item.status
+            }}</span>
+          </p>
+        </div>
+      </div>
+      <div class="d-flex">
+        <div class="flex-shrink-0">
+          <i class="ri-checkbox-circle-fill text-success"></i>
+        </div>
+        <div class="flex-grow-1 ms-2">
+          <p class="text-muted mb-0">
+            TotalPrice:
+            {{ item.amount.$numberDecimal | currency : "" : "" : "1.0" }}
+          </p>
+        </div>
+      </div>
+      <div class="d-flex">
+        <div class="flex-shrink-0">
+          <i class="ri-checkbox-circle-fill text-success"></i>
+        </div>
+        <div class="flex-grow-1 ms-2">
+          <p
+            class="mb-0 badge badge-label bg-primary"
+            *ngFor="let data of item.services"
+          >
+            <i class="mdi mdi-circle-medium"></i>
+            {{ data.name }}
+          </p>
+        </div>
+      </div>
+
+      <button
+        class="btn btn-soft-danger mt-2"
+        style="font-size: 11px"
+        [disabled]="!isPastBooking(item.time) || item.status === 'Cancelled'"
+        (click)="cancelMyBooking(item._id)"
+      >
+        Cancel Booking
+      </button>
+    </ng-container>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-light"
+      (click)="modal.close('Close click')"
+    >
+      Close
+    </button>
+  </div>
+</ng-template>
+
+<ng-template #billsModal role="document" let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title" id="exampleModalScrollableTitle">My Bills</h5>
+    <button
+      type="button"
+      class="btn-close"
+      aria-hidden="true"
+      (click)="modal.dismiss('Cross click')"
+    ></button>
+  </div>
+  <div class="modal-body">
+    <ng-container *ngFor="let item of billUserData; let i = index">
+      <hr style="opacity: 0.1" />
+      <h6 class="fs-15 mt-2">
+        {{ item.createdAt | date : "hh:mm:ss a dd/MM/YYYY" }}
+      </h6>
+      <div class="d-flex">
+        <div class="flex-shrink-0">
+          <i class="ri-checkbox-circle-fill text-success"></i>
+        </div>
+        <div class="flex-grow-1 ms-2">
+          <p class="text-muted mb-0">Bill ID: {{ item._id }}</p>
+        </div>
+      </div>
+      <div class="d-flex">
+        <div class="flex-shrink-0">
+          <i class="ri-checkbox-circle-fill text-success"></i>
+        </div>
+        <div class="flex-grow-1 ms-2">
+          <p class="text-muted mb-0">
+            Branch:
+            {{
+              item?.idEmpBill
+                ? item?.idEmpBill?.branch?.name
+                : item?.idMgmt?.branch?.name ?? "N/A"
+            }}
+          </p>
+        </div>
+      </div>
+      <div class="d-flex">
+        <div class="flex-shrink-0">
+          <i class="ri-checkbox-circle-fill text-success"></i>
+        </div>
+        <div class="flex-grow-1 ms-2">
+          <p class="text-muted mb-0">
+            Employee:
+            <i
+              class="ri-user-voice-line"
+              *ngIf="item?.idMgmt && !item?.idEmpBill"
+            ></i>
+            {{
+              item?.idEmpBill
+                ? item?.idEmpBill?.user?.fullname
+                : item?.idMgmt?.user?.fullname
+            }}
+          </p>
+        </div>
+      </div>
+      <div class="d-flex">
+        <div class="flex-shrink-0">
+          <i class="ri-checkbox-circle-fill text-success"></i>
+        </div>
+        <div class="flex-grow-1 ms-2">
+          <p class="text-muted mb-0">
+            Status:
+            <span class="badge" [ngClass]="checkClassStatus(item.status)">{{
+              item.status
+            }}</span>
+          </p>
+        </div>
+      </div>
+      <div class="d-flex">
+        <div class="flex-shrink-0">
+          <i class="ri-checkbox-circle-fill text-success"></i>
+        </div>
+        <div class="flex-grow-1 ms-2">
+          <p class="text-muted mb-0">
+            Type Payment:
+            <span>{{ item.typePayment | uppercase }}</span>
+          </p>
+        </div>
+      </div>
+      <div class="d-flex">
+        <div class="flex-shrink-0">
+          <i class="ri-checkbox-circle-fill text-success"></i>
+        </div>
+        <div class="flex-grow-1 ms-2">
+          <p class="text-muted mb-0">
+            Discount:
+            {{ item.discount }}%
+          </p>
+        </div>
+      </div>
+      <div class="d-flex">
+        <div class="flex-shrink-0">
+          <i class="ri-checkbox-circle-fill text-success"></i>
+        </div>
+        <div class="flex-grow-1 ms-2">
+          <p class="text-muted mb-0">
+            TotalPrice:
+            {{ item?.totalMoney | currency : "" : "" : "1.0" }}
+          </p>
+        </div>
+      </div>
+      <div class="d-flex">
+        <div class="flex-shrink-0">
+          <i class="ri-checkbox-circle-fill text-success"></i>
+        </div>
+        <div class="flex-grow-1 ms-2">
+          <p
+            class="mb-0 badge badge-label bg-primary"
+            *ngFor="let data of item.services"
+          >
+            <i class="mdi mdi-circle-medium"></i>
+            {{ data.name }}
+          </p>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-light"
+      (click)="modal.close('Close click')"
+    >
+      Close
+    </button>
+  </div>
+</ng-template>

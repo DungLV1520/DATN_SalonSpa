@@ -1,0 +1,83 @@
+<!-- banner -->
+<div class="row mb-4">
+  <div class="col-12 text-center">
+    <img src="assets/img/infographic-send.png" alt="" />
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-12 text-center mb-4">
+    <h1 class="mb-3 text-color-theme">Branches</h1>
+  </div>
+</div>
+
+<!-- connection -->
+<div class="row mb-3">
+  <div class="col">
+    <h6 class="title">Choose Branch</h6>
+  </div>
+</div>
+
+<ngx-skeleton-loader count="11" *ngIf="!isSkeleton"></ngx-skeleton-loader>
+
+<ng-container *ngIf="isSkeleton">
+  <div class="row mb-3">
+    <div class="col-12 px-0">
+      <swiper
+        class="connectionwiper"
+        [slidesPerView]="'auto'"
+        [spaceBetween]="0"
+        [pagination]="false"
+      >
+        <ng-template swiperSlide>
+          <div
+            class="card mb-2"
+            *ngFor="let item of branches; let i = index"
+            (click)="setActiveIndex(i)"
+          >
+            <div
+              class="card-body"
+              [class.active]="activeIndex === i"
+              (click)="getDataChooseBranch(item)"
+            >
+              <div class="row">
+                <div class="col-auto">
+                  <div class="avatar avatar-60 shadow-sm rounded-10 coverimg">
+                    <img
+                      src="{{ item.image }}"
+                      alt=""
+                      style="height: 100%; object-fit: cover; width: 100%"
+                    />
+                  </div>
+                </div>
+                <div class="col align-self-center ps-0">
+                  <p class="text-color-theme mb-1">{{ item.name }}</p>
+                  <p class="text-muted size-12">
+                    <i class="bi bi-telephone"></i>
+                    {{ item.phone | mask : "(000) 000-0000" }} <br />
+                    <i class="bi bi-pin-map"></i> {{ item.address }}
+                  </p>
+                </div>
+              </div>
+              <input
+                class="form-check-input custom-radio-btn"
+                type="radio"
+                id="{{ i }}"
+                [checked]="activeIndex === i"
+              />
+            </div>
+          </div>
+        </ng-template>
+      </swiper>
+    </div>
+  </div>
+  <button
+    class="btn btn-default py-2 w-100"
+    routerLink="/services"
+    style="border-radius: 4px"
+    [disabled]="!branchBooking"
+    (click)="nextStepBooking()"
+  >
+    Next <i class="bi bi-arrow-right-short"></i>
+  </button>
+</ng-container>

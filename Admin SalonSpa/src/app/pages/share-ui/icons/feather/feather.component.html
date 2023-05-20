@@ -1,0 +1,127 @@
+<!-- Start Breadcrumbs -->
+<app-breadcrumbs title="Feather" [breadcrumbItems]="breadCrumbItems"></app-breadcrumbs>
+<!-- End Breadcrumbs -->
+
+<div class="row">
+  <div class="col-12">
+      <div class="card">
+          <div class="card-header">
+              <h4 class="card-title">Examples</h4>
+              <p class="text-muted mb-0">Use <code>&lt;i data-feather="**">&lt;/i></code> class.</p>
+          </div>
+          <div class="card-body pt-0">
+            <app-toast aria-live="polite" aria-atomic="true"></app-toast>
+              <div class="row icon-demo-content">
+               
+                  <div class="col-xl-3 col-lg-4 col-sm-6" *ngFor="let data of IconsData" (click)="copytext(data.name)">
+                    <i-feather name="{{data.name}}"></i-feather> {{data.name}}
+                  </div>
+              </div>
+              <!-- end row -->
+
+          </div>
+          <!-- end card-body -->
+      </div>
+      <!-- end card -->
+  </div>
+  <!-- end col -->
+</div>
+<!-- end row -->
+
+<div class="row">
+  <div class="col-12">
+      <div class="card">
+          <div class="card-header">
+              <h4 class="card-title">Sizes</h4>
+              <p class="text-muted mb-0">Use <code>&lt;i data-feather="activity" class="icon-**"&gt;&lt;/i&gt;</code>. Available sizes <code>xs, sm,md,lg,xl,xxl</code></p>
+          </div>
+          <div class="card-body pt-0">
+              <div class="row icon-demo-content">
+
+                  <div class="col-xl-3 col-lg-4 col-sm-6">
+                      <i-feather name="airplay" class="icon-xs"></i-feather> airplay
+                  </div>
+
+                  <div class="col-xl-3 col-lg-4 col-sm-6">
+                      <i-feather name="airplay" class="icon-sm"></i-feather> airplay
+                  </div>
+
+                  <div class="col-xl-3 col-lg-4 col-sm-6">
+                      <i-feather name="airplay" class="icon-md"></i-feather> airplay
+                  </div>
+
+                  <div class="col-xl-3 col-lg-4 col-sm-6">
+                      <i-feather name="airplay" class="icon-lg"></i-feather> airplay
+                  </div>
+
+                  <div class="col-xl-3 col-lg-4 col-sm-6">
+                      <i-feather name="airplay" class="icon-xl"></i-feather> airplay
+                  </div>
+
+                  <div class="col-xl-3 col-lg-4 col-sm-6">
+                      <i-feather name="airplay" class="icon-xxl"></i-feather> airplay
+                  </div>
+
+              </div>
+              <!-- emd row -->
+          </div>
+          <!-- end card-body -->
+      </div>
+      <!-- end card -->
+  </div>
+  <!-- end col -->
+</div>
+<!-- end row -->
+
+<div class="row">
+  <div class="col-12">
+      <div class="card">
+          <div class="card-header">
+              <h4 class="card-title">Two Tones Color Icons</h4>
+              <p class="text-muted mb-0">Use <code>&lt;i data-feather="activity" class="icon-dual-**"&gt;&lt;/i&gt;</code>.</p>
+          </div>
+          <div class="card-body pt-0">
+
+              <div class="row icon-demo-content">
+                  <div class="col-xl-3 col-lg-4 col-sm-6">
+                      <i-feather name="airplay" class="icon-dual"></i-feather> airplay
+                  </div>
+
+                  <div class="col-xl-3 col-lg-4 col-sm-6">
+                      <i-feather name="alert-circle" class="icon-dual-primary"></i-feather> alert-circle
+                  </div>
+
+                  <div class="col-xl-3 col-lg-4 col-sm-6">
+                      <i-feather name="alert-octagon" class="icon-dual-success"></i-feather> alert-octagon
+                  </div>
+
+                  <div class="col-xl-3 col-lg-4 col-sm-6">
+                      <i-feather name="alert-triangle" class="icon-dual-info"></i-feather> alert-triangle
+                  </div>
+
+                  <div class="col-xl-3 col-lg-4 col-sm-6">
+                      <i-feather name="anchor" class="icon-dual-warning"></i-feather> anchor
+                  </div>
+
+                  <div class="col-xl-3 col-lg-4 col-sm-6">
+                      <i-feather name="aperture" class="icon-dual-danger"></i-feather> aperture
+                  </div>
+
+                  <div class="col-xl-3 col-lg-4 col-sm-6">
+                      <i-feather name="archive" class="icon-dual-dark"></i-feather> archive
+                  </div>
+
+                  <div class="col-xl-3 col-lg-4 col-sm-6">
+                      <i-feather name="clock" class="icon-dual-secondary"></i-feather> clock
+                  </div>
+
+              </div>
+              <!-- emd row -->
+
+          </div>
+          <!-- end card-body -->
+      </div>
+      <!-- end card -->
+  </div>
+  <!-- end col -->
+</div>

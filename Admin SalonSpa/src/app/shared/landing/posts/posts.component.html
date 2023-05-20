@@ -1,0 +1,83 @@
+<section class="section" id="blog">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <div class="text-center mb-5">
+          <h1 class="mb-3 ff-secondary fw-semibold text-capitalize lh-base">
+            Our Latest <span class="text-primary">News Post</span>
+          </h1>
+        </div>
+      </div>
+    </div>
+    <!-- end row -->
+
+    <div class="row">
+      <main>
+        <!-- Slider -->
+        <section class="bg-light p-md-2 p-0">
+          <div class="container position-relative">
+            <!-- Cards Wrap -->
+            <div
+              class="slider d-flex align-items-center justify-content-start overflow-hidden position-relative"
+            >
+              <div
+                class="slider-wrap d-flex align-items-center position-absolute"
+              >
+                <div
+                  *ngFor="let item of postData"
+                  class="slide-card 1 position-relative bg-white overflow-hidden shadow-sm mx-2"
+                >
+                  <div class="card" style="margin-bottom: 0">
+                    <div class="card-body">
+                      <img
+                        src="{{ item.image }}"
+                        alt=""
+                        class="img-fluid rounded post-img"
+                      />
+                    </div>
+                    <div class="card-body">
+                      <ul class="list-inline fs-14 text-muted">
+                        <li class="list-inline-item">
+                          <i class="ri-calendar-line align-bottom me-1"></i>
+                          {{ item.createdAt | date : "dd/MM/YYYY" }}
+                        </li>
+                      </ul>
+                      <a href="javascript:void(0);">
+                        <h5>{{ item.title }}</h5>
+                      </a>
+                      <p class="text-muted fs-14 content-limit">
+                        {{ item.content }}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Slider Arrows -->
+            <!-- Previous Arrow -->
+            <button
+              class="text-dark arrow bg-white d-flex align-items-center justify-content-center shadow-lg border rounded-circle position-absolute bottom-50 start-0"
+              id="previous-arrow"
+              (click)="previousSlide()"
+            >
+              <div>
+                <i class="fa fa-angle-left" aria-hidden="true"></i>
+              </div>
+            </button>
+            <!-- Next Arrow -->
+            <button
+              class="text-dark arrow bg-white d-flex align-items-center justify-content-center shadow-lg border rounded-circle position-absolute bottom-50 end-0"
+              id="next-arrow"
+              (click)="nextSlide()"
+            >
+              <div>
+                <i class="fa fa-angle-right" aria-hidden="true"></i>
+              </div>
+            </button>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+  <!-- end container -->
+</section>

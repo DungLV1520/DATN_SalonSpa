@@ -1,0 +1,149 @@
+<div class="row h-100 mx-1">
+  <div class="col-12 text-center mb-auto px-0">
+    <header class="header">
+      <div class="row">
+        <div class="col-auto mt-3">
+          <a
+            routerLink="/account/login"
+            target="_self"
+            class="btn btn-light btn-44"
+          >
+            <i class="bi bi-arrow-left"></i>
+          </a>
+        </div>
+        <div class="col-auto">
+          <div style="margin-left: 18px">
+            <img src="../../../../assets/img/logo.svg" alt="" />
+          </div>
+        </div>
+      </div>
+    </header>
+  </div>
+  <div
+    class="col-11 col-md-6 col-lg-5 col-xl-3 mx-auto align-self-center text-center py-4"
+  >
+    <div class="alert alert-danger" role="alert" *ngIf="checkError">
+      {{ error }}
+    </div>
+    <form
+      class="was-validated"
+      [formGroup]="signupForm"
+      (ngSubmit)="onSubmit()"
+    >
+      <div class="form-floating is-valid mb-3">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="FullName"
+          id="username"
+          formControlName="fullname"
+        />
+        <label for="username">Full Name</label>
+      </div>
+      <div
+        *ngIf="submitted && signupForm.controls['fullname'].errors"
+        class="invalid-feed mb-2"
+      >
+        <div *ngIf="signupForm.controls['fullname'].errors['required']">
+          Fullname is required
+        </div>
+      </div>
+
+      <div class="form-floating is-valid mb-3">
+        <input
+          type="email"
+          class="form-control"
+          placeholder="Email"
+          id="email"
+          formControlName="email"
+        />
+        <label for="email">Email</label>
+      </div>
+      <div
+        *ngIf="submitted && signupForm.controls['email'].errors"
+        class="invalid-feed mb-2"
+      >
+        <div *ngIf="signupForm.controls['email'].errors['required']">
+          Email is required
+        </div>
+        <div *ngIf="signupForm.controls['email'].errors['email']">
+          Email must be a valid email address
+        </div>
+      </div>
+
+      <div class="form-floating is-valid mb-3">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Phone"
+          id="phone"
+          mask="(000) 000-0000"
+          formControlName="phone"
+        />
+        <label for="phone">Phone</label>
+      </div>
+      <div
+        *ngIf="submitted && signupForm.controls['phone'].errors"
+        class="invalid-feed mb-2"
+      >
+        <div *ngIf="signupForm.controls['phone'].errors['required']">
+          Phone is required
+        </div>
+      </div>
+
+      <div class="form-floating is-valid mb-3">
+        <input
+          type="password"
+          class="form-control"
+          placeholder="Password"
+          id="password"
+          formControlName="password"
+        />
+        <label for="password">Password</label>
+      </div>
+      <div
+        *ngIf="submitted && signupForm.controls['password'].errors"
+        class="invalid-feed mb-2"
+      >
+        <div *ngIf="signupForm.controls['password'].errors['required']">
+          Password is required
+        </div>
+      </div>
+
+      <p class="mb-3">
+        <span class="text-muted"
+          >By clicking on Signup button, you are agree to our
+        </span>
+        <a routerLink="/">Terms and Conditions</a>
+      </p>
+      <button type="submit" class="btn btn-lg btn-default w-100 mb-4 shadow">
+        Sign up
+      </button>
+    </form>
+  </div>
+  <div class="col-12 text-center mt-auto" *ngIf="loading">
+    <div class="row justify-content-center footer-info">
+      <div class="col-auto text-center">
+        <span class="progressstimer">
+          <img src="assets/img/progress.png" alt="" />
+        </span>
+        <br />
+      </div>
+    </div>
+  </div>
+  <div class="col-12 text-center mt-auto">
+    <div class="row justify-content-center footer-info">
+      <div class="col-auto">
+        <p class="text-muted">Or you can continue with</p>
+      </div>
+      <div class="col-auto ps-0">
+        <a class="p-1"><i class="bi bi-twitter" (click)="twiterAuth()"></i></a>
+        <a class="p-1"><i class="bi bi-google" (click)="googleAuth()"></i></a>
+        <a class="p-1"
+          ><i class="bi bi-facebook" (click)="facebookAuth()"></i
+        ></a>
+        <a class="p-1"><i class="bi bi-github" (click)="githubAuth()"></i></a>
+      </div>
+    </div>
+  </div>
+</div>

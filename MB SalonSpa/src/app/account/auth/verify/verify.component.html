@@ -1,0 +1,65 @@
+<div class="row h-100">
+  <div class="col-12 text-center mb-auto px-0 mx-2">
+    <header class="header">
+      <div class="row">
+        <div class="col-auto mt-3">
+          <a
+            routerLink="/account/login"
+            target="_self"
+            class="btn btn-light btn-44"
+          >
+            <i class="bi bi-arrow-left"></i>
+          </a>
+        </div>
+        <div class="col-auto">
+          <div style="margin-left: 34px">
+            <img src="../../../../assets/img/logo.svg" alt="" />
+          </div>
+        </div>
+      </div>
+    </header>
+  </div>
+  <div
+    class="col-10 col-md-6 col-lg-5 col-xl-3 mx-auto align-self-center text-center py-4"
+  >
+    <h1 class="mb-4 text-color-theme">Verify OTP</h1>
+    <p class="text-muted mb-4">
+      Verify OTP sent to your provided email address
+    </p>
+    <div class="alert alert-danger" role="alert" *ngIf="checkError">
+      {{ error }}
+    </div>
+    <div class="form-floating is-valid mb-3">
+      <input
+        type="number"
+        class="form-control"
+        placeholder="Enter OTP"
+        [(ngModel)]="code"
+        id="otp"
+      />
+      <label for="otp">Enter OTP</label>
+    </div>
+    <button
+      type="button"
+      class="btn btn-lg btn-default w-100 mb-4 shadow"
+      [disabled]="!code"
+      (click)="sendOtp()"
+    >
+      Verify
+    </button>
+  </div>
+  <div class="col-12 text-center mt-auto">
+    <div class="row justify-content-center footer-info">
+      <div class="col-auto text-center">
+        <span class="progressstimer" *ngIf="loading">
+          <img src="assets/img/progress.png" alt="" />
+        </span>
+        <br />
+        <p class="mb-3">
+          <span class="text-muted">Didn't received yet?</span>
+          <a (click)="resendOtp()"> Resend OTP</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

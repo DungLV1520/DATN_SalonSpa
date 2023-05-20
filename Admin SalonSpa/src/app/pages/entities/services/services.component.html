@@ -1,0 +1,565 @@
+<app-breadcrumbs
+  title="Service Lists"
+  [breadcrumbItems]="breadCrumbItems"
+></app-breadcrumbs>
+
+<div class="row">
+  <div class="col-lg-12">
+    <div class="card">
+      <div class="card-body">
+        <div class="d-flex align-items-center justify-content-lg-between">
+          <div class="search-box">
+            <form [formGroup]="searchForm">
+              <input
+                type="text"
+                formControlName="searchTerm"
+                class="form-control search bg-light border-light"
+                style="width: 180%"
+                id="searchJob"
+                autocomplete="off"
+                placeholder="{{ 'CONTACT.search' | translate }}"
+              />
+            </form>
+            <i class="ri-search-line search-icon"></i>
+          </div>
+
+          <div class="input-group" style="width: 30%">
+            <input
+              type="text"
+              class="form-control bg-light border-light"
+              id="datepicker"
+              mwlFlatpickr
+              [convertModelValue]="true"
+              data-date-format="d M, Y"
+              placeholder="{{ 'CONTACT.selectDate' | translate }}"
+              [(ngModel)]="selectedDate"
+              (change)="onChangeTime($event)"
+              mode="range"
+            />
+            <div class="input-group-text bg-primary border-primary text-white">
+              <i class="ri-calendar-2-line"></i>
+            </div>
+          </div>
+          <div class="flex-shrink-0">
+            <button class="btn btn-soft-danger" (click)="clearFilter()">
+              <i class="ri-filter-2-line me-1 align-bottom"></i
+              >{{ "CONTACT.clearFilter" | translate }}
+            </button>
+            <button
+              class="btn btn-soft-primary mx-2"
+              data-bs-toggle="modal"
+              data-bs-target="#CreateJobModal"
+              (click)="openModal(createJobModal)"
+            >
+              <i class="ri-add-line align-bottom me-1"></i>
+              {{ "Create Service" | translate }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xxl-9">
+    <div class="item card p-3" *ngIf="!checkSkeleton">
+      <ngx-skeleton-loader count="15"></ngx-skeleton-loader>
+    </div>
+    <ng-container *ngIf="checkSkeleton && listService.length > 0">
+      <div
+        *ngFor="let list of listService; let i = index"
+        class="card joblist-card"
+      >
+        <div class="card-body">
+          <div class="d-flex mb-4">
+            <div class="avatar-sm">
+              <div class="avatar-title bg-light rounded">
+                <img src="{{ list.image }}" alt="" class="avatar-custom" />
+              </div>
+            </div>
+            <div class="ms-3 flex-grow-1">
+              <a href="javascript:void(0);">
+                <h5 class="job-title">{{ list.name | uppercase }}</h5>
+              </a>
+              <p class="company-name text-muted mb-0">Service</p>
+            </div>
+            <div>
+              <button
+                type="button"
+                class="btn btn-ghost-primary btn-icon custom-toggle"
+                data-bs-toggle="button"
+                (click)="editDataGet(createJobModal, list)"
+              >
+                <span class="icon-on"
+                  ><i class="ri-edit-box-line" style="font-size: 14px"></i
+                ></span>
+                <span class="icon-off"><i class="ri-bookmark-fill"></i></span>
+              </button>
+            </div>
+          </div>
+          <p class="text-muted job-description">{{ list.description }}</p>
+          <div>
+            <span class="badge badge-soft-primary me-1">{{ list.status }}</span>
+          </div>
+        </div>
+        <div class="card-footer border-top-dashed">
+          <div
+            class="d-flex justify-content-between align-items-center flex-wrap gap-3"
+          >
+            <div>
+              <i class="ri-coins-fill align-bottom me-1"></i>
+              <span class="job-type">
+                {{
+                  list?.amount?.$numberDecimal | currency : "" : "" : "1.0"
+                }}</span
+              >
+            </div>
+            <div>
+              <i class="ri-timer-line align-bottom me-1"></i>
+              <span class="job-location">
+                {{ list.createdAt | date : "hh:mm:ss a dd/MM/YYYY" }}</span
+              >
+            </div>
+            <div>
+              <i class="ri-time-line align-bottom me-1"></i>
+              <span class="job-postdate">
+                {{ list.updatedAt | date : "hh:mm:ss a dd/MM/YYYY" }}</span
+              >
+            </div>
+            <div>
+              <a
+                href="javascript:void(0);"
+                class="btn btn-soft-danger viewjob-list mx-2"
+                (click)="confirm(deleteModel, list._id)"
+              >
+                <i class="ri-delete-bin-2-line"></i
+              ></a>
+              <a
+                href="javascript:void(0);"
+                class="btn btn-primary viewjob-list"
+                (click)="viewmore(i)"
+                >{{ "View More" | translate }}
+                <i class="ri-arrow-right-line align-bottom ms-1"></i
+              ></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+
+    <ngb-alert
+      *ngIf="checkSkeleton && listService.length === 0"
+      role="alert"
+      class="alert show alert-dismissible text-center alert-additional fade custom-alert alert-light"
+      ><div class="alert-body">
+        <div class="d-flex">
+          <div class="flex-shrink-0 me-3">
+            <i class="ri-notification-off-line fs-16 align-middle"></i>
+          </div>
+          <div class="flex-grow-1">
+            <h5 class="alert-heading">Yey! Everything worked!</h5>
+            <p class="mb-0">
+              This alert needs your attention, but it's not super important.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="alert-content">
+        <p class="mb-0">
+          Whenever you need to, be sure to use margin utilities to keep things
+          nice and tidy.
+        </p>
+      </div>
+      <button type="button" aria-label="Close" class="btn-close"></button
+    ></ngb-alert>
+
+    <!-- pagination -->
+    <ngb-pagination
+      *ngIf="listService.length > 0"
+      class="d-flex justify-content-end pt-2"
+      [collectionSize]="total"
+      [(page)]="page"
+      [pageSize]="pagesize"
+      (click)="loadPageClick()"
+      aria-label="Custom pagination"
+    >
+      <ng-template ngbPaginationPrevious let-page let-pages="pages">
+        <i class="ci-arrow-left me-2"></i>
+        Prev
+      </ng-template>
+      <ng-template ngbPaginationNext>
+        Next
+        <i class="ci-arrow-right ms-2"></i>
+      </ng-template>
+    </ngb-pagination>
+  </div>
+  <!--end col-->
+  <div class="col-xxl-3">
+    <div class="item card p-3" *ngIf="!checkSkeleton">
+      <ngx-skeleton-loader count="15"></ngx-skeleton-loader>
+    </div>
+
+    <ng-container *ngIf="checkSkeleton">
+      <div
+        *ngIf="serviceDetail"
+        class="card job-list-view-card overflow-hidden"
+        id="job-overview"
+      >
+        <img
+          src="assets/images/small/img-8.jpg"
+          alt=""
+          id="cover-img"
+          class="img-fluid background object-cover"
+        />
+        <div class="card-body">
+          <div class="avatar-md mt-n5">
+            <div class="avatar-title bg-light rounded-circle">
+              <img
+                src="{{ serviceDetail.image }}"
+                alt=""
+                class="avatar-custom"
+              />
+            </div>
+          </div>
+          <div class="mt-3">
+            <h5 class="view-title">{{ serviceDetail.name | uppercase }}</h5>
+            <div class="hstack gap-3 mb-3">
+              <span class="text-muted"
+                ><i class="ri-building-line me-1 align-bottom"></i>
+                <span class="view-companyname">Service</span></span
+              >
+            </div>
+            <div class="hstack gap-3 mb-3">
+              <span class="text-muted">
+                <i class="ri-coins-fill align-bottom me-1"></i>
+                <span class="view-location">{{
+                  serviceDetail.amount?.$numberDecimal
+                    | currency : "" : "" : "1.0"
+                }}</span></span
+              >
+            </div>
+            <p class="text-muted view-desc">{{ serviceDetail.description }}</p>
+            <div
+              class="py-3 border border-dashed border-start-0 border-end-0 mt-4"
+            >
+              <div class="row">
+                <div class="col-12">
+                  <div>
+                    <p class="mb-2 text-uppercase fw-medium fs-12 text-muted">
+                      <b>{{ "CONTACT.createdAt" | translate }}: </b>
+                      {{
+                        serviceDetail.createdAt | date : "hh:mm:ss a dd/MM/YYYY"
+                      }}
+                    </p>
+                  </div>
+                </div>
+                <div class="col-12">
+                  <div>
+                    <p class="mb-2 text-uppercase fw-medium fs-12 text-muted">
+                      <b>{{ "CONTACT.updatedAt" | translate }}: </b>
+                      {{
+                        serviceDetail.updatedAt | date : "hh:mm:ss a dd/MM/YYYY"
+                      }}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</div>
+
+<!-- Create Model -->
+<ng-template #createJobModal let-modal>
+  <div class="modal-content border-0">
+    <form
+      id="createjob-form"
+      autocomplete="off"
+      class="needs-validation"
+      (ngSubmit)="createService()"
+      [formGroup]="serviceForm"
+      novalidate
+    >
+      <div class="modal-body">
+        <input type="hidden" id="id-field" formControlName="id" />
+        <div class="row g-3">
+          <div class="col-lg-12">
+            <div class="px-1 pt-1">
+              <div
+                class="modal-team-cover position-relative mb-0 mt-n4 mx-n4 rounded-top overflow-hidden"
+              >
+                <img
+                  src="assets/images/small/img-9.jpg"
+                  alt=""
+                  id="modal-cover-img"
+                  class="img-fluid"
+                />
+
+                <div class="d-flex position-absolute start-0 end-0 top-0 p-3">
+                  <div class="flex-grow-1">
+                    <h5 class="modal-title text-white" id="exampleModalLabel">
+                      Create Service
+                    </h5>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="text-center mb-4 mt-n5 pt-2">
+              <div class="position-relative d-inline-block">
+                <div class="avatar-lg p-1">
+                  <div class="avatar-title bg-light rounded-circle">
+                    <svg
+                      width="60"
+                      height="60"
+                      viewBox="0 0 144 176"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M134.243 87.5115C112.684 130.801 58.0788 130.447 30.4452 125.092C17.5615 117.119 11.2101 103.841 13.8907 83.9977C23.3755 20.8783 79.7263 28.601 79.7263 28.601L106.135 5.62865L112.289 43.5157C112.289 43.5157 127.407 55.3018 133.198 80.0293C133.771 82.4879 134.12 84.9919 134.243 87.5115Z"
+                        fill="#ED1C24"
+                      />
+                      <path
+                        d="M79.0777 134.607C58.8531 135.111 42.0049 132.236 30.4452 125.092C58.0788 130.447 112.684 130.801 134.243 87.5115C135.332 110.211 117.649 133.646 79.0777 134.607Z"
+                        fill="#B7272D"
+                      />
+                      <path
+                        d="M87.4307 47.937C83.0152 49.2729 74.1025 58.0758 61.3287 51.2879C48.5549 44.4999 28.3063 50.4255 29.0058 75.7586C29.7052 101.092 58.7768 94.2856 65.4455 89.3884C72.1143 84.4912 81.0575 87.9843 84.869 90.5997C88.6805 93.215 109.911 98.0875 115.916 81.3695C121.921 64.6515 111.726 40.5703 87.4307 47.937Z"
+                        fill="white"
+                      />
+                      <path
+                        d="M40.4903 75.2614C41.2669 70.8385 45.1593 67.4224 49.9381 67.3034C54.7168 67.1843 58.7924 70.4018 59.812 74.78C59.9195 74.1678 59.9673 73.5364 59.9495 72.8917C59.8031 67.5892 55.2743 63.4006 49.8341 63.5361C44.3939 63.6716 40.1024 68.08 40.2488 73.3825C40.2666 74.0272 40.3492 74.6554 40.4903 75.2614Z"
+                        fill="#1A1A1A"
+                      />
+                      <path
+                        d="M89.0832 74.0508C89.8599 69.6278 93.7522 66.2118 98.531 66.0927C103.31 65.9737 107.385 69.1912 108.405 73.5694C108.512 72.9572 108.56 72.3257 108.542 71.681C108.396 66.3786 103.867 62.1899 98.427 62.3255C92.9868 62.461 88.6953 66.8694 88.8417 72.1719C88.8595 72.8166 88.9421 73.4448 89.0832 74.0508Z"
+                        fill="#1A1A1A"
+                      />
+                      <g opacity="0.05" filter="url(#filter0_f_3_21150)">
+                        <ellipse
+                          cx="72.0632"
+                          cy="154.654"
+                          rx="59.241"
+                          ry="8.5064"
+                          fill="#222222"
+                        />
+                      </g>
+                      <path
+                        d="M36.5835 48.5646C35.9836 54.9022 30.4216 59.5594 24.1604 58.9668C17.8991 58.3742 13.3097 52.7561 13.9096 46.4184C14.5094 40.0808 27.4815 23.8788 27.4815 23.8788C27.4815 23.8788 37.1833 42.2269 36.5835 48.5646Z"
+                        fill="#A9EAFF"
+                      />
+                      <path
+                        fill-rule="evenodd"
+                        clip-rule="evenodd"
+                        d="M23.1686 56.3872C29.4298 56.9798 34.9918 52.3226 35.5917 45.985C35.7873 43.9177 34.8869 40.5727 33.5847 37.0033C35.3864 41.4829 36.8257 46.0041 36.5833 48.5648C35.9835 54.9024 30.4215 59.5596 24.1602 58.967C19.2454 58.5018 15.3606 54.9401 14.2073 50.3644C15.9459 53.648 19.2258 56.014 23.1686 56.3872Z"
+                        fill="#7ED1EB"
+                      />
+                      <defs>
+                        <filter
+                          id="filter0_f_3_21150"
+                          x="0.822266"
+                          y="134.148"
+                          width="142.482"
+                          height="41.0128"
+                          filterUnits="userSpaceOnUse"
+                          color-interpolation-filters="sRGB"
+                        >
+                          <feFlood
+                            flood-opacity="0"
+                            result="BackgroundImageFix"
+                          />
+                          <feBlend
+                            mode="normal"
+                            in="SourceGraphic"
+                            in2="BackgroundImageFix"
+                            result="shape"
+                          />
+                          <feGaussianBlur
+                            stdDeviation="6"
+                            result="effect1_foregroundBlur_3_21150"
+                          />
+                        </filter>
+                      </defs>
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div>
+              <label for="name-field" class="form-label required">Name</label>
+              <input
+                type="text"
+                id="name-field"
+                class="form-control"
+                placeholder="Enter name"
+                required
+                formControlName="name"
+                [ngClass]="{
+                  'is-invalid': submitted && form['name'].errors
+                }"
+              />
+              <div class="invalid-feedback">Please enter a name.</div>
+            </div>
+          </div>
+          <div class="col-lg-12">
+            <div>
+              <label for="image-field" class="form-label required"
+                >Link image</label
+              >
+              <input
+                type="text"
+                id="image-field"
+                class="form-control"
+                placeholder="Enter image"
+                required
+                formControlName="image"
+                [ngClass]="{ 'is-invalid': submitted && form['image'].errors }"
+              />
+              <div class="invalid-feedback">Please enter a link image.</div>
+              <div
+                class="mb-2 invalid-feedback"
+                *ngIf="serviceForm.get('image')!.invalid"
+              >
+                <small *ngIf="serviceForm.get('image')?.errors.pattern">
+                  Link is invalid URL format
+                </small>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-12">
+            <div>
+              <label for="amount-field" class="form-label required"
+                >Price</label
+              >
+              <input
+                type="text"
+                id="amount-field"
+                class="form-control"
+                placeholder="Enter amount"
+                mask="separator.0"
+                thousandSeparator=","
+                required
+                formControlName="amount"
+                [ngClass]="{
+                  'is-invalid': submitted && form['amount'].errors
+                }"
+              />
+              <div class="invalid-feedback">Please enter a price.</div>
+            </div>
+          </div>
+          <div class="col-lg-12">
+            <div>
+              <label for="status-field" class="form-label required"
+                >Status</label
+              >
+              <ng-select
+                [items]="statusService"
+                [multiple]="false"
+                placeholder="Choose service"
+                formControlName="status"
+              ></ng-select>
+              <div class="invalid-feedback">Please enter a status.</div>
+            </div>
+          </div>
+          <div class="col-lg-12">
+            <div>
+              <label for="description-field " class="form-label required"
+                >Description</label
+              >
+              <textarea
+                class="form-control"
+                id="description-field"
+                rows="3"
+                placeholder="Enter description"
+                required
+                formControlName="description"
+                [ngClass]="{
+                  'is-invalid': submitted && form['description'].errors
+                }"
+              ></textarea>
+              <div class="invalid-feedback">Please enter a description.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <div class="hstack gap-2 justify-content-end">
+          <button
+            type="button"
+            class="btn btn-light"
+            data-bs-dismiss="modal"
+            (click)="modal.dismiss('close click')"
+          >
+            Close
+          </button>
+          <button
+            type="submit"
+            class="btn btn-primary"
+            id="add-btn"
+            [disabled]="checkEnableSave()"
+          >
+            Add Service
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</ng-template>
+<!--end add modal-->
+
+<!-- removeItemModal -->
+<ng-template #deleteModel let-modal>
+  <div class="modal-content">
+    <div class="modal-header">
+      <button
+        type="button"
+        class="btn-close"
+        data-bs-dismiss="modal"
+        aria-label="Close"
+        id="deleteRecord-close"
+        (click)="modal.dismiss('Cross click')"
+      ></button>
+    </div>
+    <div class="modal-body">
+      <div class="mt-2 text-center">
+        <lord-icon
+          src="https://cdn.lordicon.com/gsqxdxog.json"
+          trigger="loop"
+          colors="primary:#405189,secondary:#f06548"
+          style="width: 90px; height: 90px"
+        ></lord-icon>
+        <div class="mt-4 pt-2 fs-15 mx-4 mx-sm-5">
+          <h4>You are about to delete a service ?</h4>
+          <p class="text-muted mx-4 mb-0">
+            Deleting your service will remove all of your information from our
+            database.
+          </p>
+        </div>
+      </div>
+      <div class="d-flex gap-2 justify-content-center mt-4 mb-2">
+        <button
+          class="btn btn-link link-success fw-medium text-decoration-none"
+          data-bs-dismiss="modal"
+          id="deleteRecord-close"
+          (click)="modal.close('Close click')"
+        >
+          <i class="ri-close-line me-1 align-middle"></i> Close
+        </button>
+        <button
+          type="button"
+          class="btn w-sm btn-danger"
+          id="delete-product"
+          (click)="deleteService(deleteId)"
+          (click)="modal.close('Close click')"
+        >
+          Yes, Delete It!
+        </button>
+      </div>
+    </div>
+  </div>
+  <!-- /.modal-content -->
+</ng-template>
